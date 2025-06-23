@@ -428,7 +428,7 @@ export default function AboutUsPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
-                <ScrollToTopLink href="/book-demo">
+                <ScrollToTopLink href="/book-demo" asChild>
                   <AnimatedButton size="lg" className="bg-blue-600 hover:bg-blue-700 px-8 py-6 text-lg">
                     Schedule a Demo
                     <ArrowRight className="ml-2 h-5 w-5" />

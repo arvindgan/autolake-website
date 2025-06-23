@@ -28,18 +28,31 @@ const Star = ({ x, y, size, delay }) => {
   )
 }
 
-// Generate random stars
-const generateStars = (count) => {
+// Create a deterministic pseudo-random number generator (Mulberry32)
+const createPRNG = (seed: number) => {
+  let a = seed >>> 0
+  return () => {
+    a += 0x6d2b79f5
+    let t = a
+    t = Math.imul(t ^ (t >>> 15), t | 1)
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61)
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296
+  }
+}
+
+// Generate deterministic stars so server and client markup match
+const generateStars = (count: number) => {
+  const rand = createPRNG(42) // fixed seed for consistent results
   const stars = []
-  // Add extra padding to ensure stars extend beyond the viewport
-  const padding = 20 // percentage
+  const padding = 20 // percentage padding beyond viewport
+
   for (let i = 0; i < count; i++) {
     stars.push({
       id: i,
-      x: `${-padding + Math.random() * (100 + 2 * padding)}%`,
-      y: `${Math.random() * 100}%`,
-      size: Math.random() * 1.5 + 0.5,
-      delay: Math.random() * 3,
+      x: `${-padding + rand() * (100 + 2 * padding)}%`,
+      y: `${rand() * 100}%`,
+      size: rand() * 1.5 + 0.5,
+      delay: rand() * 3,
     })
   }
   return stars

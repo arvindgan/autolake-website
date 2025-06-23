@@ -1,28 +1,50 @@
 "use client"
 
 import Image from "next/image"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu } from "./dropdown-menu"
 import { ScrollToTopLink } from "./scroll-to-top-link"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion"
 
 export default function Navbar() {
   const [isAnyDropdownOpen, setIsAnyDropdownOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
+  // For smooth animation, use framer-motion's motion values
+  const scrollY = useMotionValue(0)
+  const lastScroll = useRef(0)
 
-  // Track scroll position to add animation when scrolling down
   useEffect(() => {
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 10
-      if (isScrolled !== scrolled) {
-        setScrolled(isScrolled)
-      }
+      scrollY.set(window.scrollY)
+      lastScroll.current = window.scrollY
     }
-
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [scrolled])
+  }, [scrollY])
+
+  // Animate between expanded and compact header
+  // 0px scroll: large, 60px+ scroll: compact
+  const minHeight = 48 // px (compact)
+  const maxHeight = 64 // px (expanded)
+  const minLogo = 32 // px
+  const maxLogo = 40 // px
+  const minFont = 18 // px
+  const maxFont = 24 // px
+  const stickyGap = 20 // px
+
+  // Use framer-motion's useSpring for smooth transitions
+  const springY = useSpring(scrollY, { stiffness: 120, damping: 20 })
+  const headerHeight = useTransform(springY, [0, 60], [maxHeight, minHeight])
+  const logoSize = useTransform(springY, [0, 60], [maxLogo, minLogo])
+  const fontSize = useTransform(springY, [0, 60], [maxFont, minFont])
+  const boxShadow = useTransform(springY, [0, 60], ["0 0 0 rgba(0,0,0,0)", "0 2px 16px rgba(0,0,0,0.10)"])
+  const gradientOpacity = useTransform(springY, [0, 60], [0.85, 0.98])
+  // Animate width from 100vw to 80vw (or 100% to 80% for responsiveness)
+  const headerWidth = useTransform(springY, [0, 60], ["100vw", "80vw"])
+  // Animate top gap: 0px at top, stickyGap (e.g. 20px) when scrolled
+  const headerTop = useTransform(springY, [0, 10], [0, stickyGap])
+  // Animate border radius: 0px at top, 32px when scrolled
+  const headerRadius = useTransform(springY, [0, 60], [0, 32])
 
   const solutionsItems = [
     {
@@ -64,14 +86,28 @@ export default function Navbar() {
       </AnimatePresence>
 
       <motion.header
-        className={`sticky top-0 z-50 w-full border-b border-border/40 backdrop-blur supports-[backdrop-filter]:bg-background/60 ${
-          scrolled ? "bg-background/95" : "bg-transparent"
-        }`}
+        className="sticky z-50 flex justify-center border-b border-border/40 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+        style={{
+          top: headerTop,
+          height: headerHeight,
+          boxShadow,
+          background: `linear-gradient(90deg, rgba(37,99,235,${gradientOpacity.get()}) 0%, rgba(59,130,246,${gradientOpacity.get()}) 50%, rgba(56,189,248,${gradientOpacity.get()}) 100%)`,
+          borderRadius: `${headerRadius.get()}px`,
+          transition: 'background 0.3s, border-radius 0.3s',
+        }}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
       >
-        <div className="px-4 md:px-6 lg:px-8 flex h-14 w-full items-center justify-between">
+        <motion.div
+          className="px-4 md:px-6 lg:px-8 flex w-full max-w-screen-2xl items-center justify-between"
+          style={{
+            height: '100%',
+            width: headerWidth,
+            minWidth: '320px',
+            maxWidth: '100vw',
+          }}
+        >
           {/* Left section */}
           <div className="flex items-center space-x-4 md:space-x-6">
             <ScrollToTopLink href="/" className="flex items-center space-x-2">
@@ -80,7 +116,10 @@ export default function Navbar() {
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
-                <motion.div className="relative h-8 w-8">
+                <motion.div
+                  className="relative"
+                  style={{ width: logoSize, height: logoSize }}
+                >
                   <Image
                     src="/images/autolake-logo.png"
                     alt="AutoLake Logo"
@@ -89,7 +128,12 @@ export default function Navbar() {
                     priority
                   />
                 </motion.div>
-                <motion.span className="text-[#FF5252] font-bold">AutoLake</motion.span>
+                <motion.span
+                  className="text-[#FF5252] font-bold"
+                  style={{ fontSize, lineHeight: 1 }}
+                >
+                  AutoLake
+                </motion.span>
               </motion.div>
             </ScrollToTopLink>
 
@@ -116,12 +160,12 @@ export default function Navbar() {
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
               whileTap={{ scale: 0.95 }}
             >
-              <ScrollToTopLink href="/book-demo">
+              <ScrollToTopLink href="/book-demo" asChild>
                 <Button size="sm">Get a Demo</Button>
               </ScrollToTopLink>
             </motion.div>
           </div>
-        </div>
+        </motion.div>
       </motion.header>
     </>
   )

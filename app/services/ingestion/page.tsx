@@ -55,7 +55,7 @@ export default function IngestionServicesPage() {
 
             {/* Strong CTA */}
             <div className="flex justify-center mb-16">
-              <ScrollToTopLink href="/book-demo">
+              <ScrollToTopLink href="/book-demo" asChild>
                 <Button size="lg" className="gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 px-8">
                   Request a Demo <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
