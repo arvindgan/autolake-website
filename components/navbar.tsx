@@ -97,7 +97,7 @@ export default function Navbar() {
           top: headerTop,
           height: headerHeight,
           boxShadow,
-          background: `linear-gradient(90deg, rgba(37,99,235,${gradientOpacity.get()}) 0%, rgba(59,130,246,${gradientOpacity.get()}) 50%, rgba(56,189,248,${gradientOpacity.get()}) 100%)`,
+          background: `linear-gradient(90deg, rgba(15,23,42,${gradientOpacity.get()}) 0%, rgba(30,41,59,${gradientOpacity.get()}) 50%, rgba(51,65,85,${gradientOpacity.get()}) 100%)`,
           borderRadius: headerRadius,
           width: headerWidth,
           marginLeft: headerMargin,
