@@ -26,10 +26,14 @@ export default function Navbar() {
   // 0px scroll: large, 60px+ scroll: compact
   const minHeight = 48 // px (compact)
   const maxHeight = 64 // px (expanded)
-  const minLogo = 32 // px
-  const maxLogo = 40 // px
-  const minFont = 18 // px
-  const maxFont = 24 // px
+  const minLogo = 28 // px (smaller logo when scrolled)
+  const maxLogo = 40 // px (larger logo at top)
+  const minFont = 16 // px (smaller font when scrolled)
+  const maxFont = 24 // px (larger font at top)
+  const minButtonPadding = 8 // px (smaller button padding when scrolled)
+  const maxButtonPadding = 16 // px (larger button padding at top)
+  const minButtonFont = 12 // px (smaller button text when scrolled)
+  const maxButtonFont = 14 // px (larger button text at top)
   const stickyGap = 20 // px
 
   // Use framer-motion's useSpring for smooth transitions
@@ -37,6 +41,10 @@ export default function Navbar() {
   const headerHeight = useTransform(springY, [0, 60], [maxHeight, minHeight])
   const logoSize = useTransform(springY, [0, 60], [maxLogo, minLogo])
   const fontSize = useTransform(springY, [0, 60], [maxFont, minFont])
+  const buttonPaddingX = useTransform(springY, [0, 60], [maxButtonPadding, minButtonPadding])
+  const buttonPaddingY = useTransform(springY, [0, 60], [maxButtonPadding * 0.5, minButtonPadding * 0.5])
+  const buttonFontSize = useTransform(springY, [0, 60], [maxButtonFont, minButtonFont])
+  const navFontSize = useTransform(springY, [0, 60], [14, 12]) // Navigation links font size
   const boxShadow = useTransform(springY, [0, 60], ["0 0 0 rgba(0,0,0,0)", "0 2px 16px rgba(0,0,0,0.10)"])
   const gradientOpacity = useTransform(springY, [0, 60], [0.85, 0.98])
   
@@ -149,14 +157,23 @@ export default function Navbar() {
             <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
               <div className="relative">
                 <DropdownMenu
-                  trigger={<span className="transition-colors hover:text-primary">Solutions</span>}
+                  trigger={
+                    <motion.span 
+                      className="transition-colors hover:text-primary"
+                      style={{ fontSize: navFontSize }}
+                    >
+                      Solutions
+                    </motion.span>
+                  }
                   items={solutionsItems}
                   onOpenChange={setIsAnyDropdownOpen}
                 />
               </div>
               <motion.div whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
                 <ScrollToTopLink href="/industries-auth" className="transition-colors hover:text-primary">
-                  Industries
+                  <motion.span style={{ fontSize: navFontSize }}>
+                    Industries
+                  </motion.span>
                 </ScrollToTopLink>
               </motion.div>
             </nav>
@@ -170,7 +187,21 @@ export default function Navbar() {
               whileTap={{ scale: 0.95 }}
             >
               <ScrollToTopLink href="/book-demo" asChild>
-                <Button size="sm">Get a Demo</Button>
+                <motion.div>
+                  <Button 
+                    size="sm"
+                    style={{
+                      paddingLeft: buttonPaddingX,
+                      paddingRight: buttonPaddingX,
+                      paddingTop: buttonPaddingY,
+                      paddingBottom: buttonPaddingY,
+                      fontSize: buttonFontSize,
+                      minHeight: 'auto',
+                    }}
+                  >
+                    Get a Demo
+                  </Button>
+                </motion.div>
               </ScrollToTopLink>
             </motion.div>
           </div>
