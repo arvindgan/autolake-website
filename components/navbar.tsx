@@ -39,12 +39,18 @@ export default function Navbar() {
   const fontSize = useTransform(springY, [0, 60], [maxFont, minFont])
   const boxShadow = useTransform(springY, [0, 60], ["0 0 0 rgba(0,0,0,0)", "0 2px 16px rgba(0,0,0,0.10)"])
   const gradientOpacity = useTransform(springY, [0, 60], [0.85, 0.98])
+  
+  // Enhanced pill transformation
   // Animate width from 100vw to 80vw (or 100% to 80% for responsiveness)
   const headerWidth = useTransform(springY, [0, 60], ["100vw", "80vw"])
   // Animate top gap: 0px at top, stickyGap (e.g. 20px) when scrolled
   const headerTop = useTransform(springY, [0, 10], [0, stickyGap])
-  // Animate border radius: 0px at top, 32px when scrolled
+  // Animate border radius: 0px at top, 32px when scrolled for pill effect
   const headerRadius = useTransform(springY, [0, 60], [0, 32])
+  // Add horizontal margin for pill effect
+  const headerMargin = useTransform(springY, [0, 60], ["0px", "auto"])
+  // Add subtle scale effect
+  const headerScale = useTransform(springY, [0, 60], [1, 0.98])
 
   const solutionsItems = [
     {
@@ -92,8 +98,12 @@ export default function Navbar() {
           height: headerHeight,
           boxShadow,
           background: `linear-gradient(90deg, rgba(37,99,235,${gradientOpacity.get()}) 0%, rgba(59,130,246,${gradientOpacity.get()}) 50%, rgba(56,189,248,${gradientOpacity.get()}) 100%)`,
-          borderRadius: `${headerRadius.get()}px`,
-          transition: 'background 0.3s, border-radius 0.3s',
+          borderRadius: headerRadius,
+          width: headerWidth,
+          marginLeft: headerMargin,
+          marginRight: headerMargin,
+          scale: headerScale,
+          transition: 'background 0.3s ease-out',
         }}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -103,9 +113,8 @@ export default function Navbar() {
           className="px-4 md:px-6 lg:px-8 flex w-full max-w-screen-2xl items-center justify-between"
           style={{
             height: '100%',
-            width: headerWidth,
             minWidth: '320px',
-            maxWidth: '100vw',
+            maxWidth: '100%',
           }}
         >
           {/* Left section */}
