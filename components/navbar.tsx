@@ -1,56 +1,67 @@
 "use client"
 
 import Image from "next/image"
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu } from "./dropdown-menu"
 import { ScrollToTopLink } from "./scroll-to-top-link"
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion"
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion"
 
 export default function Navbar() {
   const [isAnyDropdownOpen, setIsAnyDropdownOpen] = useState(false)
-  // For smooth animation, use framer-motion's motion values
+  const [isScrolled, setIsScrolled] = useState(false)
   const scrollY = useMotionValue(0)
   const lastScroll = useRef(0)
 
-  useEffect(() => {
-    const handleScroll = () => {
-      scrollY.set(window.scrollY)
-      lastScroll.current = window.scrollY
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+  // Throttled scroll handler for performance (60fps max)
+  const throttledScrollHandler = useCallback(() => {
+    const currentScroll = window.scrollY
+    const scrollThreshold = 50
+
+    // Update scroll state
+    setIsScrolled(currentScroll > scrollThreshold)
+    scrollY.set(currentScroll)
+    lastScroll.current = currentScroll
   }, [scrollY])
 
-  // Animate between expanded and compact header
-  // 0px scroll: large, 60px+ scroll: compact
-  const minHeight = 48 // px (compact)
-  const maxHeight = 64 // px (expanded)
-  const minLogo = 32 // px
-  const maxLogo = 40 // px
-  const minFont = 18 // px
-  const maxFont = 24 // px
-  const stickyGap = 20 // px
+  useEffect(() => {
+    let ticking = false
 
-  // Use framer-motion's useSpring for smooth transitions
-  const springY = useSpring(scrollY, { stiffness: 120, damping: 20 })
-  const headerHeight = useTransform(springY, [0, 60], [maxHeight, minHeight])
-  const logoSize = useTransform(springY, [0, 60], [maxLogo, minLogo])
-  const fontSize = useTransform(springY, [0, 60], [maxFont, minFont])
-  const boxShadow = useTransform(springY, [0, 60], ["0 0 0 rgba(0,0,0,0)", "0 2px 16px rgba(0,0,0,0.10)"])
-  const gradientOpacity = useTransform(springY, [0, 60], [0.85, 0.98])
-  
-  // Enhanced pill transformation
-  // Animate width from 100vw to 80vw (or 100% to 80% for responsiveness)
-  const headerWidth = useTransform(springY, [0, 60], ["100vw", "80vw"])
-  // Animate top gap: 0px at top, stickyGap (e.g. 20px) when scrolled
-  const headerTop = useTransform(springY, [0, 10], [0, stickyGap])
-  // Animate border radius: 0px at top, 32px when scrolled for pill effect
-  const headerRadius = useTransform(springY, [0, 60], [0, 32])
-  // Add horizontal margin for pill effect
-  const headerMargin = useTransform(springY, [0, 60], ["0px", "auto"])
-  // Add subtle scale effect
-  const headerScale = useTransform(springY, [0, 60], [1, 0.98])
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          throttledScrollHandler()
+          ticking = false
+        })
+        ticking = true
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [throttledScrollHandler])
+
+  // Smooth spring animations for all properties
+  const springConfig = { stiffness: 300, damping: 30 }
+  const smoothScrollY = useSpring(scrollY, springConfig)
+
+  // Header dimensions and styling
+  const headerHeight = useTransform(smoothScrollY, [0, 50], [80, 60])
+  const logoSize = useTransform(smoothScrollY, [0, 50], [50, 40])
+  const fontSize = useTransform(smoothScrollY, [0, 50], [16, 14])
+  const iconSize = useTransform(smoothScrollY, [0, 50], [24, 20])
+  const padding = useTransform(smoothScrollY, [0, 50], [20, 15])
+  const boxShadow = useTransform(
+    smoothScrollY,
+    [0, 50],
+    ["0 1px 3px rgba(0,0,0,0.1)", "0 4px 6px rgba(0,0,0,0.1)"]
+  )
+
+  // Pill transformation for scrolled state
+  const headerWidth = useTransform(smoothScrollY, [0, 50], ["100vw", "calc(100vw - 40px)"])
+  const headerTop = useTransform(smoothScrollY, [0, 50], [0, 10])
+  const headerRadius = useTransform(smoothScrollY, [0, 50], [0, 16])
+  const headerMargin = useTransform(smoothScrollY, [0, 50], ["0px", "20px"])
 
   const solutionsItems = [
     {
@@ -78,47 +89,45 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Backdrop blur overlay */}
-      <AnimatePresence>
-        {isAnyDropdownOpen && (
-          <motion.div
-            className="fixed inset-0 z-40 bg-background/80 backdrop-blur-sm transition-opacity duration-200"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-          />
-        )}
-      </AnimatePresence>
+      {/* Backdrop blur overlay for dropdowns */}
+      {isAnyDropdownOpen && (
+        <motion.div
+          className="fixed inset-0 z-40 bg-background/80 backdrop-blur-sm"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+        />
+      )}
 
       <motion.header
-        className="sticky z-50 flex justify-center border-b border-border/40 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+        className="sticky z-50 flex justify-center border-b border-border/40 backdrop-blur supports-[backdrop-filter]:bg-background/95"
         style={{
           top: headerTop,
           height: headerHeight,
           boxShadow,
-          background: `linear-gradient(90deg, rgba(15,23,42,${gradientOpacity.get()}) 0%, rgba(30,41,59,${gradientOpacity.get()}) 50%, rgba(51,65,85,${gradientOpacity.get()}) 100%)`,
           borderRadius: headerRadius,
           width: headerWidth,
           marginLeft: headerMargin,
           marginRight: headerMargin,
-          scale: headerScale,
-          transition: 'background 0.3s ease-out',
+          transition: 'all 0.3s ease-out',
         }}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
       >
         <motion.div
-          className="px-4 md:px-6 lg:px-8 flex w-full max-w-screen-2xl items-center justify-between"
+          className="flex w-full max-w-screen-2xl items-center justify-between"
           style={{
-            height: '100%',
-            minWidth: '320px',
-            maxWidth: '100%',
+            paddingLeft: padding,
+            paddingRight: padding,
+            paddingTop: padding,
+            paddingBottom: padding,
+            minHeight: '100%',
           }}
         >
-          {/* Left section */}
-          <div className="flex items-center space-x-4 md:space-x-6">
+          {/* Left section - Logo and Navigation */}
+          <div className="flex items-center space-x-6">
             <ScrollToTopLink href="/" className="flex items-center space-x-2">
               <motion.div
                 className="flex items-center gap-2"
@@ -138,7 +147,7 @@ export default function Navbar() {
                   />
                 </motion.div>
                 <motion.span
-                  className="text-[#FF5252] font-bold"
+                  className="text-[#FF5252] font-bold whitespace-nowrap"
                   style={{ fontSize, lineHeight: 1 }}
                 >
                   AutoLake
@@ -146,33 +155,84 @@ export default function Navbar() {
               </motion.div>
             </ScrollToTopLink>
 
-            <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
+            <nav className="hidden md:flex items-center space-x-6 font-medium">
               <div className="relative">
                 <DropdownMenu
-                  trigger={<span className="transition-colors hover:text-primary">Solutions</span>}
+                  trigger={
+                    <motion.span 
+                      className="transition-colors hover:text-primary cursor-pointer"
+                      style={{ fontSize }}
+                    >
+                      Solutions
+                    </motion.span>
+                  }
                   items={solutionsItems}
                   onOpenChange={setIsAnyDropdownOpen}
                 />
               </div>
               <motion.div whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-                <ScrollToTopLink href="/industries-auth" className="transition-colors hover:text-primary">
-                  Industries
+                <ScrollToTopLink href="/industries-auth">
+                  <motion.span 
+                    className="transition-colors hover:text-primary"
+                    style={{ fontSize }}
+                  >
+                    Industries
+                  </motion.span>
                 </ScrollToTopLink>
               </motion.div>
             </nav>
           </div>
 
-          {/* Right section */}
-          <div className="flex items-center space-x-2 md:space-x-4">
+          {/* Right section - CTA Button */}
+          <div className="flex items-center">
             <motion.div
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
               whileTap={{ scale: 0.95 }}
             >
               <ScrollToTopLink href="/book-demo" asChild>
-                <Button size="sm">Get a Demo</Button>
+                <Button 
+                  className="whitespace-nowrap"
+                  style={{
+                    fontSize: useTransform(smoothScrollY, [0, 50], [14, 12]),
+                    minHeight: '44px', // Ensure touch target size
+                    minWidth: '44px',
+                  }}
+                >
+                  Get a Demo
+                </Button>
               </ScrollToTopLink>
             </motion.div>
+          </div>
+
+          {/* Mobile Menu Toggle (for screens below 768px) */}
+          <div className="md:hidden">
+            <motion.button
+              className="p-2 rounded-md hover:bg-accent"
+              style={{
+                width: iconSize,
+                height: iconSize,
+                minWidth: '44px',
+                minHeight: '44px',
+              }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              aria-label="Toggle mobile menu"
+            >
+              <svg
+                className="w-full h-full"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </motion.button>
           </div>
         </motion.div>
       </motion.header>
