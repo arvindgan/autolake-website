@@ -30,9 +30,9 @@ export default function Navbar() {
   const maxLogo = 40 // px (larger logo at top)
   const minFont = 16 // px (smaller font when scrolled)
   const maxFont = 24 // px (larger font at top)
-  const minButtonPadding = 8 // px (smaller button padding when scrolled)
+  const minButtonPadding = 6 // px (much smaller button padding when scrolled)
   const maxButtonPadding = 16 // px (larger button padding at top)
-  const minButtonFont = 12 // px (smaller button text when scrolled)
+  const minButtonFont = 11 // px (much smaller button text when scrolled)
   const maxButtonFont = 14 // px (larger button text at top)
   const stickyGap = 20 // px
 
