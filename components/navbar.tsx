@@ -3,7 +3,6 @@
 import Image from "next/image"
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
-import { DropdownMenu } from "./dropdown-menu"
 import { ScrollToTopLink } from "./scroll-to-top-link"
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion"
 
@@ -59,30 +58,6 @@ export default function Navbar() {
   const headerMargin = useTransform(springY, [0, 60], ["0px", "auto"])
   // Add subtle scale effect
   const headerScale = useTransform(springY, [0, 60], [1, 0.98])
-
-  const solutionsItems = [
-    {
-      label: "AutoLake Ingestion Services",
-      href: "/services/ingestion",
-      definition:
-        "Extract data from various sources including databases (Oracle, MS SQL Server, MySQL, Postgres), APIs, and streaming platforms. Users configure connection details securely stored in their cloud account.",
-      badge: null,
-    },
-    {
-      label: "AutoLake Curation Services",
-      href: "/work-in-progress",
-      definition:
-        "Transform raw data into organized, analysis-ready information with our Data Vault Warehouse, Star Schema Warehouse, and Operational Data Store services.",
-      badge: "Coming Soon",
-    },
-    {
-      label: "AutoLake Distribution Services",
-      href: "/work-in-progress",
-      definition:
-        "Efficiently share and access data across your organization with our Hierarchy Dimension, Flat Dimension, Fly-through Dimension, and Analytics services.",
-      badge: "Coming Soon",
-    },
-  ]
 
   return (
     <>
