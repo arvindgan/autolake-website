@@ -155,20 +155,16 @@ export default function Navbar() {
             </ScrollToTopLink>
 
             <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
-              <div className="relative">
-                <DropdownMenu
-                  trigger={
-                    <motion.span 
-                      className="transition-colors hover:text-primary"
-                      style={{ fontSize: navFontSize }}
-                    >
-                      Solutions
-                    </motion.span>
-                  }
-                  items={solutionsItems}
-                  onOpenChange={setIsAnyDropdownOpen}
-                />
-              </div>
+              <motion.div whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
+                <ScrollToTopLink href="/services/ingestion" className="transition-colors hover:text-primary">
+                  <motion.span 
+                    className="transition-colors hover:text-primary"
+                    style={{ fontSize: navFontSize }}
+                  >
+                    Solutions
+                  </motion.span>
+                </ScrollToTopLink>
+              </motion.div>
               <motion.div whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
                 <ScrollToTopLink href="/industries-auth" className="transition-colors hover:text-primary">
                   <motion.span style={{ fontSize: navFontSize }}>
