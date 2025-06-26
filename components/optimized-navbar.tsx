@@ -6,7 +6,7 @@ import { useState, useEffect, useCallback } from "react"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 
-// Optimized throttle function
+// Throttle function for scroll events
 const throttle = (func: Function, limit: number) => {
   let inThrottle: boolean
   return function(this: any, ...args: any[]) {
@@ -18,10 +18,10 @@ const throttle = (func: Function, limit: number) => {
   }
 }
 
-export default function Navbar() {
+export default function OptimizedNavbar() {
   const [scrolled, setScrolled] = useState(false)
 
-  // Optimized scroll handler with throttling and passive listener
+  // Optimized scroll handler with throttling
   const handleScroll = useCallback(
     throttle(() => {
       const isScrolled = window.scrollY > 60

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { useMemo } from "react"
 
-// Optimized star generation with memoization
+// Memoized star generation for better performance
 const generateOptimizedStars = (count: number) => {
   return useMemo(() => {
     const stars = []
@@ -22,7 +22,7 @@ const generateOptimizedStars = (count: number) => {
   }, [count])
 }
 
-// Optimized Star component
+// Optimized Star component with reduced animations
 const OptimizedStar = ({ x, y, size, delay }: { x: number; y: number; size: number; delay: number }) => {
   return (
     <motion.circle
@@ -45,9 +45,8 @@ const OptimizedStar = ({ x, y, size, delay }: { x: number; y: number; size: numb
   )
 }
 
-export default function Hero() {
-  // Reduced star count for better performance
-  const stars = generateOptimizedStars(50)
+export default function PerformanceOptimizedHero() {
+  const stars = generateOptimizedStars(50) // Reduced from 100 for better performance
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -74,12 +73,12 @@ export default function Hero() {
 
   return (
     <section className="relative flex min-h-[calc(100vh-3.5rem)] flex-col items-center justify-center space-y-8 py-24 text-center md:py-32 overflow-hidden bg-background">
-      {/* Optimized background */}
+      {/* Optimized background with reduced complexity */}
       <div className="absolute inset-0 w-full overflow-hidden">
         {/* Simplified background animation */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-950/20 via-background to-purple-950/20" />
 
-        {/* Optimized stars */}
+        {/* Optimized stars with reduced count */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ willChange: 'transform' }}>
           {stars.map((star) => (
             <OptimizedStar key={star.id} x={star.x} y={star.y} size={star.size} delay={star.delay} />
