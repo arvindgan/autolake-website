@@ -4,33 +4,60 @@ import Image from "next/image"
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { ScrollToTopLink } from "./scroll-to-top-link"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion"
 
 export default function Navbar() {
   const [isAnyDropdownOpen, setIsAnyDropdownOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
+  // For smooth animation, use framer-motion's motion values
+  const scrollY = useMotionValue(0)
   const lastScroll = useRef(0)
 
   useEffect(() => {
-    // Throttle scroll events to improve performance
-    let ticking = false
-    
     const handleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          const currentScroll = window.scrollY
-          setIsScrolled(currentScroll > 60)
-          lastScroll.current = currentScroll
-          ticking = false
-        })
-        ticking = true
-      }
+      scrollY.set(window.scrollY)
+      lastScroll.current = window.scrollY
     }
-
-    // Use passive listener for better performance
-    window.addEventListener("scroll", handleScroll, { passive: true })
+    window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+  }, [scrollY])
+
+  // Animate between expanded and compact header
+  // 0px scroll: large, 60px+ scroll: compact
+  const minHeight = 48 // px (compact)
+  const maxHeight = 64 // px (expanded)
+  const minLogo = 28 // px (smaller logo when scrolled)
+  const maxLogo = 40 // px (larger logo at top)
+  const minFont = 16 // px (smaller font when scrolled)
+  const maxFont = 24 // px (larger font at top)
+  const minButtonPadding = 6 // px (much smaller button padding when scrolled)
+  const maxButtonPadding = 16 // px (larger button padding at top)
+  const minButtonFont = 11 // px (much smaller button text when scrolled)
+  const maxButtonFont = 14 // px (larger button text at top)
+  const stickyGap = 20 // px
+
+  // Use framer-motion's useSpring for smooth transitions
+  const springY = useSpring(scrollY, { stiffness: 120, damping: 20 })
+  const headerHeight = useTransform(springY, [0, 60], [maxHeight, minHeight])
+  const logoSize = useTransform(springY, [0, 60], [maxLogo, minLogo])
+  const fontSize = useTransform(springY, [0, 60], [maxFont, minFont])
+  const buttonPaddingX = useTransform(springY, [0, 60], [maxButtonPadding, minButtonPadding])
+  const buttonPaddingY = useTransform(springY, [0, 60], [maxButtonPadding * 0.5, minButtonPadding * 0.5])
+  const buttonFontSize = useTransform(springY, [0, 60], [maxButtonFont, minButtonFont])
+  const navFontSize = useTransform(springY, [0, 60], [14, 12]) // Navigation links font size
+  const boxShadow = useTransform(springY, [0, 60], ["0 0 0 rgba(0,0,0,0)", "0 2px 16px rgba(0,0,0,0.10)"])
+  const gradientOpacity = useTransform(springY, [0, 60], [0.85, 0.98])
+  
+  // Enhanced pill transformation
+  // Animate width from 100vw to 80vw (or 100% to 80% for responsiveness)
+  const headerWidth = useTransform(springY, [0, 60], ["100vw", "80vw"])
+  // Animate top gap: 0px at top, stickyGap (e.g. 20px) when scrolled
+  const headerTop = useTransform(springY, [0, 10], [0, stickyGap])
+  // Animate border radius: 0px at top, 32px when scrolled for pill effect
+  const headerRadius = useTransform(springY, [0, 60], [0, 32])
+  // Add horizontal margin for pill effect
+  const headerMargin = useTransform(springY, [0, 60], ["0px", "auto"])
+  // Add subtle scale effect
+  const headerScale = useTransform(springY, [0, 60], [1, 0.98])
 
   return (
     <>
@@ -47,22 +74,31 @@ export default function Navbar() {
         )}
       </AnimatePresence>
 
-      <header
-        className={`sticky z-50 flex justify-center border-b border-border/40 backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-all duration-300 ease-out ${
-          isScrolled 
-            ? 'top-5 mx-auto w-4/5 rounded-full shadow-lg bg-background/95' 
-            : 'top-0 w-full'
-        }`}
+      <motion.header
+        className="sticky z-50 flex justify-center border-b border-border/40 backdrop-blur supports-[backdrop-filter]:bg-background/60"
         style={{
-          background: isScrolled 
-            ? 'linear-gradient(90deg, rgba(15,23,42,0.98) 0%, rgba(30,41,59,0.98) 50%, rgba(51,65,85,0.98) 100%)'
-            : 'linear-gradient(90deg, rgba(15,23,42,0.85) 0%, rgba(30,41,59,0.85) 50%, rgba(51,65,85,0.85) 100%)',
+          top: headerTop,
+          height: headerHeight,
+          boxShadow,
+          background: `linear-gradient(90deg, rgba(15,23,42,${gradientOpacity.get()}) 0%, rgba(30,41,59,${gradientOpacity.get()}) 50%, rgba(51,65,85,${gradientOpacity.get()}) 100%)`,
+          borderRadius: headerRadius,
+          width: headerWidth,
+          marginLeft: headerMargin,
+          marginRight: headerMargin,
+          scale: headerScale,
+          transition: 'background 0.3s ease-out',
         }}
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
       >
-        <div
-          className={`px-4 md:px-6 lg:px-8 flex w-full max-w-screen-2xl items-center justify-between transition-all duration-300 ${
-            isScrolled ? 'h-12 py-2' : 'h-16 py-4'
-          }`}
+        <motion.div
+          className="px-4 md:px-6 lg:px-8 flex w-full max-w-screen-2xl items-center justify-between"
+          style={{
+            height: '100%',
+            minWidth: '320px',
+            maxWidth: '100%',
+          }}
         >
           {/* Left section */}
           <div className="flex items-center space-x-4 md:space-x-6">
@@ -72,10 +108,9 @@ export default function Navbar() {
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
-                <div
-                  className={`relative transition-all duration-300 ${
-                    isScrolled ? 'w-7 h-7' : 'w-10 h-10'
-                  }`}
+                <motion.div
+                  className="relative"
+                  style={{ width: logoSize, height: logoSize }}
                 >
                   <Image
                     src="/images/autolake-logo.png"
@@ -84,38 +119,32 @@ export default function Navbar() {
                     className="object-contain drop-shadow-[0_0_0.3rem_#ffffff70]"
                     priority
                   />
-                </div>
-                <span
-                  className={`text-[#FF5252] font-bold transition-all duration-300 ${
-                    isScrolled ? 'text-base' : 'text-xl'
-                  }`}
+                </motion.div>
+                <motion.span
+                  className="text-[#FF5252] font-bold"
+                  style={{ fontSize, lineHeight: 1 }}
                 >
                   AutoLake
-                </span>
+                </motion.span>
               </motion.div>
             </ScrollToTopLink>
 
             <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
               <motion.div whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
                 <ScrollToTopLink href="/services/ingestion" className="transition-colors hover:text-primary">
-                  <span 
-                    className={`transition-all duration-300 hover:text-primary ${
-                      isScrolled ? 'text-xs' : 'text-sm'
-                    }`}
+                  <motion.span 
+                    className="transition-colors hover:text-primary"
+                    style={{ fontSize: navFontSize }}
                   >
                     Solutions
-                  </span>
+                  </motion.span>
                 </ScrollToTopLink>
               </motion.div>
               <motion.div whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
                 <ScrollToTopLink href="/industries-auth" className="transition-colors hover:text-primary">
-                  <span 
-                    className={`transition-all duration-300 ${
-                      isScrolled ? 'text-xs' : 'text-sm'
-                    }`}
-                  >
+                  <motion.span style={{ fontSize: navFontSize }}>
                     Industries
-                  </span>
+                  </motion.span>
                 </ScrollToTopLink>
               </motion.div>
             </nav>
@@ -129,21 +158,26 @@ export default function Navbar() {
               whileTap={{ scale: 0.95 }}
             >
               <ScrollToTopLink href="/book-demo" asChild>
-                <Button 
-                  size="sm"
-                  className={`transition-all duration-300 ${
-                    isScrolled 
-                      ? 'px-2 py-1 text-xs h-7' 
-                      : 'px-4 py-2 text-sm h-9'
-                  }`}
-                >
-                  Get a Demo
-                </Button>
+                <motion.div>
+                  <Button 
+                    size="sm"
+                    style={{
+                      paddingLeft: buttonPaddingX,
+                      paddingRight: buttonPaddingX,
+                      paddingTop: buttonPaddingY,
+                      paddingBottom: buttonPaddingY,
+                      fontSize: buttonFontSize,
+                      minHeight: 'auto',
+                    }}
+                  >
+                    Get a Demo
+                  </Button>
+                </motion.div>
               </ScrollToTopLink>
             </motion.div>
           </div>
-        </div>
-      </header>
+        </motion.div>
+      </motion.header>
     </>
   )
 }
