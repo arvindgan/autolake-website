@@ -30,10 +30,15 @@ export default function Navbar() {
   const maxLogo = 40 // px (larger logo at top)
   const minFont = 16 // px (smaller font when scrolled)
   const maxFont = 24 // px (larger font at top)
-  const minButtonPadding = 6 // px (much smaller button padding when scrolled)
-  const maxButtonPadding = 16 // px (larger button padding at top)
-  const minButtonFont = 11 // px (much smaller button text when scrolled)
-  const maxButtonFont = 14 // px (larger button text at top)
+  
+  // More proportional button scaling
+  const minButtonHeight = 28 // px (much smaller button height when scrolled)
+  const maxButtonHeight = 36 // px (standard button height at top)
+  const minButtonPaddingX = 8 // px (smaller horizontal padding when scrolled)
+  const maxButtonPaddingX = 12 // px (standard horizontal padding at top)
+  const minButtonFont = 12 // px (smaller button text when scrolled)
+  const maxButtonFont = 14 // px (standard button text at top)
+  
   const stickyGap = 20 // px
 
   // Use framer-motion's useSpring for smooth transitions
@@ -41,9 +46,13 @@ export default function Navbar() {
   const headerHeight = useTransform(springY, [0, 60], [maxHeight, minHeight])
   const logoSize = useTransform(springY, [0, 60], [maxLogo, minLogo])
   const fontSize = useTransform(springY, [0, 60], [maxFont, minFont])
-  const buttonPaddingX = useTransform(springY, [0, 60], [maxButtonPadding, minButtonPadding])
-  const buttonPaddingY = useTransform(springY, [0, 60], [maxButtonPadding * 0.5, minButtonPadding * 0.5])
+  
+  // Button scaling transforms
+  const buttonHeight = useTransform(springY, [0, 60], [maxButtonHeight, minButtonHeight])
+  const buttonPaddingX = useTransform(springY, [0, 60], [maxButtonPaddingX, minButtonPaddingX])
   const buttonFontSize = useTransform(springY, [0, 60], [maxButtonFont, minButtonFont])
+  const buttonScale = useTransform(springY, [0, 60], [1, 0.85]) // Overall button scale
+  
   const navFontSize = useTransform(springY, [0, 60], [14, 12]) // Navigation links font size
   const boxShadow = useTransform(springY, [0, 60], ["0 0 0 rgba(0,0,0,0)", "0 2px 16px rgba(0,0,0,0.10)"])
   const gradientOpacity = useTransform(springY, [0, 60], [0.85, 0.98])
@@ -185,18 +194,19 @@ export default function Navbar() {
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
               whileTap={{ scale: 0.95 }}
+              style={{ scale: buttonScale }}
             >
               <ScrollToTopLink href="/book-demo" asChild>
                 <motion.div>
                   <Button 
-                    size="sm"
+                    className="whitespace-nowrap"
                     style={{
+                      height: buttonHeight,
                       paddingLeft: buttonPaddingX,
                       paddingRight: buttonPaddingX,
-                      paddingTop: buttonPaddingY,
-                      paddingBottom: buttonPaddingY,
                       fontSize: buttonFontSize,
                       minHeight: 'auto',
+                      lineHeight: 1.2,
                     }}
                   >
                     Get a Demo
