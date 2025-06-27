@@ -141,7 +141,7 @@ export default function Navbar() {
                 </ScrollToTopLink>
               </motion.div>
               <motion.div whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-                <ScrollToTopLink href="/industries" className="transition-colors hover:text-primary">
+                <ScrollToTopLink href="/industries-auth" className="transition-colors hover:text-primary">
                   <motion.span style={{ fontSize: navFontSize }}>
                     Industries
                   </motion.span>
