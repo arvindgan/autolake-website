@@ -130,22 +130,20 @@ export default function Navbar() {
             </ScrollToTopLink>
 
             <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
+              <ScrollToTopLink href="/services/ingestion" className="transition-colors hover:text-primary">
+                <motion.span 
+                  className="transition-colors hover:text-primary"
+                  style={{ fontSize: navFontSize }}
+                >
+                  Solutions
+                </motion.span>
+              </ScrollToTopLink>
               <motion.div whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-                <ScrollToTopLink href="/services/ingestion" className="transition-colors hover:text-primary">
-                  <motion.span 
-                    className="transition-colors hover:text-primary"
-                    style={{ fontSize: navFontSize }}
-                  >
-                    Solutions
-                  </motion.span>
-                </ScrollToTopLink>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-                <ScrollToTopLink href="/industries-auth" className="transition-colors hover:text-primary">
+                <a href="/industries" className="transition-colors hover:text-primary">
                   <motion.span style={{ fontSize: navFontSize }}>
                     Industries
                   </motion.span>
-                </ScrollToTopLink>
+                </a>
               </motion.div>
             </nav>
           </div>
@@ -158,9 +156,7 @@ export default function Navbar() {
               whileTap={{ scale: 0.95 }}
             >
               <ScrollToTopLink href="/book-demo" asChild>
-                <motion.div>
-                  <Button 
-                    size="sm"
+                <motion.div
                     style={{
                       paddingLeft: buttonPaddingX,
                       paddingRight: buttonPaddingX,
@@ -170,6 +166,7 @@ export default function Navbar() {
                       minHeight: 'auto',
                     }}
                   >
+                  <Button size="sm">
                     Get a Demo
                   </Button>
                 </motion.div>

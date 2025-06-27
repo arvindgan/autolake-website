@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect } from "react"
-import { useRouter } from "next/navigation"
+// import { useRouter } from "next/navigation"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import { Button } from "@/components/ui/button"
@@ -1378,16 +1378,6 @@ const WhyChooseAutoLake = () => {
 
 // Update the main IndustriesPage component to include our new animations
 export default function IndustriesPage() {
-  const router = useRouter()
-
-  // Check authentication
-  useEffect(() => {
-    const isAuthenticated = sessionStorage.getItem("industriesAuthenticated") === "true"
-    if (!isAuthenticated) {
-      router.push("/industries-auth")
-    }
-  }, [router])
-
   // Add a ref for parallax effect
   const containerRef = useRef(null)
   const { scrollYProgress } = useScroll({ target: containerRef })
