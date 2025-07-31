@@ -80,7 +80,7 @@ export default function Navbar() {
           top: headerTop,
           height: headerHeight,
           boxShadow,
-          background: `linear-gradient(90deg, rgba(255,255,255,${gradientOpacity.get()}) 0%, rgba(248,250,252,${gradientOpacity.get()}) 50%, rgba(241,245,249,${gradientOpacity.get()}) 100%)`,
+          background: `linear-gradient(90deg, rgba(255,255,255,${gradientOpacity.get()}) 0%, rgba(248,250,252,${gradientOpacity.get()}) 30%, rgba(241,245,249,${gradientOpacity.get()}) 70%, rgba(239,246,255,${gradientOpacity.get()}) 100%)`,
           borderRadius: headerRadius,
           width: headerWidth,
           marginLeft: headerMargin,
@@ -132,7 +132,7 @@ export default function Navbar() {
             <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
               <ScrollToTopLink href="/services/ingestion" className="transition-colors hover:text-blue-600">
                 <motion.span 
-                  className="transition-colors hover:text-blue-600 text-gray-700"
+                  className="transition-colors hover:text-blue-600 text-slate-700"
                   style={{ fontSize: navFontSize }}
                 >
                   Solutions
@@ -140,7 +140,7 @@ export default function Navbar() {
               </ScrollToTopLink>
               <motion.div whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
                 <a href="/industries" className="transition-colors hover:text-blue-600">
-                  <motion.span style={{ fontSize: navFontSize }} className="text-gray-700">
+                  <motion.span style={{ fontSize: navFontSize }} className="text-slate-700">
                     Industries
                   </motion.span>
                 </a>
@@ -166,7 +166,7 @@ export default function Navbar() {
                       minHeight: 'auto',
                     }}
                   >
-                  <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white">
+                  <Button size="sm" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-md hover:shadow-lg">
                     Get a Demo
                   </Button>
                 </motion.div>

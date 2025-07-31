@@ -118,7 +118,7 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative flex min-h-[calc(100vh-3.5rem)] flex-col items-center justify-center space-y-8 py-24 text-center md:py-32 overflow-hidden bg-white">
+    <section className="relative flex min-h-[calc(100vh-3.5rem)] flex-col items-center justify-center space-y-8 py-24 text-center md:py-32 overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50/50 to-indigo-50">
       {/* Stars and background container - full viewport width */}
       <div className="absolute inset-0 w-screen overflow-hidden">
         {/* Background animation */}
@@ -126,15 +126,45 @@ export default function Hero() {
           className="absolute inset-0 z-0"
           animate={{
             background: [
-              "radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.08), transparent 70%)",
-              "radial-gradient(circle at 80% 80%, rgba(37, 99, 235, 0.08), transparent 70%)",
-              "radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.08), transparent 70%)",
-              "radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.08), transparent 70%)",
-              "radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.08), transparent 70%)",
+              "radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.12), transparent 70%)",
+              "radial-gradient(circle at 80% 80%, rgba(99, 102, 241, 0.12), transparent 70%)",
+              "radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.12), transparent 70%)",
+              "radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.12), transparent 70%)",
+              "radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.12), transparent 70%)",
             ],
           }}
           transition={{ duration: 20, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
         />
+
+        {/* Geometric shapes */}
+        <div className="absolute inset-0 overflow-hidden">
+          <motion.div
+            className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-xl"
+            animate={{
+              y: [0, -30, 0],
+              x: [0, 20, 0],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute top-40 right-20 w-24 h-24 bg-gradient-to-br from-indigo-400/25 to-cyan-400/25 rounded-lg rotate-45 blur-lg"
+            animate={{
+              y: [0, 25, 0],
+              x: [0, -15, 0],
+              rotate: [45, 75, 45],
+            }}
+            transition={{ duration: 10, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute bottom-32 left-1/4 w-20 h-20 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full blur-lg"
+            animate={{
+              y: [0, -20, 0],
+              scale: [1, 1.2, 1],
+            }}
+            transition={{ duration: 7, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+          />
+        </div>
 
         {/* Animated stars */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none">
@@ -144,7 +174,7 @@ export default function Hero() {
         </svg>
 
         {/* Gradient overlay for smooth transition */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-50 to-transparent" />
       </div>
 
       {/* Content container - maintain max width */}
@@ -152,20 +182,20 @@ export default function Hero() {
         <motion.div className="space-y-8" variants={containerVariants} initial="hidden" animate="visible">
           <motion.div animate={floatingAnimation}>
             <motion.h1
-              className="bg-gradient-to-br from-blue-600 via-blue-500 to-blue-700 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl md:text-6xl lg:text-7xl drop-shadow-[0_0_15px_rgba(59,130,246,0.15)] letter-spacing-tight"
+              className="bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl md:text-6xl lg:text-7xl drop-shadow-[0_0_20px_rgba(59,130,246,0.2)]"
               variants={itemVariants}
             >
               Autonomize Your Data Lake
               <br />
               <motion.span
-                className="bg-gradient-to-r from-gray-700 to-gray-900 bg-clip-text text-transparent"
+                className="bg-gradient-to-r from-slate-700 to-slate-900 bg-clip-text text-transparent"
                 variants={itemVariants}
               >
                 in Minutes
               </motion.span>
             </motion.h1>
             <motion.p
-              className="mx-auto max-w-[42rem] leading-normal text-gray-600 sm:text-xl sm:leading-8 mb-8"
+              className="mx-auto max-w-[42rem] leading-normal text-slate-600 sm:text-xl sm:leading-8 mb-8"
               variants={itemVariants}
             >
               Autolake is an autonomous data lake platform that ingests, organizes, and optimizes your data instantly
@@ -175,7 +205,7 @@ export default function Hero() {
               <Link href="/services/ingestion">
                 <AnimatedButton
                   size="lg"
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 text-lg font-medium transition-all hover:scale-105"
+                  className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-6 text-lg font-medium transition-all hover:scale-105 shadow-lg hover:shadow-xl"
                 >
                   Explore Solutions
                 </AnimatedButton>

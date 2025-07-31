@@ -47,12 +47,12 @@ export default function Features() {
   const [expandedCard, setExpandedCard] = useState<number | null>(null)
 
   return (
-    <AnimatedSection className="container space-y-16 py-24 md:py-32 bg-gray-50">
+    <AnimatedSection className="container space-y-16 py-24 md:py-32 bg-gradient-to-b from-white via-slate-50/50 to-blue-50/30">
       <div className="mx-auto max-w-[58rem] text-center">
         <AnimatedText as="h2" className="font-bold text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
           Cutting-Edge Solutions
         </AnimatedText>
-        <AnimatedText delay={0.1} className="mt-4 text-gray-600 sm:text-lg">
+        <AnimatedText delay={0.1} className="mt-4 text-slate-600 sm:text-lg">
           Discover how AutoLake can transform your business with our innovative technologies.
         </AnimatedText>
       </div>
@@ -62,31 +62,34 @@ export default function Features() {
           return (
             <AnimatedCard key={feature.name} delay={index * 0.1 + 0.2}>
               <motion.div
-                className="relative overflow-hidden rounded-lg border border-blue-200 bg-white p-8 group cursor-pointer shadow-sm hover:shadow-md transition-shadow"
+                className="relative overflow-hidden rounded-xl border border-blue-200/60 bg-white/80 backdrop-blur-sm p-8 group cursor-pointer shadow-lg hover:shadow-xl transition-all duration-300 hover:border-blue-300/80"
                 whileHover={{ y: -5 }}
                 onClick={() => setExpandedCard(expandedCard === index ? null : index)}
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
               >
+                {/* Subtle gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-indigo-50/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
                 <div className="flex items-center gap-4">
                   <AnimatedIcon delay={index * 0.1 + 0.3}>
                     <feature.icon className="h-8 w-8 text-blue-600" />
                   </AnimatedIcon>
-                  <AnimatedText as="h3" delay={index * 0.1 + 0.4} className="font-bold text-gray-900">
+                  <AnimatedText as="h3" delay={index * 0.1 + 0.4} className="font-bold text-slate-900 relative z-10">
                     {feature.name}
                   </AnimatedText>
                 </div>
-                <AnimatedText delay={index * 0.1 + 0.5} className="mt-2 text-gray-600">
+                <AnimatedText delay={index * 0.1 + 0.5} className="mt-2 text-slate-600 relative z-10">
                   {feature.description}
                 </AnimatedText>
 
                 {/* Stats badge */}
-                <div className="mt-4 inline-block rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-700 font-medium">
+                <div className="mt-4 inline-block rounded-full bg-gradient-to-r from-blue-100 to-indigo-100 px-3 py-1 text-sm text-blue-700 font-medium relative z-10">
                   {feature.stats}
                 </div>
 
                 {/* Expanded detail on hover */}
                 <motion.div
-                  className="mt-4 pt-4 border-t border-blue-200 text-sm text-gray-600"
+                  className="mt-4 pt-4 border-t border-blue-200 text-sm text-slate-600 relative z-10"
                   initial={{ opacity: 0, height: 0 }}
                   animate={isAnimating ? { opacity: 1, height: "auto" } : { opacity: 0, height: 0 }}
                   transition={{ duration: 0.3 }}
@@ -95,7 +98,7 @@ export default function Features() {
                 </motion.div>
 
                 {/* Hover indicator */}
-                <div className="absolute bottom-3 right-3 text-xs text-gray-500 opacity-60">
+                <div className="absolute bottom-3 right-3 text-xs text-slate-500 opacity-60 relative z-10">
                   {expandedCard === index ? "Click to collapse" : "Click for details"}
                 </div>
               </motion.div>

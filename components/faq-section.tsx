@@ -43,9 +43,9 @@ export default function FaqSection() {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null)
 
   return (
-    <AnimatedSection className="py-24 bg-white">
+    <AnimatedSection className="py-24 bg-gradient-to-b from-purple-50/30 via-slate-50/50 to-gray-50">
       <div className="container max-w-4xl">
-        <AnimatedText as="h2" className="text-3xl font-bold text-center mb-12 text-gray-900">
+        <AnimatedText as="h2" className="text-3xl font-bold text-center mb-12 text-slate-900">
           Frequently Asked Questions
         </AnimatedText>
 
@@ -53,7 +53,7 @@ export default function FaqSection() {
           {faqs.map((faq, index) => (
             <motion.div
               key={index}
-              className="border border-blue-200 rounded-lg overflow-hidden bg-white shadow-sm"
+              className="border border-blue-200/60 rounded-xl overflow-hidden bg-white/80 backdrop-blur-sm shadow-lg"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -62,9 +62,9 @@ export default function FaqSection() {
               <motion.button
                 className="flex items-center justify-between w-full p-4 text-left"
                 onClick={() => setExpandedIndex(expandedIndex === index ? null : index)}
-                whileHover={{ backgroundColor: "rgba(59, 130, 246, 0.05)" }}
+                whileHover={{ backgroundColor: "rgba(59, 130, 246, 0.08)" }}
               >
-                <h3 className="font-medium text-gray-900">{faq.question}</h3>
+                <h3 className="font-medium text-slate-900">{faq.question}</h3>
                 <motion.div animate={{ rotate: expandedIndex === index ? 180 : 0 }} transition={{ duration: 0.3 }}>
                   <ChevronDown className="h-5 w-5 text-blue-600" />
                 </motion.div>
@@ -78,7 +78,7 @@ export default function FaqSection() {
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <div className="p-4 pt-0 border-t border-blue-200 text-gray-600">{faq.answer}</div>
+                    <div className="p-4 pt-0 border-t border-blue-200/60 text-slate-600">{faq.answer}</div>
                   </motion.div>
                 )}
               </AnimatePresence>

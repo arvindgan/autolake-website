@@ -55,16 +55,16 @@ const ComparisonTable = () => {
   ]
 
   return (
-    <AnimatedSection className="py-24 relative">
+    <AnimatedSection className="py-24 relative bg-gradient-to-b from-blue-50/30 via-indigo-50/20 to-purple-50/30">
       <div className="container max-w-6xl">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={containerVariants}>
-          <AnimatedText as="h2" className="text-4xl font-bold text-center mb-16">
+          <AnimatedText as="h2" className="text-4xl font-bold text-center mb-16 text-slate-900">
             The traditional data integration model is outdated
           </AnimatedText>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-red-50 rounded-lg p-6 border border-red-200">
-              <AnimatedText as="h3" delay={0.1} className="text-xl font-medium mb-8 text-red-600 flex items-center">
+            <div className="bg-gradient-to-br from-red-50 to-rose-50 rounded-xl p-6 border border-red-200/60 shadow-lg">
+              <AnimatedText as="h3" delay={0.1} className="text-xl font-medium mb-8 text-red-700 flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6 mr-2"
@@ -92,14 +92,14 @@ const ComparisonTable = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
                       </svg>
                     </motion.div>
-                    <span className="text-gray-600">{item.traditional}</span>
+                    <span className="text-slate-700">{item.traditional}</span>
                   </motion.div>
                 ))}
               </div>
             </div>
 
-            <div className="bg-blue-50 rounded-lg p-6 border border-blue-200">
-              <AnimatedText as="h3" delay={0.1} className="text-xl font-medium mb-8 text-blue-600 flex items-center">
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-200/60 shadow-lg">
+              <AnimatedText as="h3" delay={0.1} className="text-xl font-medium mb-8 text-blue-700 flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6 mr-2"
@@ -124,7 +124,7 @@ const ComparisonTable = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                       </svg>
                     </motion.div>
-                    <span className="text-gray-900">{item.autolake}</span>
+                    <span className="text-slate-900">{item.autolake}</span>
                   </motion.div>
                 ))}
               </div>
@@ -133,7 +133,7 @@ const ComparisonTable = () => {
 
           {/* Customer testimonial */}
           <motion.div
-            className="mt-16 bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-8 border border-blue-200"
+            className="mt-16 bg-gradient-to-r from-blue-50 to-indigo-100 rounded-xl p-8 border border-blue-200/60 shadow-lg"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -141,19 +141,19 @@ const ComparisonTable = () => {
           >
             <div className="flex flex-col md:flex-row items-center gap-6">
               <div className="flex-shrink-0">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center text-white text-2xl font-bold">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white text-2xl font-bold shadow-lg">
                   FT
                 </div>
               </div>
               <div>
-                <p className="text-lg italic mb-4 text-gray-800">
+                <p className="text-lg italic mb-4 text-slate-800">
                   "AutoLake reduced our data integration time by 70% and cut infrastructure costs by half. The automated
                   schema detection alone saved our team countless hours of manual work."
                 </p>
                 <div className="flex items-center">
-                  <span className="font-medium text-gray-900">Sarah Johnson</span>
+                  <span className="font-medium text-slate-900">Sarah Johnson</span>
                   <span className="mx-2">•</span>
-                  <span className="text-gray-600">CTO, FinTech Innovations</span>
+                  <span className="text-slate-600">CTO, FinTech Innovations</span>
                 </div>
               </div>
             </div>
@@ -162,36 +162,36 @@ const ComparisonTable = () => {
           {/* Statistics */}
           <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
             <motion.div
-              className="bg-white rounded-lg p-6 text-center border border-blue-200 shadow-sm"
+              className="bg-white/80 backdrop-blur-sm rounded-xl p-6 text-center border border-blue-200/60 shadow-lg"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <div className="text-4xl font-bold text-blue-600 mb-2">95%</div>
-              <div className="text-gray-600">Faster Implementation</div>
+              <div className="text-slate-600">Faster Implementation</div>
             </motion.div>
 
             <motion.div
-              className="bg-white rounded-lg p-6 text-center border border-blue-200 shadow-sm"
+              className="bg-white/80 backdrop-blur-sm rounded-xl p-6 text-center border border-blue-200/60 shadow-lg"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              <div className="text-4xl font-bold text-blue-700 mb-2">50%</div>
-              <div className="text-gray-600">Cost Reduction</div>
+              <div className="text-4xl font-bold text-indigo-600 mb-2">50%</div>
+              <div className="text-slate-600">Cost Reduction</div>
             </motion.div>
 
             <motion.div
-              className="bg-white rounded-lg p-6 text-center border border-blue-200 shadow-sm"
+              className="bg-white/80 backdrop-blur-sm rounded-xl p-6 text-center border border-blue-200/60 shadow-lg"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.4 }}
             >
-              <div className="text-4xl font-bold text-blue-800 mb-2">3x</div>
-              <div className="text-gray-600">Faster Time to Insight</div>
+              <div className="text-4xl font-bold text-purple-600 mb-2">3x</div>
+              <div className="text-slate-600">Faster Time to Insight</div>
             </motion.div>
           </div>
         </motion.div>
