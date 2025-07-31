@@ -4,9 +4,10 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { AnimatedButton } from "./animated-button"
+import { useState, useEffect } from "react"
 
 // Create a Star component for the animated stars
-const Star = ({ x, y, size, delay }) => {
+const Star = ({ x, y, size, delay }: { x: string; y: string; size: number; delay: number }) => {
   return (
     <motion.circle
       cx={x}
@@ -58,7 +59,7 @@ const generateStars = (count: number) => {
   return stars
 }
 
-const RainbowBorderButton = ({ children }) => {
+const RainbowBorderButton = ({ children }: { children: React.ReactNode }) => {
   return (
     <motion.div
       className="relative group"
@@ -79,9 +80,14 @@ const RainbowBorderButton = ({ children }) => {
 }
 
 export default function Hero() {
-  // Increase the number of stars to fill more of the screen
-  // Generate 100 stars instead of 55 to ensure better coverage
-  const stars = generateStars(100)
+  // Prevent hydration mismatch by only generating stars on client
+  const [stars, setStars] = useState<Array<{id: number; x: string; y: string; size: number; delay: number}>>([])
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setStars(generateStars(100))
+    setIsMounted(true)
+  }, [])
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -100,7 +106,7 @@ export default function Hero() {
       y: 0,
       opacity: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100,
       },
     },
@@ -112,8 +118,8 @@ export default function Hero() {
     transition: {
       duration: 6,
       repeat: Number.POSITIVE_INFINITY,
-      repeatType: "reverse",
-      ease: "easeInOut",
+      repeatType: "reverse" as const,
+      ease: "easeInOut" as const,
     },
   }
 
@@ -138,7 +144,7 @@ export default function Hero() {
 
         {/* Animated stars */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none">
-          {stars.map((star) => (
+          {isMounted && stars.map((star) => (
             <Star key={star.id} x={star.x} y={star.y} size={star.size} delay={star.delay} />
           ))}
         </svg>

@@ -8,9 +8,9 @@ export default function Header() {
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="flex items-center gap-2">
           <div className="relative h-8 w-8">
-            <Image src="/images/autolake-logo.png" alt="AutoLake Logo" fill className="object-contain" />
+            <Image src="/images/autolake-logo.png" alt="Autolake Logo" fill className="object-contain" />
           </div>
-          <span className="text-xl font-bold text-[#FF5252]">AutoLake</span>
+          <span className="text-xl font-semibold tracking-tight text-[#FF5252]" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>Autolake</span>
         </Link>
         <nav className="hidden md:flex space-x-6">
           <Link href="#features" className="text-gray-600 hover:text-primary">

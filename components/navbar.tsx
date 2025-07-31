@@ -115,17 +115,17 @@ export default function Navbar() {
                 >
                   <Image
                     src="/images/autolake-logo.png"
-                    alt="AutoLake Logo"
+                    alt="Autolake Logo"
                     fill
                     className="object-contain drop-shadow-[0_0_0.3rem_#ffffff70]"
                     priority
                   />
                 </motion.div>
                 <motion.span
-                  className="text-[#FF5252] font-bold"
-                  style={{ fontSize, lineHeight: 1 }}
+                  className="text-[#FF5252] font-semibold tracking-tight"
+                  style={{ fontSize, lineHeight: 1, fontFamily: 'system-ui, -apple-system, sans-serif' }}
                 >
-                  AutoLake
+                  Autolake
                 </motion.span>
               </motion.div>
             </ScrollToTopLink>
