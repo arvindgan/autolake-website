@@ -80,7 +80,7 @@ export default function Navbar() {
           top: headerTop,
           height: headerHeight,
           boxShadow,
-          background: `linear-gradient(90deg, rgba(15,23,42,${gradientOpacity.get()}) 0%, rgba(30,41,59,${gradientOpacity.get()}) 50%, rgba(51,65,85,${gradientOpacity.get()}) 100%)`,
+          background: `linear-gradient(90deg, rgba(255,255,255,${gradientOpacity.get()}) 0%, rgba(248,250,252,${gradientOpacity.get()}) 50%, rgba(241,245,249,${gradientOpacity.get()}) 100%)`,
           borderRadius: headerRadius,
           width: headerWidth,
           marginLeft: headerMargin,
@@ -130,17 +130,17 @@ export default function Navbar() {
             </ScrollToTopLink>
 
             <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
-              <ScrollToTopLink href="/services/ingestion" className="transition-colors hover:text-primary">
+              <ScrollToTopLink href="/services/ingestion" className="transition-colors hover:text-blue-600">
                 <motion.span 
-                  className="transition-colors hover:text-primary"
+                  className="transition-colors hover:text-blue-600 text-gray-700"
                   style={{ fontSize: navFontSize }}
                 >
                   Solutions
                 </motion.span>
               </ScrollToTopLink>
               <motion.div whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-                <a href="/industries" className="transition-colors hover:text-primary">
-                  <motion.span style={{ fontSize: navFontSize }}>
+                <a href="/industries" className="transition-colors hover:text-blue-600">
+                  <motion.span style={{ fontSize: navFontSize }} className="text-gray-700">
                     Industries
                   </motion.span>
                 </a>
@@ -166,7 +166,7 @@ export default function Navbar() {
                       minHeight: 'auto',
                     }}
                   >
-                  <Button size="sm">
+                  <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white">
                     Get a Demo
                   </Button>
                 </motion.div>

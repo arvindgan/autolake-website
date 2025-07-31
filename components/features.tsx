@@ -47,12 +47,12 @@ export default function Features() {
   const [expandedCard, setExpandedCard] = useState<number | null>(null)
 
   return (
-    <AnimatedSection className="container space-y-16 py-24 md:py-32">
+    <AnimatedSection className="container space-y-16 py-24 md:py-32 bg-gray-50">
       <div className="mx-auto max-w-[58rem] text-center">
         <AnimatedText as="h2" className="font-bold text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
           Cutting-Edge Solutions
         </AnimatedText>
-        <AnimatedText delay={0.1} className="mt-4 text-muted-foreground sm:text-lg">
+        <AnimatedText delay={0.1} className="mt-4 text-gray-600 sm:text-lg">
           Discover how AutoLake can transform your business with our innovative technologies.
         </AnimatedText>
       </div>
@@ -62,31 +62,31 @@ export default function Features() {
           return (
             <AnimatedCard key={feature.name} delay={index * 0.1 + 0.2}>
               <motion.div
-                className="relative overflow-hidden rounded-lg border bg-background p-8 group cursor-pointer"
+                className="relative overflow-hidden rounded-lg border border-blue-200 bg-white p-8 group cursor-pointer shadow-sm hover:shadow-md transition-shadow"
                 whileHover={{ y: -5 }}
                 onClick={() => setExpandedCard(expandedCard === index ? null : index)}
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
               >
                 <div className="flex items-center gap-4">
                   <AnimatedIcon delay={index * 0.1 + 0.3}>
-                    <feature.icon className="h-8 w-8" />
+                    <feature.icon className="h-8 w-8 text-blue-600" />
                   </AnimatedIcon>
-                  <AnimatedText as="h3" delay={index * 0.1 + 0.4} className="font-bold">
+                  <AnimatedText as="h3" delay={index * 0.1 + 0.4} className="font-bold text-gray-900">
                     {feature.name}
                   </AnimatedText>
                 </div>
-                <AnimatedText delay={index * 0.1 + 0.5} className="mt-2 text-muted-foreground">
+                <AnimatedText delay={index * 0.1 + 0.5} className="mt-2 text-gray-600">
                   {feature.description}
                 </AnimatedText>
 
                 {/* Stats badge */}
-                <div className="mt-4 inline-block rounded-full bg-blue-500/10 px-3 py-1 text-sm text-blue-400 font-medium">
+                <div className="mt-4 inline-block rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-700 font-medium">
                   {feature.stats}
                 </div>
 
                 {/* Expanded detail on hover */}
                 <motion.div
-                  className="mt-4 pt-4 border-t border-border/40 text-sm text-muted-foreground"
+                  className="mt-4 pt-4 border-t border-blue-200 text-sm text-gray-600"
                   initial={{ opacity: 0, height: 0 }}
                   animate={isAnimating ? { opacity: 1, height: "auto" } : { opacity: 0, height: 0 }}
                   transition={{ duration: 0.3 }}
@@ -95,7 +95,7 @@ export default function Features() {
                 </motion.div>
 
                 {/* Hover indicator */}
-                <div className="absolute bottom-3 right-3 text-xs text-muted-foreground opacity-60">
+                <div className="absolute bottom-3 right-3 text-xs text-gray-500 opacity-60">
                   {expandedCard === index ? "Click to collapse" : "Click for details"}
                 </div>
               </motion.div>

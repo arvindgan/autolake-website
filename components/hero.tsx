@@ -118,7 +118,7 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative flex min-h-[calc(100vh-3.5rem)] flex-col items-center justify-center space-y-8 py-24 text-center md:py-32 overflow-hidden bg-background">
+    <section className="relative flex min-h-[calc(100vh-3.5rem)] flex-col items-center justify-center space-y-8 py-24 text-center md:py-32 overflow-hidden bg-white">
       {/* Stars and background container - full viewport width */}
       <div className="absolute inset-0 w-screen overflow-hidden">
         {/* Background animation */}
@@ -126,11 +126,11 @@ export default function Hero() {
           className="absolute inset-0 z-0"
           animate={{
             background: [
-              "radial-gradient(circle at 20% 20%, rgba(29, 78, 216, 0.05), transparent 70%)",
-              "radial-gradient(circle at 80% 80%, rgba(124, 58, 237, 0.05), transparent 70%)",
-              "radial-gradient(circle at 20% 80%, rgba(29, 78, 216, 0.05), transparent 70%)",
-              "radial-gradient(circle at 80% 20%, rgba(124, 58, 237, 0.05), transparent 70%)",
-              "radial-gradient(circle at 20% 20%, rgba(29, 78, 216, 0.05), transparent 70%)",
+              "radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.08), transparent 70%)",
+              "radial-gradient(circle at 80% 80%, rgba(37, 99, 235, 0.08), transparent 70%)",
+              "radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.08), transparent 70%)",
+              "radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.08), transparent 70%)",
+              "radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.08), transparent 70%)",
             ],
           }}
           transition={{ duration: 20, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
@@ -144,7 +144,7 @@ export default function Hero() {
         </svg>
 
         {/* Gradient overlay for smooth transition */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent" />
       </div>
 
       {/* Content container - maintain max width */}
@@ -152,20 +152,20 @@ export default function Hero() {
         <motion.div className="space-y-8" variants={containerVariants} initial="hidden" animate="visible">
           <motion.div animate={floatingAnimation}>
             <motion.h1
-              className="bg-gradient-to-br from-red-500 via-purple-500 to-blue-500 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl md:text-6xl lg:text-7xl drop-shadow-[0_0_15px_rgba(255,255,255,0.15)] letter-spacing-tight"
+              className="bg-gradient-to-br from-blue-600 via-blue-500 to-blue-700 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl md:text-6xl lg:text-7xl drop-shadow-[0_0_15px_rgba(59,130,246,0.15)] letter-spacing-tight"
               variants={itemVariants}
             >
               Autonomize Your Data Lake
               <br />
               <motion.span
-                className="bg-gradient-to-r from-gray-200 to-gray-400 bg-clip-text text-transparent"
+                className="bg-gradient-to-r from-gray-700 to-gray-900 bg-clip-text text-transparent"
                 variants={itemVariants}
               >
                 in Minutes
               </motion.span>
             </motion.h1>
             <motion.p
-              className="mx-auto max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8 mb-8"
+              className="mx-auto max-w-[42rem] leading-normal text-gray-600 sm:text-xl sm:leading-8 mb-8"
               variants={itemVariants}
             >
               Autolake is an autonomous data lake platform that ingests, organizes, and optimizes your data instantly
