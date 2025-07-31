@@ -12,7 +12,7 @@ export default function AnimatedPageTransition({ children }: PageTransitionProps
   const pathname = usePathname()
 
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence>
       <motion.div
         key={pathname}
         initial={{ opacity: 0, y: 20 }}

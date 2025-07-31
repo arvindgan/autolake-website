@@ -44,20 +44,20 @@ export default function Navbar() {
   const buttonPaddingY = useTransform(springY, [0, 60], [maxButtonPadding * 0.5, minButtonPadding * 0.5])
   const buttonFontSize = useTransform(springY, [0, 60], [maxButtonFont, minButtonFont])
   const navFontSize = useTransform(springY, [0, 60], [14, 12]) // Navigation links font size
-  const boxShadow = useTransform(springY, [0, 60], ["0 0 0 rgba(0,0,0,0)", "0 2px 16px rgba(0,0,0,0.10)"])
-  const gradientOpacity = useTransform(springY, [0, 60], [0.85, 0.98])
+  const boxShadow = useTransform(springY, [0, 60], ["0 0 0 rgba(0,0,0,0)", "0 4px 20px rgba(0,0,0,0.15)"])
+  const gradientOpacity = useTransform(springY, [0, 60], [0, 0.95]) // Start transparent, become opaque
   
   // Enhanced pill transformation
-  // Animate width from 100vw to 80vw (or 100% to 80% for responsiveness)
-  const headerWidth = useTransform(springY, [0, 60], ["100vw", "80vw"])
-  // Animate top gap: 0px at top, stickyGap (e.g. 20px) when scrolled
+  // Animate width from 100vw to 90vw for more subtle pill effect
+  const headerWidth = useTransform(springY, [0, 60], ["100vw", "90vw"])
+  // Animate top gap: 0px at top, stickyGap when scrolled
   const headerTop = useTransform(springY, [0, 10], [0, stickyGap])
-  // Animate border radius: 0px at top, 32px when scrolled for pill effect
-  const headerRadius = useTransform(springY, [0, 60], [0, 32])
+  // Animate border radius: 0px at top, 24px when scrolled for pill effect
+  const headerRadius = useTransform(springY, [0, 60], [0, 24])
   // Add horizontal margin for pill effect
   const headerMargin = useTransform(springY, [0, 60], ["0px", "auto"])
   // Add subtle scale effect
-  const headerScale = useTransform(springY, [0, 60], [1, 0.98])
+  const headerScale = useTransform(springY, [0, 60], [1, 1])
 
   return (
     <>
@@ -75,18 +75,19 @@ export default function Navbar() {
       </AnimatePresence>
 
       <motion.header
-        className="sticky z-50 flex justify-center border-b border-border/40 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+        className="sticky z-50 flex justify-center backdrop-blur supports-[backdrop-filter]:bg-background/60"
         style={{
           top: headerTop,
           height: headerHeight,
           boxShadow,
-          background: `linear-gradient(90deg, rgba(15,23,42,${gradientOpacity.get()}) 0%, rgba(30,41,59,${gradientOpacity.get()}) 50%, rgba(51,65,85,${gradientOpacity.get()}) 100%)`,
+          background: `rgba(15,23,42,${gradientOpacity.get()})`,
           borderRadius: headerRadius,
           width: headerWidth,
           marginLeft: headerMargin,
           marginRight: headerMargin,
           scale: headerScale,
-          transition: 'background 0.3s ease-out',
+          border: scrollY.get() > 10 ? '1px solid rgba(255,255,255,0.1)' : 'none',
+          transition: 'all 0.3s ease-out',
         }}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -130,19 +131,46 @@ export default function Navbar() {
             </ScrollToTopLink>
 
             <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
-              <ScrollToTopLink href="/services/ingestion" className="transition-colors hover:text-primary">
-                <motion.span 
-                  className="transition-colors hover:text-primary"
-                  style={{ fontSize: navFontSize }}
-                >
-                  Solutions
-                </motion.span>
-              </ScrollToTopLink>
-              <motion.div whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-                <a href="/industries" className="transition-colors hover:text-primary">
-                  <motion.span style={{ fontSize: navFontSize }}>
+              <motion.div
+                className="relative"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              >
+                <ScrollToTopLink href="/services/ingestion" className="relative block py-2">
+                  <motion.span 
+                    className="transition-colors hover:text-primary relative z-10"
+                    style={{ fontSize: navFontSize }}
+                  >
+                    Solutions
+                  </motion.span>
+                  <motion.div
+                    className="absolute bottom-0 left-0 h-0.5 bg-primary"
+                    initial={{ width: 0 }}
+                    whileHover={{ width: "100%" }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                  />
+                </ScrollToTopLink>
+              </motion.div>
+              <motion.div
+                className="relative"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              >
+                <a href="/industries" className="relative block py-2 transition-colors hover:text-primary">
+                  <motion.span 
+                    className="relative z-10"
+                    style={{ fontSize: navFontSize }}
+                  >
                     Industries
                   </motion.span>
+                  <motion.div
+                    className="absolute bottom-0 left-0 h-0.5 bg-primary"
+                    initial={{ width: 0 }}
+                    whileHover={{ width: "100%" }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                  />
                 </a>
               </motion.div>
             </nav>
@@ -151,9 +179,9 @@ export default function Navbar() {
           {/* Right section */}
           <div className="flex items-center space-x-2 md:space-x-4">
             <motion.div
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.05, y: -1 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              whileTap={{ scale: 0.95 }}
+              whileTap={{ scale: 0.95, y: 1 }}
             >
               <ScrollToTopLink href="/book-demo" asChild>
                 <motion.div

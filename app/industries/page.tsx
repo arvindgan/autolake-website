@@ -32,7 +32,9 @@ import { useInView, useScroll, useTransform, useAnimation } from "framer-motion"
 import { TypeAnimation } from "react-type-animation"
 
 // Replace the AnimatedParticles component with a more sophisticated NetworkBackground
-const NetworkBackground = () => {
+const NetworkBackground = ({ mounted }) => {
+  if (!mounted) return null
+
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {/* Animated nodes */}
@@ -90,7 +92,7 @@ const NetworkBackground = () => {
 }
 
 // Add a new component for animated infographics
-const AnimatedStat = ({ value, label, color, icon, delay = 0 }) => {
+const AnimatedStat = ({ value, label, color, icon, delay = 0, mounted }) => {
   const controls = useAnimation()
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
@@ -151,7 +153,7 @@ const CountUp = ({ start, end, duration, separator = "," }) => {
 }
 
 // Add a component for animated testimonial carousel
-const TestimonialCarousel = ({ testimonials }) => {
+const TestimonialCarousel = ({ testimonials, mounted }) => {
   const [active, setActive] = useState(0)
 
   useEffect(() => {
@@ -1378,6 +1380,14 @@ const WhyChooseAutoLake = () => {
 
 // Update the main IndustriesPage component to include our new animations
 export default function IndustriesPage() {
+  // Client-side mounted state to prevent hydration errors with random values
+  const [mounted, setMounted] = useState(false)
+  
+  // Set mounted state after hydration
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   // Add a ref for parallax effect
   const containerRef = useRef(null)
   const { scrollYProgress } = useScroll({ target: containerRef })
@@ -1412,7 +1422,7 @@ export default function IndustriesPage() {
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
           >
-            <NetworkBackground />
+            <NetworkBackground mounted={mounted} />
 
             <motion.div
               className="max-w-4xl mx-auto"
@@ -1552,6 +1562,7 @@ export default function IndustriesPage() {
                   color="bg-blue-500/20 text-blue-400"
                   icon={<BarChart3 className="h-8 w-8" />}
                   delay={0}
+                  mounted={mounted}
                 />
                 <AnimatedStat
                   value={42}
@@ -1559,6 +1570,7 @@ export default function IndustriesPage() {
                   color="bg-purple-500/20 text-purple-400"
                   icon={<ZapIcon className="h-8 w-8" />}
                   delay={0.2}
+                  mounted={mounted}
                 />
                 <AnimatedStat
                   value={28}
@@ -1566,6 +1578,7 @@ export default function IndustriesPage() {
                   color="bg-green-500/20 text-green-400"
                   icon={<CheckCircle className="h-8 w-8" />}
                   delay={0.4}
+                  mounted={mounted}
                 />
               </div>
             </div>
@@ -1613,7 +1626,7 @@ export default function IndustriesPage() {
               </span>
             </motion.h2>
 
-            <TestimonialCarousel testimonials={testimonials} />
+            <TestimonialCarousel testimonials={testimonials} mounted={mounted} />
           </motion.section>
 
           {/* Enhanced FAQs */}
@@ -1664,29 +1677,31 @@ export default function IndustriesPage() {
               />
 
               {/* Enhanced animated particles */}
-              <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                {[...Array(30)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute w-2 h-2 rounded-full bg-blue-500/30"
-                    style={{
-                      top: `${Math.random() * 100}%`,
-                      left: `${Math.random() * 100}%`,
-                    }}
-                    animate={{
-                      y: [Math.random() * -50, Math.random() * 50],
-                      x: [Math.random() * -50, Math.random() * 50],
-                      opacity: [0, 1, 0],
-                      scale: [0, 1, 0],
-                    }}
-                    transition={{
-                      duration: Math.random() * 5 + 5,
-                      repeat: Number.POSITIVE_INFINITY,
-                      ease: "linear",
-                    }}
-                  />
-                ))}
-              </div>
+              {mounted && (
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                  {[...Array(30)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute w-2 h-2 rounded-full bg-blue-500/30"
+                      style={{
+                        top: `${Math.random() * 100}%`,
+                        left: `${Math.random() * 100}%`,
+                      }}
+                      animate={{
+                        y: [Math.random() * -50, Math.random() * 50],
+                        x: [Math.random() * -50, Math.random() * 50],
+                        opacity: [0, 1, 0],
+                        scale: [0, 1, 0],
+                      }}
+                      transition={{
+                        duration: Math.random() * 5 + 5,
+                        repeat: Number.POSITIVE_INFINITY,
+                        ease: "linear",
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
 
               <motion.h2
                 className="text-3xl md:text-4xl font-bold mb-6 relative z-10"
