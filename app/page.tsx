@@ -1,5 +1,6 @@
 import Navbar from "@/components/navbar"
 import Hero from "@/components/hero"
+import KeyFeatures from "@/components/key-features"
 import Features from "@/components/features"
 import ComparisonTable from "@/components/comparison-table"
 import CTA from "@/components/cta"
@@ -19,6 +20,7 @@ export default function Home() {
       <div className="relative z-10">
         <Navbar />
         <Hero />
+        <KeyFeatures />
         <Features />
         <ComparisonTable />
         <FaqSection />
