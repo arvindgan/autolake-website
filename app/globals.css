@@ -118,6 +118,53 @@
   animation: shimmer 2s infinite;
 }
 
+/* Modern card hover effects */
+.card-hover-effect {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover-effect:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Smooth backdrop blur support */
+@supports (backdrop-filter: blur(10px)) {
+  .backdrop-blur-modern {
+    backdrop-filter: blur(10px) saturate(180%);
+  }
+}
+
+/* Enhanced gradient animations for modern sections */
+@keyframes float-gentle {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+}
+
+.animate-float-gentle {
+  animation: float-gentle 6s ease-in-out infinite;
+}
+
+/* Pulse animation for indicators */
+@keyframes pulse-soft {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+
 /* Smooth backdrop blur support */
 @supports (backdrop-filter: blur(10px)) {
   .backdrop-blur-hero {
