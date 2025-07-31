@@ -5,57 +5,136 @@ import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { AnimatedButton } from "./animated-button"
 
-// Create a Star component for the animated stars
-const Star = ({ x, y, size, delay }) => {
+// Create floating orb component for modern background elements
+const FloatingOrb = ({ size, color, position, delay = 0, duration = 20 }) => {
   return (
-    <motion.circle
-      cx={x}
-      cy={y}
-      r={size}
-      fill="white"
-      initial={{ opacity: 0.1 }}
+    <motion.div
+      className={`absolute rounded-full ${color} blur-3xl opacity-20`}
+      style={{
+        width: size,
+        height: size,
+        left: position.x,
+        top: position.y,
+      }}
       animate={{
-        opacity: [0.1, 0.7, 0.1],
-        scale: [1, 1.2, 1],
+        x: [0, 30, -20, 0],
+        y: [0, -40, 20, 0],
+        scale: [1, 1.1, 0.9, 1],
       }}
       transition={{
-        duration: 3,
-        delay: delay,
+        duration,
         repeat: Number.POSITIVE_INFINITY,
-        repeatType: "reverse",
+        ease: "easeInOut",
+        delay,
       }}
     />
   )
 }
 
-// Create a deterministic pseudo-random number generator (Mulberry32)
-const createPRNG = (seed: number) => {
-  let a = seed >>> 0
-  return () => {
-    a += 0x6d2b79f5
-    let t = a
-    t = Math.imul(t ^ (t >>> 15), t | 1)
-    t ^= t + Math.imul(t ^ (t >>> 7), t | 61)
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296
-  }
+// Grid pattern component for subtle background texture
+const GridPattern = () => {
+  return (
+    <div className="absolute inset-0 opacity-[0.02]">
+      <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="currentColor" strokeWidth="1"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid)" className="text-slate-900" />
+      </svg>
+    </div>
+  )
 }
 
-// Generate deterministic stars so server and client markup match
-const generateStars = (count: number) => {
-  const rand = createPRNG(42) // fixed seed for consistent results
-  const stars = []
-  const padding = 20 // percentage padding beyond viewport
+// Animated gradient mesh background
+const GradientMesh = () => {
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      <motion.div
+        className="absolute -inset-[100%] opacity-30"
+        animate={{
+          background: [
+            "radial-gradient(circle at 20% 20%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 80%, #6366f1 0%, transparent 50%), radial-gradient(circle at 40% 60%, #8b5cf6 0%, transparent 50%)",
+            "radial-gradient(circle at 80% 20%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 20% 80%, #6366f1 0%, transparent 50%), radial-gradient(circle at 60% 40%, #8b5cf6 0%, transparent 50%)",
+            "radial-gradient(circle at 60% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 40% 20%, #6366f1 0%, transparent 50%), radial-gradient(circle at 80% 60%, #8b5cf6 0%, transparent 50%)",
+            "radial-gradient(circle at 20% 20%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 80%, #6366f1 0%, transparent 50%), radial-gradient(circle at 40% 60%, #8b5cf6 0%, transparent 50%)",
+          ],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Number.POSITIVE_INFINITY,
+          ease: "linear",
+        }}
+      />
+    </div>
+  )
+}
 
-  for (let i = 0; i < count; i++) {
-    stars.push({
-      id: i,
-      x: `${-padding + rand() * (100 + 2 * padding)}%`,
-      y: `${rand() * 100}%`,
-      size: rand() * 1.5 + 0.5,
-      delay: rand() * 3,
-    })
-  }
-  return stars
+// Geometric shapes for modern design elements
+const GeometricShapes = () => {
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      {/* Large circle */}
+      <motion.div
+        className="absolute w-96 h-96 rounded-full border border-blue-200/20 -top-48 -right-48"
+        animate={{
+          rotate: [0, 360],
+          scale: [1, 1.1, 1],
+        }}
+        transition={{
+          duration: 30,
+          repeat: Number.POSITIVE_INFINITY,
+          ease: "linear",
+        }}
+      />
+      
+      {/* Medium circle */}
+      <motion.div
+        className="absolute w-64 h-64 rounded-full border border-indigo-200/15 top-1/4 -left-32"
+        animate={{
+          rotate: [360, 0],
+          scale: [1, 0.9, 1],
+        }}
+        transition={{
+          duration: 25,
+          repeat: Number.POSITIVE_INFINITY,
+          ease: "linear",
+        }}
+      />
+      
+      {/* Small decorative elements */}
+      <motion.div
+        className="absolute w-32 h-32 rounded-full bg-gradient-to-br from-blue-400/10 to-purple-400/10 top-3/4 right-1/4"
+        animate={{
+          y: [0, -20, 0],
+          opacity: [0.3, 0.6, 0.3],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Number.POSITIVE_INFINITY,
+          ease: "easeInOut",
+        }}
+      />
+      
+      {/* Triangular elements */}
+      <motion.div
+        className="absolute w-24 h-24 top-1/3 right-1/3 opacity-10"
+        animate={{
+          rotate: [0, 120, 240, 360],
+        }}
+        transition={{
+          duration: 15,
+          repeat: Number.POSITIVE_INFINITY,
+          ease: "linear",
+        }}
+      >
+        <svg viewBox="0 0 100 100" className="w-full h-full">
+          <polygon points="50,10 90,90 10,90" fill="currentColor" className="text-blue-500" />
+        </svg>
+      </motion.div>
+    </div>
+  )
 }
 
 const RainbowBorderButton = ({ children }) => {
@@ -65,12 +144,12 @@ const RainbowBorderButton = ({ children }) => {
       whileHover={{ scale: 1.05 }}
       transition={{ type: "spring", stiffness: 400, damping: 10 }}
     >
-      <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+      <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
       <div className="relative">
-        <Button variant="outline" size="lg" className="relative bg-background overflow-hidden">
+        <Button variant="outline" size="lg" className="relative bg-white/90 backdrop-blur-sm border-white/20 text-slate-700 hover:text-slate-900 overflow-hidden">
           <span className="relative z-10">{children}</span>
           <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div>
           </div>
         </Button>
       </div>
@@ -79,10 +158,6 @@ const RainbowBorderButton = ({ children }) => {
 }
 
 export default function Hero() {
-  // Increase the number of stars to fill more of the screen
-  // Generate 100 stars instead of 55 to ensure better coverage
-  const stars = generateStars(100)
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -106,106 +181,100 @@ export default function Hero() {
     },
   }
 
-  // Floating animation for the hero section
-  const floatingAnimation = {
-    y: [0, -20, 0],
-    transition: {
-      duration: 6,
-      repeat: Number.POSITIVE_INFINITY,
-      repeatType: "reverse",
-      ease: "easeInOut",
-    },
-  }
-
   return (
-    <section className="relative flex min-h-[calc(100vh-3.5rem)] flex-col items-center justify-center space-y-8 py-24 text-center md:py-32 overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50/50 to-indigo-50">
-      {/* Stars and background container - full viewport width */}
-      <div className="absolute inset-0 w-screen overflow-hidden">
-        {/* Background animation */}
-        <motion.div
-          className="absolute inset-0 z-0"
-          animate={{
-            background: [
-              "radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.12), transparent 70%)",
-              "radial-gradient(circle at 80% 80%, rgba(99, 102, 241, 0.12), transparent 70%)",
-              "radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.12), transparent 70%)",
-              "radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.12), transparent 70%)",
-              "radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.12), transparent 70%)",
-            ],
-          }}
-          transition={{ duration: 20, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+    <section className="relative flex min-h-[calc(100vh-3.5rem)] flex-col items-center justify-center space-y-8 py-24 text-center md:py-32 overflow-hidden">
+      {/* Modern gradient background inspired by Cluely */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100" />
+      
+      {/* Subtle overlay gradient for depth */}
+      <div className="absolute inset-0 bg-gradient-to-t from-white/20 via-transparent to-blue-50/30" />
+      
+      {/* Grid pattern for texture */}
+      <GridPattern />
+      
+      {/* Animated gradient mesh */}
+      <GradientMesh />
+      
+      {/* Floating orbs for modern aesthetic */}
+      <div className="absolute inset-0">
+        <FloatingOrb 
+          size="400px" 
+          color="bg-blue-400" 
+          position={{ x: "10%", y: "20%" }} 
+          delay={0}
+          duration={25}
         />
-
-        {/* Geometric shapes */}
-        <div className="absolute inset-0 overflow-hidden">
-          <motion.div
-            className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-xl"
-            animate={{
-              y: [0, -30, 0],
-              x: [0, 20, 0],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="absolute top-40 right-20 w-24 h-24 bg-gradient-to-br from-indigo-400/25 to-cyan-400/25 rounded-lg rotate-45 blur-lg"
-            animate={{
-              y: [0, 25, 0],
-              x: [0, -15, 0],
-              rotate: [45, 75, 45],
-            }}
-            transition={{ duration: 10, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="absolute bottom-32 left-1/4 w-20 h-20 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full blur-lg"
-            animate={{
-              y: [0, -20, 0],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{ duration: 7, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-          />
-        </div>
-
-        {/* Animated stars */}
-        <svg className="absolute inset-0 w-full h-full pointer-events-none">
-          {stars.map((star) => (
-            <Star key={star.id} x={star.x} y={star.y} size={star.size} delay={star.delay} />
-          ))}
-        </svg>
-
-        {/* Gradient overlay for smooth transition */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-50 to-transparent" />
+        <FloatingOrb 
+          size="300px" 
+          color="bg-indigo-400" 
+          position={{ x: "70%", y: "10%" }} 
+          delay={5}
+          duration={30}
+        />
+        <FloatingOrb 
+          size="250px" 
+          color="bg-purple-400" 
+          position={{ x: "20%", y: "70%" }} 
+          delay={10}
+          duration={20}
+        />
+        <FloatingOrb 
+          size="350px" 
+          color="bg-cyan-400" 
+          position={{ x: "80%", y: "60%" }} 
+          delay={15}
+          duration={35}
+        />
       </div>
+      
+      {/* Geometric shapes for visual interest */}
+      <GeometricShapes />
+      
+      {/* Subtle noise texture overlay */}
+      <div 
+        className="absolute inset-0 opacity-[0.015] mix-blend-overlay"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+        }}
+      />
 
-      {/* Content container - maintain max width */}
+      {/* Content container */}
       <div className="container relative z-10 max-w-screen-2xl">
         <motion.div className="space-y-8" variants={containerVariants} initial="hidden" animate="visible">
-          <motion.div animate={floatingAnimation}>
+          <motion.div>
             <motion.h1
-              className="bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl md:text-6xl lg:text-7xl drop-shadow-[0_0_20px_rgba(59,130,246,0.2)]"
+              className="bg-gradient-to-br from-slate-900 via-blue-800 to-indigo-900 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl md:text-6xl lg:text-7xl"
               variants={itemVariants}
+              style={{
+                filter: "drop-shadow(0 0 20px rgba(59,130,246,0.1))",
+              }}
             >
               Autonomize Your Data Lake
               <br />
               <motion.span
-                className="bg-gradient-to-r from-slate-700 to-slate-900 bg-clip-text text-transparent"
+                className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"
                 variants={itemVariants}
               >
                 in Minutes
               </motion.span>
             </motion.h1>
+            
             <motion.p
-              className="mx-auto max-w-[42rem] leading-normal text-slate-600 sm:text-xl sm:leading-8 mb-8"
+              className="mx-auto max-w-[42rem] leading-normal text-slate-700 sm:text-xl sm:leading-8 mb-8 font-medium"
               variants={itemVariants}
+              style={{
+                textShadow: "0 1px 2px rgba(255,255,255,0.8)",
+              }}
             >
               Autolake is an autonomous data lake platform that ingests, organizes, and optimizes your data instantly
               using your own native services.
             </motion.p>
+            
             <motion.div className="flex justify-center gap-4" variants={itemVariants}>
               <Link href="/services/ingestion">
                 <AnimatedButton
                   size="lg"
-                  className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-6 text-lg font-medium transition-all hover:scale-105 shadow-lg hover:shadow-xl"
+                  className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-6 text-lg font-medium transition-all hover:scale-105 shadow-lg hover:shadow-xl border-0"
                 >
                   Explore Solutions
                 </AnimatedButton>
@@ -239,6 +308,9 @@ export default function Hero() {
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Bottom fade for smooth section transition */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent" />
     </section>
   )
 }
