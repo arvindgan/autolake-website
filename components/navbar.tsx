@@ -9,15 +9,63 @@ import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from
 export default function Navbar() {
   const { navigateTo } = useSPARouter()
   const [isAnyDropdownOpen, setIsAnyDropdownOpen] = useState(false)
+  const [isOverDarkBackground, setIsOverDarkBackground] = useState(false)
   // For smooth animation, use framer-motion's motion values
   const scrollY = useMotionValue(0)
+  const darkBackgroundValue = useMotionValue(0) // 0 = light, 1 = dark
   const lastScroll = useRef(0)
+
+  // Function to detect if navbar is over dark background sections
+  const detectDarkBackground = () => {
+    // Get navbar position - use dynamic height
+    const navbarRect = document.querySelector('header')?.getBoundingClientRect()
+    if (!navbarRect) return false
+    
+    const navbarTop = window.scrollY + navbarRect.top
+    const navbarBottom = window.scrollY + navbarRect.bottom
+    
+    // Check for dark background sections - expanded selector list
+    const darkSections = document.querySelectorAll([
+      '[class*="bg-black"]',
+      '[class*="bg-gray-900"]', 
+      '[class*="bg-gray-800"]',
+      '[class*="bg-slate-900"]', 
+      '[class*="bg-stone-900"]',
+      '[class*="bg-zinc-900"]',
+      '[class*="bg-neutral-900"]'
+    ].join(', '))
+    
+    for (const section of darkSections) {
+      const rect = section.getBoundingClientRect()
+      const sectionTop = window.scrollY + rect.top
+      const sectionBottom = window.scrollY + rect.bottom
+      
+      // Check if navbar overlaps with this dark section
+      // Add some padding to account for smooth transitions
+      if (navbarBottom > sectionTop - 10 && navbarTop < sectionBottom + 10) {
+        return true
+      }
+    }
+    
+    return false
+  }
 
   useEffect(() => {
     const handleScroll = () => {
       scrollY.set(window.scrollY)
       lastScroll.current = window.scrollY
+      
+      // Check if over dark background
+      const isDark = detectDarkBackground()
+      setIsOverDarkBackground(isDark)
+      
+      // Update motion value for smooth transitions
+      darkBackgroundValue.set(isDark ? 1 : 0)
     }
+    
+    // Initial check
+    handleScroll()
+    
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [scrollY])
@@ -38,6 +86,7 @@ export default function Navbar() {
 
   // Use framer-motion's useSpring for smooth transitions
   const springY = useSpring(scrollY, { stiffness: 120, damping: 20 })
+  const springDark = useSpring(darkBackgroundValue, { stiffness: 200, damping: 30 })
   const headerHeight = useTransform(springY, [0, 60], [maxHeight, minHeight])
   const logoSize = useTransform(springY, [0, 60], [maxLogo, minLogo])
   const fontSize = useTransform(springY, [0, 60], [maxFont, minFont])
@@ -60,6 +109,10 @@ export default function Navbar() {
   const headerMargin = useTransform(springY, [0, 60], ["0px", "auto"])
   // Add subtle scale effect
   const headerScale = useTransform(springY, [0, 60], [1, 1])
+  
+  // Dynamic text colors with smooth transitions using motion values
+  const textColorTransform = useTransform(springDark, [0, 1], ["rgb(0, 0, 0)", "rgb(255, 255, 255)"])
+  const hoverTextColorTransform = useTransform(springDark, [0, 1], ["rgb(55, 65, 81)", "rgb(229, 231, 235)"])
 
   return (
     <>
@@ -130,8 +183,14 @@ export default function Navbar() {
                   />
                 </motion.div>
                 <motion.span
-                  className="text-black font-bold tracking-wider"
-                  style={{ fontSize, lineHeight: 1, fontFamily: 'Inter, system-ui, -apple-system, sans-serif', letterSpacing: '0.1em' }}
+                  className="font-bold tracking-wider"
+                  style={{ 
+                    fontSize, 
+                    lineHeight: 1, 
+                    fontFamily: 'Inter, system-ui, -apple-system, sans-serif', 
+                    letterSpacing: '0.1em',
+                    color: textColorTransform
+                  }}
                 >
                   AUTOLAKE
                 </motion.span>
@@ -153,8 +212,11 @@ export default function Navbar() {
                   className="relative block py-2 cursor-pointer"
                 >
                   <motion.span 
-                    className="transition-colors hover:text-primary relative z-10"
-                    style={{ fontSize: navFontSize }}
+                    className="hover:text-primary relative z-10"
+                    style={{ 
+                      fontSize: navFontSize,
+                      color: textColorTransform
+                    }}
                   >
                     Solutions
                   </motion.span>
@@ -177,11 +239,14 @@ export default function Navbar() {
                   onKeyDown={(e) => e.key === 'Enter' && navigateTo('pricing')}
                   tabIndex={0}
                   role="button"
-                  className="relative block py-2 transition-colors hover:text-primary cursor-pointer"
+                  className="relative block py-2 hover:text-primary cursor-pointer"
                 >
                   <motion.span 
                     className="relative z-10"
-                    style={{ fontSize: navFontSize }}
+                    style={{ 
+                      fontSize: navFontSize,
+                      color: textColorTransform
+                    }}
                   >
                     Pricing
                   </motion.span>

@@ -4,7 +4,9 @@ import UserRoleGrid from "@/components/user-role-grid"
 import DataFlowDiagram from "@/components/data-flow-diagram"
 import IngestionHero from "@/components/ingestion-hero"
 import UseCases from "@/components/use-cases"
+import DataConnectors from "@/components/data-connectors"
 import ThreeStepAISlider from "@/components/three-step-ai-slider"
+import GridBackground from "@/components/grid-background"
 
 // Dummy RoleDiagram component to resolve the error. Replace with actual implementation if available.
 const RoleDiagram = () => {
@@ -34,13 +36,16 @@ export default function ServicesIngestionPage() {
 
         {/* Data Flow Diagram - Full width black background section */}
         <section className="relative py-24 md:py-32 overflow-hidden bg-black text-white">
+          {/* Grid Background with Stars */}
+          <GridBackground starCount={50} id="dataflow" className="dataflow-grid" />
+          
           {/* Decorative blurred ellipse backgrounds */}
           <div className="pointer-events-none absolute inset-0 -z-10">
             <div className="absolute -top-40 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-blue-500/10 blur-3xl" />
             <div className="absolute bottom-0 right-0 h-96 w-96 translate-x-1/3 translate-y-1/3 rounded-full bg-purple-500/10 blur-3xl" />
           </div>
           
-          <div className="container mx-auto">
+          <div className="container mx-auto relative z-10">
             <DataFlowDiagram />
           </div>
         </section>
@@ -54,6 +59,9 @@ export default function ServicesIngestionPage() {
         <section className="container py-24">
           <UseCases />
         </section>
+
+        {/* Data Connectors Section */}
+        <DataConnectors />
 
         {/* CTA Section */}
         <section className="container py-24 text-center">

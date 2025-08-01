@@ -4,7 +4,7 @@ import { Twitter, Linkedin } from "lucide-react"
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-gray-100 border-t border-gray-800 py-12">
+    <footer className="relative z-20 bg-gray-900 text-gray-100 border-t border-gray-800 py-12">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
         <div>
           <Link href="/" className="flex items-center gap-2 mb-4">

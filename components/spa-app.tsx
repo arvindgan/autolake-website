@@ -87,7 +87,7 @@ export default function SPAApp({ initialData }: SPAAppProps) {
   }
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative">
       {/* Background gradients */}
       <div className="pointer-events-none fixed inset-0">
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />

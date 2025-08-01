@@ -52,7 +52,7 @@ export default function IngestionHero() {
 
   return (
     <motion.div
-      className="relative overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-700 bg-background py-16 px-6 mb-16 w-full"
+      className="relative overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-700 bg-black py-16 px-6 mb-16 w-full"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
@@ -73,13 +73,44 @@ export default function IngestionHero() {
           }}
           transition={{ duration: 15, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
         >
-          <svg className="absolute -top-1/4 -right-1/4 h-[200%] w-[200%] opacity-5" viewBox="0 0 400 400">
+          <svg className="absolute -top-1/4 -right-1/4 h-[200%] w-[200%] opacity-40" viewBox="0 0 400 400">
             <defs>
               <pattern id="grid-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.3" />
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="2" />
               </pattern>
             </defs>
             <rect width="100%" height="100%" fill="url(#grid-pattern)" />
+          </svg>
+          
+          {/* Additional grid overlay for more prominent effect */}
+          <svg className="absolute inset-0 w-full h-full opacity-30" viewBox="0 0 1000 600">
+            <defs>
+              <pattern id="large-grid" width="100" height="100" patternUnits="userSpaceOnUse">
+                <path d="M 100 0 L 0 0 0 100" fill="none" stroke="white" strokeWidth="1" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#large-grid)" />
+            
+            {/* Subtle connecting lines between grid points */}
+            <g className="opacity-40">
+              <line x1="100" y1="100" x2="200" y2="150" stroke="white" strokeWidth="0.2" />
+              <line x1="200" y1="150" x2="300" y2="100" stroke="white" strokeWidth="0.2" />
+              <line x1="300" y1="100" x2="400" y2="200" stroke="white" strokeWidth="0.2" />
+              <line x1="400" y1="200" x2="500" y2="150" stroke="white" strokeWidth="0.2" />
+              <line x1="500" y1="150" x2="600" y2="250" stroke="white" strokeWidth="0.2" />
+              <line x1="600" y1="250" x2="700" y2="200" stroke="white" strokeWidth="0.2" />
+              <line x1="700" y1="200" x2="800" y2="300" stroke="white" strokeWidth="0.2" />
+              <line x1="800" y1="300" x2="900" y2="250" stroke="white" strokeWidth="0.2" />
+              
+              {/* Vertical connections */}
+              <line x1="150" y1="200" x2="250" y2="300" stroke="white" strokeWidth="0.2" />
+              <line x1="250" y1="300" x2="350" y2="250" stroke="white" strokeWidth="0.2" />
+              <line x1="350" y1="250" x2="450" y2="350" stroke="white" strokeWidth="0.2" />
+              <line x1="450" y1="350" x2="550" y2="300" stroke="white" strokeWidth="0.2" />
+              <line x1="550" y1="300" x2="650" y2="400" stroke="white" strokeWidth="0.2" />
+              <line x1="650" y1="400" x2="750" y2="350" stroke="white" strokeWidth="0.2" />
+              <line x1="750" y1="350" x2="850" y2="450" stroke="white" strokeWidth="0.2" />
+            </g>
           </svg>
           <motion.div
             className="absolute top-0 left-1/2 h-[500px] w-[500px] -translate-x-1/2 bg-blue-500/5 blur-[100px]"
@@ -92,7 +123,7 @@ export default function IngestionHero() {
         </motion.div>
 
         {/* Animated stars */}
-        <svg className="absolute inset-0 w-full h-full pointer-events-none">
+        <svg className="absolute inset-0 w-full h-full pointer-events-none text-white">
           {stars.map((star) => (
             <Star key={star.id} x={star.x} y={star.y} size={star.size} delay={star.delay} />
           ))}
@@ -109,7 +140,7 @@ export default function IngestionHero() {
         >
           <AnimatedText
             as="h1"
-            className="mb-6 text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-6xl"
+            className="mb-6 text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-6xl text-white"
           >
             Seamless Database Ingestion
             <br />
@@ -117,7 +148,7 @@ export default function IngestionHero() {
               From Connection to Insight
             </span>
           </AnimatedText>
-          <AnimatedText delay={0.1} className="mx-auto mb-8 max-w-3xl text-lg text-muted-foreground md:text-xl">
+          <AnimatedText delay={0.1} className="mx-auto mb-8 max-w-3xl text-lg text-gray-300 md:text-xl">
             Extract, load, and analyze data from leading databases with minimal configuration. Secure, scalable, and
             built on your own infrastructure.
           </AnimatedText>
