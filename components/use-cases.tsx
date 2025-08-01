@@ -55,9 +55,9 @@ export default function UseCases() {
             transition={{ duration: 0.5, delay: index * 0.1 }}
             viewport={{ once: true }}
           >
-            <Card className="h-full overflow-hidden border-white/10 bg-gradient-to-br from-gray-900/50 to-gray-800/50 p-6">
+            <Card className="h-full overflow-hidden border-gray-200 dark:border-gray-700 bg-background p-6 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-start gap-4">
-                <div className="rounded-full bg-gray-800/50 p-3">{useCase.icon}</div>
+                <div className="rounded-full bg-[#f7f8fa] dark:bg-slate-800 p-3">{useCase.icon}</div>
                 <div>
                   <h3 className="text-xl font-semibold mb-2">{useCase.title}</h3>
                   <p className="text-muted-foreground mb-4">{useCase.description}</p>

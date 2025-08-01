@@ -17,9 +17,9 @@ export default function AutomationShowcase() {
         </p>
       </div>
 
-      <div className="relative rounded-lg border border-white/10 overflow-hidden">
+      <div className="relative rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden bg-background">
         <Tabs defaultValue="connect" className="w-full">
-          <div className="border-b border-white/10 bg-gray-900/50 px-4">
+          <div className="border-b border-gray-200 dark:border-gray-700 bg-[#f7f8fa] dark:bg-slate-800 px-4">
             <TabsList className="bg-transparent h-14">
               <TabsTrigger value="connect" className="data-[state=active]:bg-background/50">
                 1. Connect Source
@@ -37,7 +37,7 @@ export default function AutomationShowcase() {
           </div>
 
           <TabsContent value="connect" className="p-0 m-0">
-            <div className="relative aspect-video bg-gray-950">
+            <div className="relative aspect-video bg-gray-100 dark:bg-gray-900">
               <img
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/database-connection-screen-4K2Wd0Ygz8UVfhzIBQrjGfgXwW8Iqo.png"
                 alt="Database Connection Interface"
@@ -76,7 +76,7 @@ export default function AutomationShowcase() {
           </TabsContent>
 
           <TabsContent value="configure" className="p-0 m-0">
-            <div className="relative aspect-video bg-gray-950">
+            <div className="relative aspect-video bg-gray-100 dark:bg-gray-900">
               <img
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/extraction-config-screen-4K2Wd0Ygz8UVfhzIBQrjGfgXwW8Iqo.png"
                 alt="Extraction Configuration Interface"
@@ -107,7 +107,7 @@ export default function AutomationShowcase() {
           </TabsContent>
 
           <TabsContent value="schedule" className="p-0 m-0">
-            <div className="relative aspect-video bg-gray-950">
+            <div className="relative aspect-video bg-gray-100 dark:bg-gray-900">
               <img
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/schedule-monitor-screen-4K2Wd0Ygz8UVfhzIBQrjGfgXwW8Iqo.png"
                 alt="Scheduling and Monitoring Interface"
@@ -137,7 +137,7 @@ export default function AutomationShowcase() {
           </TabsContent>
 
           <TabsContent value="analyze" className="p-0 m-0">
-            <div className="relative aspect-video bg-gray-950">
+            <div className="relative aspect-video bg-gray-100 dark:bg-gray-900">
               <img
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/analytics-dashboard-screen-4K2Wd0Ygz8UVfhzIBQrjGfgXwW8Iqo.png"
                 alt="Analytics Dashboard Interface"

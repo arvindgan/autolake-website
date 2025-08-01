@@ -94,7 +94,7 @@ export default function UserRoleGrid() {
         {Object.entries(roles).map(([key, role]) => (
           <motion.div
             key={key}
-            className={`relative overflow-hidden rounded-lg border border-white/10 bg-gradient-to-br ${role.gradient} p-6 cursor-pointer`}
+            className={`relative overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 bg-background p-6 cursor-pointer shadow-sm hover:shadow-md transition-shadow`}
             initial={false}
             animate={{
               height: expandedRoles.has(key) || hoveredRole === key ? "auto" : "120px",

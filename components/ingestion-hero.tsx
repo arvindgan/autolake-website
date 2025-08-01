@@ -7,13 +7,13 @@ import Link from "next/link"
 import AnimatedText from "./animated-text"
 
 // Create a Star component for the animated stars
-const Star = ({ x, y, size, delay }) => {
+const Star = ({ x, y, size, delay }: { x: string; y: string; size: number; delay: number }) => {
   return (
     <motion.circle
       cx={x}
       cy={y}
       r={size}
-      fill="white"
+      fill="currentColor"
       initial={{ opacity: 0.1 }}
       animate={{
         opacity: [0.1, 0.7, 0.1],
@@ -30,7 +30,7 @@ const Star = ({ x, y, size, delay }) => {
 }
 
 // Update the generateStars function to distribute stars more evenly across the screen width
-const generateStars = (count) => {
+const generateStars = (count: number) => {
   const stars = []
   for (let i = 0; i < count; i++) {
     // Use a wider distribution for x coordinates to spread stars across the entire width
@@ -52,7 +52,7 @@ export default function IngestionHero() {
 
   return (
     <motion.div
-      className="relative overflow-hidden rounded-lg border border-white/10 bg-gradient-to-br from-blue-950/50 to-indigo-950/50 py-16 px-6 mb-16 w-full"
+      className="relative overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-700 bg-background py-16 px-6 mb-16 w-full"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
@@ -61,31 +61,31 @@ export default function IngestionHero() {
       <div className="absolute inset-0 w-full overflow-hidden">
         {/* Background elements */}
         <motion.div
-          className="absolute inset-0 overflow-hidden opacity-20"
+          className="absolute inset-0 overflow-hidden opacity-10"
           animate={{
             background: [
-              "radial-gradient(circle at 20% 20%, rgba(29, 78, 216, 0.3), transparent 70%)",
-              "radial-gradient(circle at 80% 80%, rgba(124, 58, 237, 0.3), transparent 70%)",
-              "radial-gradient(circle at 20% 80%, rgba(29, 78, 216, 0.3), transparent 70%)",
-              "radial-gradient(circle at 80% 20%, rgba(124, 58, 237, 0.3), transparent 70%)",
-              "radial-gradient(circle at 20% 20%, rgba(29, 78, 216, 0.3), transparent 70%)",
+              "radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.1), transparent 70%)",
+              "radial-gradient(circle at 80% 80%, rgba(147, 197, 253, 0.08), transparent 70%)",
+              "radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.06), transparent 70%)",
+              "radial-gradient(circle at 80% 20%, rgba(147, 197, 253, 0.05), transparent 70%)",
+              "radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.1), transparent 70%)",
             ],
           }}
-          transition={{ duration: 20, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+          transition={{ duration: 15, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
         >
-          <svg className="absolute -top-1/4 -right-1/4 h-[200%] w-[200%] opacity-30" viewBox="0 0 400 400">
+          <svg className="absolute -top-1/4 -right-1/4 h-[200%] w-[200%] opacity-5" viewBox="0 0 400 400">
             <defs>
               <pattern id="grid-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="0.5" />
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.3" />
               </pattern>
             </defs>
             <rect width="100%" height="100%" fill="url(#grid-pattern)" />
           </svg>
           <motion.div
-            className="absolute top-0 left-1/2 h-[500px] w-[500px] -translate-x-1/2 bg-blue-500/20 blur-[100px]"
+            className="absolute top-0 left-1/2 h-[500px] w-[500px] -translate-x-1/2 bg-blue-500/5 blur-[100px]"
             animate={{
               scale: [1, 1.2, 1],
-              opacity: [0.2, 0.3, 0.2],
+              opacity: [0.05, 0.1, 0.05],
             }}
             transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY, repeatType: "reverse" }}
           />
@@ -123,7 +123,7 @@ export default function IngestionHero() {
           </AnimatedText>
 
           <motion.div
-            className="flex flex-col items-center justify-center gap-4 sm:flex-row"
+            className="hidden"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}

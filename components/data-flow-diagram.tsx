@@ -252,10 +252,10 @@ export default function DataFlowDiagram() {
   }, [activeTab])
 
   return (
-    <div className="w-full py-12 overflow-hidden">
+    <div className="w-full py-0 overflow-hidden">
       <div className="max-w-5xl mx-auto">
-        <h3 className="text-2xl font-semibold text-center mb-4">Data Lake Process Flow</h3>
-        <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
+        <h3 className="text-2xl font-semibold text-center mb-4 text-white">Data Lake Process Flow</h3>
+        <p className="text-center text-gray-300 mb-8 max-w-2xl mx-auto">
           Compare AutoLake's streamlined approach with traditional complex data integration processes.
         </p>
 
@@ -953,150 +953,150 @@ export default function DataFlowDiagram() {
                 </defs>
               </svg>
 
-              {/* Traditional stages - more of them, positioned in a more complex layout */}
+              {/* Traditional stages - positioned to align with the SVG paths */}
               <div className="absolute top-0 left-0 w-full h-full">
                 {/* Source Systems */}
                 <div
-                  className="absolute left-[5%] top-[15%] flex flex-col items-center w-32"
+                  className="absolute left-[2%] top-[8%] flex flex-col items-center w-20"
                   onMouseEnter={() => setActiveTraditionalStage("source")}
                   onMouseLeave={() => setActiveTraditionalStage(null)}
                 >
                   <motion.div
-                    className={`relative h-12 w-12 rounded-full ${getColorClass("blue")} flex items-center justify-center mb-2 cursor-pointer`}
+                    className={`relative h-10 w-10 rounded-full ${getColorClass("blue")} flex items-center justify-center mb-2 cursor-pointer`}
                     whileHover={{ scale: 1.1 }}
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   >
                     <Database className="h-6 w-6 text-blue-400" />
                   </motion.div>
-                  <h4 className="font-medium text-center text-sm">Multiple Sources</h4>
+                  <h4 className="font-medium text-center text-xs">Multiple Sources</h4>
                 </div>
 
                 {/* Extraction */}
                 <div
-                  className="absolute left-[25%] top-[15%] flex flex-col items-center w-32"
+                  className="absolute left-[22%] top-[33%] flex flex-col items-center w-20"
                   onMouseEnter={() => setActiveTraditionalStage("extraction")}
                   onMouseLeave={() => setActiveTraditionalStage(null)}
                 >
                   <motion.div
-                    className={`relative h-12 w-12 rounded-full ${getColorClass("orange")} flex items-center justify-center mb-2 cursor-pointer`}
+                    className={`relative h-10 w-10 rounded-full ${getColorClass("orange")} flex items-center justify-center mb-2 cursor-pointer`}
                     whileHover={{ scale: 1.1 }}
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   >
                     <FileText className="h-6 w-6 text-orange-400" />
                   </motion.div>
-                  <h4 className="font-medium text-center text-sm">Data Extraction</h4>
+                  <h4 className="font-medium text-center text-xs">Data Extraction</h4>
                 </div>
 
                 {/* Staging */}
                 <div
-                  className="absolute left-[35%] top-[15%] flex flex-col items-center w-32"
+                  className="absolute left-[32%] top-[50%] flex flex-col items-center w-20"
                   onMouseEnter={() => setActiveTraditionalStage("staging")}
                   onMouseLeave={() => setActiveTraditionalStage(null)}
                 >
                   <motion.div
-                    className={`relative h-12 w-12 rounded-full ${getColorClass("yellow")} flex items-center justify-center mb-2 cursor-pointer`}
+                    className={`relative h-10 w-10 rounded-full ${getColorClass("yellow")} flex items-center justify-center mb-2 cursor-pointer`}
                     whileHover={{ scale: 1.1 }}
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   >
                     <Layers className="h-6 w-6 text-yellow-400" />
                   </motion.div>
-                  <h4 className="font-medium text-center text-sm">Staging Area</h4>
+                  <h4 className="font-medium text-center text-xs">Staging Area</h4>
                 </div>
 
                 {/* Transformation */}
                 <div
-                  className="absolute left-[45%] top-[15%] flex flex-col items-center w-32"
+                  className="absolute left-[42%] top-[50%] flex flex-col items-center w-20"
                   onMouseEnter={() => setActiveTraditionalStage("transformation")}
                   onMouseLeave={() => setActiveTraditionalStage(null)}
                 >
                   <motion.div
-                    className={`relative h-12 w-12 rounded-full ${getColorClass("indigo")} flex items-center justify-center mb-2 cursor-pointer`}
+                    className={`relative h-10 w-10 rounded-full ${getColorClass("indigo")} flex items-center justify-center mb-2 cursor-pointer`}
                     whileHover={{ scale: 1.1 }}
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   >
                     <Cog className="h-6 w-6 text-indigo-400" />
                   </motion.div>
-                  <h4 className="font-medium text-center text-sm">Transformation</h4>
+                  <h4 className="font-medium text-center text-xs">Transformation</h4>
                 </div>
 
                 {/* Validation */}
                 <div
-                  className="absolute left-[55%] top-[15%] flex flex-col items-center w-32"
+                  className="absolute left-[62%] top-[50%] flex flex-col items-center w-20"
                   onMouseEnter={() => setActiveTraditionalStage("validation")}
                   onMouseLeave={() => setActiveTraditionalStage(null)}
                 >
                   <motion.div
-                    className={`relative h-12 w-12 rounded-full ${getColorClass("red")} flex items-center justify-center mb-2 cursor-pointer`}
+                    className={`relative h-10 w-10 rounded-full ${getColorClass("red")} flex items-center justify-center mb-2 cursor-pointer`}
                     whileHover={{ scale: 1.1 }}
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   >
                     <AlertTriangle className="h-6 w-6 text-red-400" />
                   </motion.div>
-                  <h4 className="font-medium text-center text-sm">Data Validation</h4>
+                  <h4 className="font-medium text-center text-xs">Data Validation</h4>
                 </div>
 
                 {/* Loading */}
                 <div
-                  className="absolute left-[65%] top-[15%] flex flex-col items-center w-32"
+                  className="absolute left-[72%] top-[50%] flex flex-col items-center w-20"
                   onMouseEnter={() => setActiveTraditionalStage("loading")}
                   onMouseLeave={() => setActiveTraditionalStage(null)}
                 >
                   <motion.div
-                    className={`relative h-12 w-12 rounded-full ${getColorClass("purple")} flex items-center justify-center mb-2 cursor-pointer`}
+                    className={`relative h-10 w-10 rounded-full ${getColorClass("purple")} flex items-center justify-center mb-2 cursor-pointer`}
                     whileHover={{ scale: 1.1 }}
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   >
                     <RefreshCw className="h-6 w-6 text-purple-400" />
                   </motion.div>
-                  <h4 className="font-medium text-center text-sm">Data Loading</h4>
+                  <h4 className="font-medium text-center text-xs">Data Loading</h4>
                 </div>
 
                 {/* Security */}
                 <div
-                  className="absolute left-[75%] top-[15%] flex flex-col items-center w-32"
+                  className="absolute left-[82%] top-[50%] flex flex-col items-center w-20"
                   onMouseEnter={() => setActiveTraditionalStage("security")}
                   onMouseLeave={() => setActiveTraditionalStage(null)}
                 >
                   <motion.div
-                    className={`relative h-12 w-12 rounded-full ${getColorClass("gray")} flex items-center justify-center mb-2 cursor-pointer`}
+                    className={`relative h-10 w-10 rounded-full ${getColorClass("gray")} flex items-center justify-center mb-2 cursor-pointer`}
                     whileHover={{ scale: 1.1 }}
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   >
                     <Lock className="h-6 w-6 text-gray-400" />
                   </motion.div>
-                  <h4 className="font-medium text-center text-sm">Security & Governance</h4>
+                  <h4 className="font-medium text-center text-xs">Security & Governance</h4>
                 </div>
 
                 {/* Analytics */}
                 <div
-                  className="absolute left-[85%] top-[15%] flex flex-col items-center w-32"
+                  className="absolute left-[92%] top-[50%] flex flex-col items-center w-20"
                   onMouseEnter={() => setActiveTraditionalStage("analytics")}
                   onMouseLeave={() => setActiveTraditionalStage(null)}
                 >
                   <motion.div
-                    className={`relative h-12 w-12 rounded-full ${getColorClass("pink")} flex items-center justify-center mb-2 cursor-pointer`}
+                    className={`relative h-10 w-10 rounded-full ${getColorClass("pink")} flex items-center justify-center mb-2 cursor-pointer`}
                     whileHover={{ scale: 1.1 }}
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   >
                     <BarChart className="h-6 w-6 text-pink-400" />
                   </motion.div>
-                  <h4 className="font-medium text-center text-sm">Analytics</h4>
+                  <h4 className="font-medium text-center text-xs">Analytics</h4>
                 </div>
 
                 {/* Consumption */}
                 <div
-                  className="absolute left-[95%] top-[15%] flex flex-col items-center w-32"
+                  className="absolute left-[92%] top-[67%] flex flex-col items-center w-20"
                   onMouseEnter={() => setActiveTraditionalStage("consumption")}
                   onMouseLeave={() => setActiveTraditionalStage(null)}
                 >
                   <motion.div
-                    className={`relative h-12 w-12 rounded-full ${getColorClass("green")} flex items-center justify-center mb-2 cursor-pointer`}
+                    className={`relative h-10 w-10 rounded-full ${getColorClass("green")} flex items-center justify-center mb-2 cursor-pointer`}
                     whileHover={{ scale: 1.1 }}
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   >
                     <Users className="h-6 w-6 text-green-400" />
                   </motion.div>
-                  <h4 className="font-medium text-center text-sm">Consumption</h4>
+                  <h4 className="font-medium text-center text-xs">Consumption</h4>
                 </div>
               </div>
 
