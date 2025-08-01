@@ -61,7 +61,9 @@ export default function ServicesIngestionPage() {
         </section>
 
         {/* Data Connectors Section */}
-        <DataConnectors />
+        <section>
+          <DataConnectors />
+        </section>
 
         {/* CTA Section */}
         <section className="container py-24 text-center">
