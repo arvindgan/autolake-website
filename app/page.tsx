@@ -2,7 +2,6 @@ import Navbar from "@/components/navbar"
 import Hero from "@/components/hero"
 import KeyFeatures from "@/components/key-features"
 import WorksOnAllPlatforms from "@/components/works-on-all-platforms"
-import Features from "@/components/features"
 import ComparisonTable from "@/components/comparison-table"
 import CTA from "@/components/cta"
 import Footer from "@/components/footer"
@@ -23,7 +22,6 @@ export default function Home() {
         <Hero />
         <KeyFeatures />
         <WorksOnAllPlatforms />
-        <Features />
         <ComparisonTable />
         <FaqSection />
         <CTA />

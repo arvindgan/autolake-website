@@ -159,41 +159,7 @@ const ComparisonTable = () => {
             </div>
           </motion.div>
 
-          {/* Statistics */}
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <motion.div
-              className="bg-gray-800/30 rounded-lg p-6 text-center"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <div className="text-4xl font-bold text-blue-400 mb-2">95%</div>
-              <div className="text-muted-foreground">Faster Implementation</div>
-            </motion.div>
 
-            <motion.div
-              className="bg-gray-800/30 rounded-lg p-6 text-center"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              <div className="text-4xl font-bold text-purple-400 mb-2">50%</div>
-              <div className="text-muted-foreground">Cost Reduction</div>
-            </motion.div>
-
-            <motion.div
-              className="bg-gray-800/30 rounded-lg p-6 text-center"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-            >
-              <div className="text-4xl font-bold text-green-400 mb-2">3x</div>
-              <div className="text-muted-foreground">Faster Time to Insight</div>
-            </motion.div>
-          </div>
         </motion.div>
       </div>
     </AnimatedSection>

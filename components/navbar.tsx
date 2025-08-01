@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import Link from "next/link"
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { ScrollToTopLink } from "./scroll-to-top-link"
@@ -158,7 +159,28 @@ export default function Navbar() {
                 whileTap={{ scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
-                <a href="/industries" className="relative block py-2 transition-colors hover:text-primary">
+                <Link href="/pricing" className="relative block py-2 transition-colors hover:text-primary">
+                  <motion.span 
+                    className="relative z-10"
+                    style={{ fontSize: navFontSize }}
+                  >
+                    Pricing
+                  </motion.span>
+                  <motion.div
+                    className="absolute bottom-0 left-0 h-0.5 bg-primary"
+                    initial={{ width: 0 }}
+                    whileHover={{ width: "100%" }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                  />
+                </Link>
+              </motion.div>
+              <motion.div
+                className="relative"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              >
+                <Link href="/industries" className="relative block py-2 transition-colors hover:text-primary">
                   <motion.span 
                     className="relative z-10"
                     style={{ fontSize: navFontSize }}
@@ -171,7 +193,7 @@ export default function Navbar() {
                     whileHover={{ width: "100%" }}
                     transition={{ duration: 0.2, ease: "easeOut" }}
                   />
-                </a>
+                </Link>
               </motion.div>
             </nav>
           </div>
