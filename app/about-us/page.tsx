@@ -146,17 +146,16 @@ export default function AboutUsPage() {
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
 
+  // Run authentication check once on mount to avoid unnecessary re-renders
   useEffect(() => {
-    // Check if user is authenticated
     const authenticated = sessionStorage.getItem("aboutUsAuthenticated") === "true"
     setIsAuthenticated(authenticated)
     setIsLoading(false)
 
-    // If not authenticated, redirect to auth page
     if (!authenticated) {
       router.push("/about-us-auth")
     }
-  }, [router])
+  }, [])
 
   // Show loading state while checking authentication
   if (isLoading) {

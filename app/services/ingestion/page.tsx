@@ -7,7 +7,7 @@ import UserRoleGrid from "@/components/user-role-grid"
 import DataFlowDiagram from "@/components/data-flow-diagram"
 import IngestionHero from "@/components/ingestion-hero"
 import UseCases from "@/components/use-cases"
-import AutomationShowcase from "@/components/automation-showcase"
+
 import ThreeStepAISlider from "@/components/three-step-ai-slider"
 
 // Dummy RoleDiagram component to resolve the error. Replace with actual implementation if available.
@@ -53,12 +53,6 @@ export default function IngestionServicesPage() {
 
           <div className="container">
             <section className="mb-24 pt-12">
-              {/* AutomationShowcase with "Simple Setup, Powerful Results" */}
-              <AutomationShowcase />
-
-              {/* Real-World Use Cases */}
-              <UseCases />
-
               <div className="mb-16">
                 <div className="flex justify-center">
                   <RoleDiagram />
@@ -69,6 +63,9 @@ export default function IngestionServicesPage() {
                   <UserRoleGrid />
                 </div>
               </div>
+
+              {/* Real-World Use Cases */}
+              <UseCases />
 
               {/* Strong CTA */}
               <div className="flex justify-center mb-16">

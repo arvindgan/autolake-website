@@ -4,7 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
-import { ScrollToTopLink } from "./scroll-to-top-link"
+
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion"
 
 export default function Navbar() {
@@ -104,7 +104,7 @@ export default function Navbar() {
         >
           {/* Left section */}
           <div className="flex items-center space-x-4 md:space-x-6">
-            <ScrollToTopLink href="/" className="flex items-center space-x-2">
+            <Link href="/" className="flex items-center space-x-2" prefetch={true}>
               <motion.div
                 className="flex items-center gap-2"
                 whileHover={{ scale: 1.05 }}
@@ -129,7 +129,7 @@ export default function Navbar() {
                   Autolake
                 </motion.span>
               </motion.div>
-            </ScrollToTopLink>
+            </Link>
 
             <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
               <motion.div
@@ -138,7 +138,7 @@ export default function Navbar() {
                 whileTap={{ scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
-                <ScrollToTopLink href="/services/ingestion" className="relative block py-2">
+                <Link href="/services/ingestion" className="relative block py-2" prefetch={true}>
                   <motion.span 
                     className="transition-colors hover:text-primary relative z-10"
                     style={{ fontSize: navFontSize }}
@@ -151,7 +151,7 @@ export default function Navbar() {
                     whileHover={{ width: "100%" }}
                     transition={{ duration: 0.2, ease: "easeOut" }}
                   />
-                </ScrollToTopLink>
+                </Link>
               </motion.div>
               <motion.div
                 className="relative"
@@ -159,7 +159,7 @@ export default function Navbar() {
                 whileTap={{ scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
-                <Link href="/pricing" className="relative block py-2 transition-colors hover:text-primary">
+                <Link href="/pricing" className="relative block py-2 transition-colors hover:text-primary" prefetch={true}>
                   <motion.span 
                     className="relative z-10"
                     style={{ fontSize: navFontSize }}
@@ -174,27 +174,7 @@ export default function Navbar() {
                   />
                 </Link>
               </motion.div>
-              <motion.div
-                className="relative"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              >
-                <Link href="/industries" className="relative block py-2 transition-colors hover:text-primary">
-                  <motion.span 
-                    className="relative z-10"
-                    style={{ fontSize: navFontSize }}
-                  >
-                    Industries
-                  </motion.span>
-                  <motion.div
-                    className="absolute bottom-0 left-0 h-0.5 bg-primary"
-                    initial={{ width: 0 }}
-                    whileHover={{ width: "100%" }}
-                    transition={{ duration: 0.2, ease: "easeOut" }}
-                  />
-                </Link>
-              </motion.div>
+
             </nav>
           </div>
 
@@ -205,7 +185,7 @@ export default function Navbar() {
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
               whileTap={{ scale: 0.95, y: 1 }}
             >
-              <ScrollToTopLink href="/book-demo" asChild>
+              <Link href="/book-demo" prefetch={true}>
                 <motion.div
                     style={{
                       paddingLeft: buttonPaddingX,
@@ -220,7 +200,7 @@ export default function Navbar() {
                     Get a Demo
                   </Button>
                 </motion.div>
-              </ScrollToTopLink>
+              </Link>
             </motion.div>
           </div>
         </motion.div>
