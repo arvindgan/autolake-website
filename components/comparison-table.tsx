@@ -55,7 +55,7 @@ const ComparisonTable = () => {
   ]
 
   return (
-    <AnimatedSection className="py-24 relative">
+    <AnimatedSection className="py-24 relative bg-background">
       <div className="container max-w-6xl">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={containerVariants}>
           <AnimatedText as="h2" className="text-4xl font-bold text-center mb-16">
@@ -63,7 +63,7 @@ const ComparisonTable = () => {
           </AnimatedText>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-red-900/10 rounded-lg p-6 border border-red-900/20">
+            <div className="bg-red-50 dark:bg-red-950/30 rounded-lg p-6 border border-red-200 dark:border-red-800">
               <AnimatedText as="h3" delay={0.1} className="text-xl font-medium mb-8 text-red-400 flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -98,8 +98,8 @@ const ComparisonTable = () => {
               </div>
             </div>
 
-            <div className="bg-blue-900/10 rounded-lg p-6 border border-blue-900/20">
-              <AnimatedText as="h3" delay={0.1} className="text-xl font-medium mb-8 text-blue-400 flex items-center">
+            <div className="bg-green-50 dark:bg-green-950/30 rounded-lg p-6 border border-green-200 dark:border-green-800">
+              <AnimatedText as="h3" delay={0.1} className="text-xl font-medium mb-8 text-green-600 dark:text-green-400 flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6 mr-2"

@@ -9,7 +9,7 @@ import { Calendar, Clock, ArrowRight } from "lucide-react"
 
 export default function CTA() {
   return (
-    <AnimatedSection className="border-t">
+    <AnimatedSection className="border-t bg-[#f7f8fa] dark:bg-slate-900">
       <div className="container flex flex-col items-center gap-4 py-24 text-center md:py-32">
         <AnimatedText as="h2" className="font-bold text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
           Ready to accelerate your data strategy?

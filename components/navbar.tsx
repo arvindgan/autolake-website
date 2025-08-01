@@ -81,13 +81,13 @@ export default function Navbar() {
           top: headerTop,
           height: headerHeight,
           boxShadow,
-          background: `rgba(15,23,42,${gradientOpacity.get()})`,
+          background: `rgba(254,252,232,${gradientOpacity.get()})`,
           borderRadius: headerRadius,
           width: headerWidth,
           marginLeft: headerMargin,
           marginRight: headerMargin,
           scale: headerScale,
-          border: scrollY.get() > 10 ? '1px solid rgba(255,255,255,0.1)' : 'none',
+          border: scrollY.get() > 10 ? '1px solid rgba(0,0,0,0.08)' : 'none',
           transition: 'all 0.3s ease-out',
         }}
         initial={{ y: -100 }}
@@ -118,12 +118,12 @@ export default function Navbar() {
                     src="/images/autolake-logo.png"
                     alt="Autolake Logo"
                     fill
-                    className="object-contain drop-shadow-[0_0_0.3rem_#ffffff70]"
+                    className="object-contain drop-shadow-[0_0_0.3rem_#00000020]"
                     priority
                   />
                 </motion.div>
                 <motion.span
-                  className="text-[#FF5252] font-semibold tracking-tight"
+                  className="text-blue-600 font-semibold tracking-tight"
                   style={{ fontSize, lineHeight: 1, fontFamily: 'system-ui, -apple-system, sans-serif' }}
                 >
                   Autolake
