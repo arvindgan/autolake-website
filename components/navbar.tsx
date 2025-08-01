@@ -1,13 +1,13 @@
 "use client"
 
 import Image from "next/image"
-import Link from "next/link"
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
-
+import { useSPARouter } from "./spa-router"
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion"
 
 export default function Navbar() {
+  const { navigateTo } = useSPARouter()
   const [isAnyDropdownOpen, setIsAnyDropdownOpen] = useState(false)
   // For smooth animation, use framer-motion's motion values
   const scrollY = useMotionValue(0)
@@ -46,7 +46,8 @@ export default function Navbar() {
   const buttonFontSize = useTransform(springY, [0, 60], [maxButtonFont, minButtonFont])
   const navFontSize = useTransform(springY, [0, 60], [14, 12]) // Navigation links font size
   const boxShadow = useTransform(springY, [0, 60], ["0 0 0 rgba(0,0,0,0)", "0 4px 20px rgba(0,0,0,0.15)"])
-  const gradientOpacity = useTransform(springY, [0, 60], [0, 0.95]) // Start transparent, become opaque
+    // Background color (white) that transitions from fully transparent to opaque
+  const backgroundColor = useTransform(springY, [0, 60], ["rgba(255,255,255,0)", "rgba(255,255,255,0)"])
   
   // Enhanced pill transformation
   // Animate width from 100vw to 90vw for more subtle pill effect
@@ -76,12 +77,12 @@ export default function Navbar() {
       </AnimatePresence>
 
       <motion.header
-        className="sticky z-50 flex justify-center backdrop-blur supports-[backdrop-filter]:bg-background/60"
+        className="sticky z-50 flex justify-center backdrop-blur"
         style={{
           top: headerTop,
           height: headerHeight,
           boxShadow,
-          background: `rgba(254,252,232,${gradientOpacity.get()})`,
+          background: backgroundColor,
           borderRadius: headerRadius,
           width: headerWidth,
           marginLeft: headerMargin,
@@ -104,7 +105,13 @@ export default function Navbar() {
         >
           {/* Left section */}
           <div className="flex items-center space-x-4 md:space-x-6">
-            <Link href="/" className="flex items-center space-x-2" prefetch={true}>
+            <div 
+              onClick={() => navigateTo('home')} 
+              onKeyDown={(e) => e.key === 'Enter' && navigateTo('home')}
+              tabIndex={0}
+              role="button"
+              className="flex items-center space-x-2 cursor-pointer"
+            >
               <motion.div
                 className="flex items-center gap-2"
                 whileHover={{ scale: 1.05 }}
@@ -123,13 +130,13 @@ export default function Navbar() {
                   />
                 </motion.div>
                 <motion.span
-                  className="text-blue-600 font-semibold tracking-tight"
-                  style={{ fontSize, lineHeight: 1, fontFamily: 'system-ui, -apple-system, sans-serif' }}
+                  className="text-black font-bold tracking-wider"
+                  style={{ fontSize, lineHeight: 1, fontFamily: 'Inter, system-ui, -apple-system, sans-serif', letterSpacing: '0.1em' }}
                 >
-                  Autolake
+                  AUTOLAKE
                 </motion.span>
               </motion.div>
-            </Link>
+            </div>
 
             <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
               <motion.div
@@ -138,7 +145,13 @@ export default function Navbar() {
                 whileTap={{ scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
-                <Link href="/services/ingestion" className="relative block py-2" prefetch={true}>
+                <div 
+                  onClick={() => navigateTo('services-ingestion')} 
+                  onKeyDown={(e) => e.key === 'Enter' && navigateTo('services-ingestion')}
+                  tabIndex={0}
+                  role="button"
+                  className="relative block py-2 cursor-pointer"
+                >
                   <motion.span 
                     className="transition-colors hover:text-primary relative z-10"
                     style={{ fontSize: navFontSize }}
@@ -151,7 +164,7 @@ export default function Navbar() {
                     whileHover={{ width: "100%" }}
                     transition={{ duration: 0.2, ease: "easeOut" }}
                   />
-                </Link>
+                </div>
               </motion.div>
               <motion.div
                 className="relative"
@@ -159,7 +172,13 @@ export default function Navbar() {
                 whileTap={{ scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
-                <Link href="/pricing" className="relative block py-2 transition-colors hover:text-primary" prefetch={true}>
+                <div 
+                  onClick={() => navigateTo('pricing')} 
+                  onKeyDown={(e) => e.key === 'Enter' && navigateTo('pricing')}
+                  tabIndex={0}
+                  role="button"
+                  className="relative block py-2 transition-colors hover:text-primary cursor-pointer"
+                >
                   <motion.span 
                     className="relative z-10"
                     style={{ fontSize: navFontSize }}
@@ -172,7 +191,7 @@ export default function Navbar() {
                     whileHover={{ width: "100%" }}
                     transition={{ duration: 0.2, ease: "easeOut" }}
                   />
-                </Link>
+                </div>
               </motion.div>
 
             </nav>
@@ -185,22 +204,25 @@ export default function Navbar() {
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
               whileTap={{ scale: 0.95, y: 1 }}
             >
-              <Link href="/book-demo" prefetch={true}>
-                <motion.div
-                    style={{
-                      paddingLeft: buttonPaddingX,
-                      paddingRight: buttonPaddingX,
-                      paddingTop: buttonPaddingY,
-                      paddingBottom: buttonPaddingY,
-                      fontSize: buttonFontSize,
-                      minHeight: 'auto',
-                    }}
-                  >
-                  <Button size="sm">
-                    Get a Demo
-                  </Button>
-                </motion.div>
-              </Link>
+              <motion.div
+                onClick={() => navigateTo('book-demo')}
+                onKeyDown={(e) => e.key === 'Enter' && navigateTo('book-demo')}
+                tabIndex={0}
+                role="button"
+                className="cursor-pointer"
+                style={{
+                  paddingLeft: buttonPaddingX,
+                  paddingRight: buttonPaddingX,
+                  paddingTop: buttonPaddingY,
+                  paddingBottom: buttonPaddingY,
+                  fontSize: buttonFontSize,
+                  minHeight: 'auto',
+                }}
+              >
+                <Button size="sm">
+                  Get a Demo
+                </Button>
+              </motion.div>
             </motion.div>
           </div>
         </motion.div>

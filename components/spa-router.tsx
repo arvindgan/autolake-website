@@ -1,0 +1,113 @@
+"use client"
+
+import { createContext, useContext, useState, useCallback, useEffect } from "react"
+import { usePathname, useRouter } from "next/navigation"
+
+// Define all possible routes
+export type SPARoute = 
+  | 'home' 
+  | 'pricing' 
+  | 'services-ingestion' 
+  | 'services-curation' 
+  | 'services-distribution'
+  | 'book-demo' 
+  | 'industries' 
+  | 'architecture'
+  | 'about-us'
+
+interface SPARouterContextType {
+  currentRoute: SPARoute
+  navigateTo: (route: SPARoute) => void
+  isTransitioning: boolean
+}
+
+const SPARouterContext = createContext<SPARouterContextType | null>(null)
+
+export function useSPARouter() {
+  const context = useContext(SPARouterContext)
+  if (!context) {
+    throw new Error('useSPARouter must be used within SPARouterProvider')
+  }
+  return context
+}
+
+// Map URL paths to SPA routes
+const pathToRoute: Record<string, SPARoute> = {
+  '/': 'home',
+  '/pricing': 'pricing',
+  '/services/ingestion': 'services-ingestion',
+  '/services/curation': 'services-curation',
+  '/services/distribution': 'services-distribution',
+  '/book-demo': 'book-demo',
+  '/industries': 'industries',
+  '/architecture': 'architecture',
+  '/about-us': 'about-us',
+}
+
+// Map SPA routes to URL paths
+const routeToPath: Record<SPARoute, string> = {
+  'home': '/',
+  'pricing': '/pricing',
+  'services-ingestion': '/services/ingestion',
+  'services-curation': '/services/curation',
+  'services-distribution': '/services/distribution',
+  'book-demo': '/book-demo',
+  'industries': '/industries',
+  'architecture': '/architecture',
+  'about-us': '/about-us',
+}
+
+interface SPARouterProviderProps {
+  children: React.ReactNode
+}
+
+export function SPARouterProvider({ children }: SPARouterProviderProps) {
+  const pathname = usePathname()
+  const router = useRouter()
+  
+  // Initialize current route based on URL
+  const [currentRoute, setCurrentRoute] = useState<SPARoute>(() => {
+    return pathToRoute[pathname] || 'home'
+  })
+  const [isTransitioning, setIsTransitioning] = useState(false)
+
+  // Sync with URL changes (for browser back/forward)
+  useEffect(() => {
+    const route = pathToRoute[pathname] || 'home'
+    if (route !== currentRoute) {
+      setCurrentRoute(route)
+    }
+  }, [pathname, currentRoute])
+
+  const navigateTo = useCallback((route: SPARoute) => {
+    if (route === currentRoute) return
+    
+    setIsTransitioning(true)
+    
+    // Update URL without page reload
+    const path = routeToPath[route]
+    window.history.pushState({}, '', path)
+    
+    // Update state immediately for instant UI change
+    setCurrentRoute(route)
+    
+    // Brief transition state for smooth UX
+    setTimeout(() => {
+      setIsTransitioning(false)
+      // Scroll to top instantly
+      window.scrollTo(0, 0)
+    }, 50)
+  }, [currentRoute])
+
+  return (
+    <SPARouterContext.Provider 
+      value={{ 
+        currentRoute, 
+        navigateTo, 
+        isTransitioning 
+      }}
+    >
+      {children}
+    </SPARouterContext.Provider>
+  )
+}
