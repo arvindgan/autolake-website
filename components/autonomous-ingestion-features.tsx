@@ -208,7 +208,7 @@ export default function AutonomousIngestionFeatures() {
   }, [features.length])
 
   return (
-    <AnimatedSection className="py-24 bg-background">
+    <AnimatedSection className="py-24">
       <div className="container mx-auto max-w-7xl px-4">
         <motion.div 
           initial="hidden" 

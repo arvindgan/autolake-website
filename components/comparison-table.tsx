@@ -55,7 +55,7 @@ const ComparisonTable = () => {
   ]
 
   return (
-    <AnimatedSection className="py-24 relative bg-background">
+    <AnimatedSection className="py-24">
       <div className="container max-w-6xl">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={containerVariants}>
           <AnimatedText as="h2" className="text-4xl font-bold text-center mb-16">

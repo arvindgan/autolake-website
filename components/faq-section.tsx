@@ -43,7 +43,7 @@ export default function FaqSection() {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null)
 
   return (
-    <AnimatedSection className="py-24 bg-background">
+    <AnimatedSection className="py-24">
       <div className="container max-w-4xl">
         <AnimatedText as="h2" className="text-3xl font-bold text-center mb-12">
           Frequently Asked Questions
