@@ -68,7 +68,7 @@ export default function Navbar() {
     
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [scrollY])
+  }, [scrollY, darkBackgroundValue])
 
   // Animate between expanded and compact header
   // 0px scroll: large, 60px+ scroll: compact

@@ -6,68 +6,100 @@ import { Search } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import GridBackground from "@/components/grid-background"
+import Image from "next/image"
 
-// Data connector items based on the image
-const connectors = [
-  { name: "ADP", logo: "🏢", category: "HR" },
-  { name: "Access", logo: "📊", category: "Database" },
-  { name: "Act CRM", logo: "🔗", category: "CRM" },
-  { name: "Act-On", logo: "📈", category: "Marketing" },
-  { name: "Active Directory", logo: "🔒", category: "Identity" },
-  { name: "ActiveCampaign", logo: "📧", category: "Marketing" },
-  { name: "Acumatica", logo: "💼", category: "ERP" },
-  { name: "Adobe Analytics", logo: "📊", category: "Analytics" },
-  { name: "Adobe Commerce", logo: "🛒", category: "E-commerce" },
-  { name: "Adobe Target", logo: "🎯", category: "Marketing" },
-  { name: "Airtable", logo: "📋", category: "Database" },
-  { name: "AlloyDB", logo: "🗄️", category: "Database" },
-  { name: "Amazon Athena", logo: "📊", category: "Analytics" },
-  { name: "Amazon DynamoDB", logo: "🗄️", category: "Database" },
-  { name: "Amazon Marketplace", logo: "🛒", category: "E-commerce" },
-  { name: "Amazon S3", logo: "☁️", category: "Storage" },
-  { name: "Asana", logo: "✅", category: "Project Management" },
-  { name: "Authorize.Net", logo: "💳", category: "Payment" },
-  { name: "Avalara AvaTax", logo: "🧾", category: "Tax" },
-  { name: "Avro", logo: "📄", category: "Format" },
-  { name: "Azure Active Directory", logo: "🔒", category: "Identity" },
-  { name: "Azure Analysis Services", logo: "📊", category: "Analytics" },
-  { name: "Azure Data Catalog", logo: "📚", category: "Data Management" },
-  { name: "Azure Data Lake Storage", logo: "🗄️", category: "Storage" },
-  { name: "BigQuery", logo: "📊", category: "Analytics" },
-  { name: "Box", logo: "📦", category: "Storage" },
-  { name: "Cassandra", logo: "🗄️", category: "Database" },
-  { name: "Confluence", logo: "📄", category: "Documentation" },
-  { name: "Databricks", logo: "⚡", category: "Analytics" },
-  { name: "Docker", logo: "🐳", category: "Platform" },
-  { name: "Dropbox", logo: "📦", category: "Storage" },
-  { name: "Elasticsearch", logo: "🔍", category: "Search" },
-  { name: "Facebook Ads", logo: "📱", category: "Advertising" },
-  { name: "Google Analytics", logo: "📈", category: "Analytics" },
-  { name: "Google Drive", logo: "💾", category: "Storage" },
-  { name: "Google Sheets", logo: "📊", category: "Spreadsheet" },
-  { name: "HubSpot", logo: "🎯", category: "CRM" },
-  { name: "Jira", logo: "🎫", category: "Project Management" },
-  { name: "Kafka", logo: "📡", category: "Streaming" },
-  { name: "Kubernetes", logo: "⚓", category: "Platform" },
-  { name: "LinkedIn Ads", logo: "💼", category: "Advertising" },
-  { name: "Mailchimp", logo: "📧", category: "Email Marketing" },
-  { name: "MongoDB", logo: "🍃", category: "Database" },
-  { name: "MySQL", logo: "🐬", category: "Database" },
-  { name: "Oracle", logo: "🔴", category: "Database" },
-  { name: "PostgreSQL", logo: "🐘", category: "Database" },
-  { name: "Redis", logo: "🔴", category: "Database" },
-  { name: "Salesforce", logo: "☁️", category: "CRM" },
-  { name: "SAP", logo: "💎", category: "ERP" },
-  { name: "Shopify", logo: "🛍️", category: "E-commerce" },
-  { name: "Slack", logo: "💬", category: "Communication" },
-  { name: "Snowflake", logo: "❄️", category: "Data Warehouse" },
-  { name: "Stripe", logo: "💳", category: "Payment" },
-  { name: "Tableau", logo: "📊", category: "Analytics" },
-  { name: "Trello", logo: "📋", category: "Project Management" },
-  { name: "Twitter", logo: "🐦", category: "Social Media" },
-  { name: "Workday", logo: "📅", category: "HR" },
-  { name: "Zendesk", logo: "🎧", category: "Support" },
-  { name: "Zoom", logo: "📹", category: "Communication" }
+// Connector interface
+interface Connector {
+  name: string
+  logo: string
+  category: string
+  imageUrl?: string // Optional PNG image path
+}
+
+// Data connector items - supports both emoji (logo) and PNG images (imageUrl)
+// To use a PNG image: add imageUrl field pointing to /images/connectors/filename.png
+// To use emoji: just use the logo field (will be used as fallback)
+const connectors: Connector[] = [
+  { name: "Adobe Analytics", logo: "📊", category: "Analytics", imageUrl: "icon-adobeanalytics.png" },
+  { name: "Adobe Marketo Engage", logo: "📈", category: "Marketing", imageUrl: "icon-adobemarketoengage.png" },
+  { name: "Amazon Aurora", logo: "☁️", category: "Database", imageUrl: "icon-amazonaurora.png" },
+  { name: "Amazon DocumentDB", logo: "🗄️", category: "Database", imageUrl: "icon-amazondocumentdb.png" },
+  { name: "Amazon DynamoDB", logo: "🗄️", category: "Database", imageUrl: "icon-amazondynamodb.png" },
+  { name: "Amazon OpenSearch Service", logo: "🔍", category: "Search", imageUrl: "icon-amazonopensearchservice.png" },
+  { name: "Amazon Redshift", logo: "🗄️", category: "Data Warehouse", imageUrl: "icon-amazonredshift.png" },
+  { name: "Asana", logo: "✅", category: "Project Management", imageUrl: "icon-asana.png" },
+  { name: "Azure Cosmos", logo: "☁️", category: "Database", imageUrl: "icon-azurecosmos.png" },
+  { name: "Azure SQL", logo: "🗄️", category: "Database", imageUrl: "icon-azuresql.png" },
+  { name: "Binary", logo: "📄", category: "File Format", imageUrl: "icon-binary.png" },
+  { name: "Blackbaud", logo: "💼", category: "CRM", imageUrl: "icon-blackbaud.png" },
+  { name: "CircleCI", logo: "🔄", category: "DevOps", imageUrl: "icon-circleci.png" },
+  { name: "Cloud Storage API", logo: "☁️", category: "API", imageUrl: "icon-cloudstorageapi.png" },
+  { name: "CSV", logo: "📄", category: "File Format", imageUrl: "icon-csv.png" },
+  { name: "Datadog", logo: "📊", category: "Monitoring", imageUrl: "icon-datadog.png" },
+  { name: "Docusign Monitor", logo: "📋", category: "Document", imageUrl: "icon-docusignmonitor.png" },
+  { name: "Domo", logo: "📈", category: "Analytics", imageUrl: "icon-domo.png" },
+  { name: "Dynatrace", logo: "📊", category: "Monitoring", imageUrl: "icon-dynatrace.png" },
+  { name: "Excel", logo: "📊", category: "File Format", imageUrl: "icon-excel.png" },
+  { name: "Facebook Ads", logo: "📱", category: "Advertising", imageUrl: "icon-facebookads.png" },
+  { name: "Facebook Page Insights", logo: "📊", category: "Analytics", imageUrl: "icon-facebookpageinsights.png" },
+  { name: "File-Based API", logo: "📄", category: "API", imageUrl: "icon-filebasedapi.png" },
+  { name: "Fixed-Width (COBAL)", logo: "📄", category: "File Format", imageUrl: "icon-fixedwidthcobal.png" },
+  { name: "Freshdesk", logo: "🎧", category: "Support", imageUrl: "icon-freshdesk.png" },
+  { name: "Freshsales", logo: "💼", category: "CRM", imageUrl: "icon-freshsales.png" },
+  { name: "Google Ads", logo: "📱", category: "Advertising", imageUrl: "icon-googleads.png" },
+  { name: "Google Analytics 4", logo: "📈", category: "Analytics", imageUrl: "icon-googleanalytics4.png" },
+  { name: "Google BigQuery", logo: "📊", category: "Data Warehouse", imageUrl: "icon-googlebigquery.png" },
+  { name: "Google Search Console", logo: "🔍", category: "Analytics", imageUrl: "icon-googlesearchconsole.png" },
+  { name: "Google Sheets", logo: "📊", category: "Spreadsheet", imageUrl: "icon-googlesheets.png" },
+  { name: "GraphQL API", logo: "🔗", category: "API", imageUrl: "icon-graphqlapi.png" },
+  { name: "HubSpot", logo: "🎯", category: "CRM", imageUrl: "icon-hubspot.png" },
+  { name: "Instagram Ads", logo: "📷", category: "Advertising", imageUrl: "icon-instagramads.png" },
+  { name: "Intercom", logo: "💬", category: "Communication", imageUrl: "icon-intercom.png" },
+  { name: "JDBC", logo: "🔗", category: "Database", imageUrl: "icon-jdbc.png" },
+  { name: "Jira Cloud", logo: "🎫", category: "Project Management", imageUrl: "icon-jiracloud.png" },
+  { name: "JSON", logo: "📄", category: "File Format", imageUrl: "icon-json.png" },
+  { name: "Kafka", logo: "📡", category: "Streaming", imageUrl: "icon-kafka.png" },
+  { name: "Kustomer", logo: "🎧", category: "Support", imageUrl: "icon-kustomer.png" },
+  { name: "LinkedIn", logo: "💼", category: "Social Media", imageUrl: "icon-linkedin.png" },
+  { name: "Mailchimp", logo: "📧", category: "Email Marketing", imageUrl: "icon-mailchimp.png" },
+  { name: "Microsoft Dynamics 365 CRM", logo: "💼", category: "CRM", imageUrl: "icon-microsoftdynamics365crm.png" },
+  { name: "Microsoft Teams", logo: "👥", category: "Communication", imageUrl: "icon-microsoftteams.png" },
+  { name: "Mixpanel", logo: "📊", category: "Analytics", imageUrl: "icon-mixpanel.png" },
+  { name: "Monday", logo: "📅", category: "Project Management", imageUrl: "icon-monday.png" },
+  { name: "MongoDB", logo: "🍃", category: "Database", imageUrl: "icon-mongodb.png" },
+  { name: "MongoDB Atlas", logo: "🍃", category: "Database", imageUrl: "icon-mongodbatlas.png" },
+  { name: "Okta", logo: "🔒", category: "Identity", imageUrl: "icon-okta.png" },
+  { name: "Oracle NetSuite", logo: "💼", category: "ERP", imageUrl: "icon-oraclenetsuite.png" },
+  { name: "Paypal", logo: "💳", category: "Payment", imageUrl: "icon-paypal.png" },
+  { name: "Pendo", logo: "📊", category: "Analytics", imageUrl: "icon-pendo.png" },
+  { name: "Pipedrive", logo: "💼", category: "CRM", imageUrl: "icon-pipedrive.png" },
+  { name: "Productboard", logo: "📋", category: "Product Management", imageUrl: "icon-productboard.png" },
+  { name: "QuickBooks", logo: "💼", category: "Accounting", imageUrl: "icon-quickbooks.png" },
+  { name: "Rest API", logo: "🔗", category: "API", imageUrl: "icon-restapi.png" },
+  { name: "Salesforce", logo: "☁️", category: "CRM", imageUrl: "icon-salesforce.png" },
+  { name: "Salesforce Commerce Cloud", logo: "🛒", category: "E-commerce", imageUrl: "icon-salesforcecommercecloud.png" },
+  { name: "Salesforce Marketing Cloud", logo: "📧", category: "Marketing", imageUrl: "icon-salesforcemarketingcloud.png" },
+  { name: "Salesforce Marketing Cloud Account Engagement", logo: "📈", category: "Marketing", imageUrl: "icon-salesforce-marketingcloudaccountengagement.png" },
+  { name: "SAP HANA", logo: "💎", category: "Database", imageUrl: "icon-saphana.png" },
+  { name: "SAP OData", logo: "💎", category: "API", imageUrl: "icon-sap-odata.png" },
+  { name: "SendGrid", logo: "📧", category: "Email", imageUrl: "icon-sendgrid.png" },
+  { name: "ServiceNow", logo: "🔧", category: "ITSM", imageUrl: "icon-servicenow.png" },
+  { name: "Slack", logo: "💬", category: "Communication", imageUrl: "icon-slack.png" },
+  { name: "Smartsheet", logo: "📊", category: "Spreadsheet", imageUrl: "icon-smartsheet.png" },
+  { name: "Snapchat Ads", logo: "👻", category: "Advertising", imageUrl: "icon-snapchatads.png" },
+  { name: "Snowflake", logo: "❄️", category: "Data Warehouse", imageUrl: "icon-snowflake.png" },
+  { name: "SOAP API", logo: "🔗", category: "API", imageUrl: "icon-soapapi.png" },
+  { name: "Streaming API", logo: "📡", category: "API", imageUrl: "icon-streamingapi.png" },
+  { name: "Stripe", logo: "💳", category: "Payment", imageUrl: "icon-stripe.png" },
+  { name: "Teradata Vantage", logo: "🗄️", category: "Data Warehouse", imageUrl: "icon-teradatavantage.png" },
+  { name: "Twilio", logo: "📞", category: "Communication", imageUrl: "icon-twilio.png" },
+  { name: "Vertica", logo: "🗄️", category: "Database", imageUrl: "icon-vertica.png" },
+  { name: "Webhook/Push API", logo: "🔗", category: "API", imageUrl: "icon-webhookpushapi.png" },
+  { name: "WooCommerce", logo: "🛒", category: "E-commerce", imageUrl: "icon-woocommerce.png" },
+  { name: "XML", logo: "📄", category: "File Format", imageUrl: "icon-xml.png" },
+  { name: "Zendesk", logo: "🎧", category: "Support", imageUrl: "icon-zendesk.png" },
+  { name: "Zoho CRM", logo: "💼", category: "CRM", imageUrl: "icon-zohocrm.png" },
+  { name: "Zoom Meetings", logo: "📹", category: "Communication", imageUrl: "icon-zoommeetings.png" }
 ]
 
 export default function DataConnectors() {
@@ -155,7 +187,20 @@ export default function DataConnectors() {
               whileHover={{ scale: 1.05 }}
             >
               <div className="text-center">
-                <div className="text-2xl mb-2">{connector.logo}</div>
+                <div className="mb-2 flex items-center justify-center h-8">
+                  {connector.imageUrl ? (
+                    <div className="relative w-8 h-8">
+                      <Image
+                        src={connector.imageUrl}
+                        alt={`${connector.name} logo`}
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                  ) : (
+                    <div className="text-2xl">{connector.logo}</div>
+                  )}
+                </div>
                 <h3 className="font-medium text-sm mb-1 text-white">{connector.name}</h3>
                 <p className="text-xs text-gray-400">{connector.category}</p>
               </div>
