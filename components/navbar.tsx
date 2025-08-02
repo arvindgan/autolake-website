@@ -165,7 +165,7 @@ export default function Navbar() {
           marginLeft: headerMargin,
           marginRight: headerMargin,
           scale: headerScale,
-          border: scrollY.get() > 10 ? '1px solid rgba(0,0,0,0.08)' : 'none',
+          border: 'none',
           transition: 'all 0.3s ease-out',
         }}
       >

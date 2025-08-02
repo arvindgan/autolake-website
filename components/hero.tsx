@@ -124,7 +124,7 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative flex min-h-[calc(100vh-3.5rem)] flex-col items-center justify-center space-y-8 py-24 text-center md:py-32 overflow-hidden bg-background">
+    <section className="relative -mt-16 pt-16 flex min-h-[calc(100vh-3.5rem)] flex-col items-center justify-center space-y-8 py-24 text-center md:py-32 overflow-hidden">
       {/* Stars and background container - full viewport width */}
       <div className="absolute inset-0 w-screen overflow-hidden">
         {/* Dynamic flowing background */}
