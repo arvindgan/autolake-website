@@ -1,37 +1,53 @@
+"use client"
+
 import Link from "next/link"
 import Image from "next/image"
 import { Twitter, Linkedin } from "lucide-react"
+import { useSPARouter } from "./spa-router"
 
 export default function Footer() {
+  const { navigateTo } = useSPARouter()
   return (
     <footer className="relative z-20 bg-gray-900 text-gray-100 border-t border-gray-800 py-12">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
         <div>
-          <Link href="/" className="flex items-center gap-2 mb-4">
+          <button 
+            onClick={() => navigateTo('home')}
+            className="flex items-center gap-2 mb-4 hover:opacity-80 transition-opacity"
+          >
             <div className="relative h-8 w-8">
               <Image src="/images/autolake-logo.png" alt="AutoLake Logo" fill className="object-contain" />
             </div>
             <span className="text-xl font-bold text-blue-600">AutoLake</span>
-          </Link>
+          </button>
           <p className="text-gray-300">Streamlining your data lake, one workflow at a time.</p>
         </div>
         <div>
           <h4 className="text-lg font-semibold mb-4">Product</h4>
           <ul className="space-y-2">
             <li>
-              <Link href="#features" className="text-gray-300 hover:text-blue-400">
+              <button 
+                onClick={() => navigateTo('home')}
+                className="text-gray-300 hover:text-blue-400 transition-colors"
+              >
                 Features
-              </Link>
+              </button>
             </li>
             <li>
-              <Link href="#pricing" className="text-gray-300 hover:text-blue-400">
+              <button 
+                onClick={() => navigateTo('pricing')}
+                className="text-gray-300 hover:text-blue-400 transition-colors"
+              >
                 Pricing
-              </Link>
+              </button>
             </li>
             <li>
-              <Link href="#" className="text-gray-300 hover:text-blue-400">
+              <button 
+                className="text-gray-300 hover:text-blue-400 transition-colors cursor-not-allowed opacity-50"
+                disabled
+              >
                 Integrations
-              </Link>
+              </button>
             </li>
           </ul>
         </div>
@@ -39,19 +55,28 @@ export default function Footer() {
           <h4 className="text-lg font-semibold mb-4">Company</h4>
           <ul className="space-y-2">
             <li>
-              <Link href="/about-us" className="text-gray-300 hover:text-blue-400">
+              <button 
+                className="text-gray-300 hover:text-blue-400 transition-colors cursor-not-allowed opacity-50"
+                disabled
+              >
                 About Us
-              </Link>
+              </button>
             </li>
             <li>
-              <Link href="#" className="text-gray-300 hover:text-blue-400">
+              <button 
+                className="text-gray-300 hover:text-blue-400 transition-colors cursor-not-allowed opacity-50"
+                disabled
+              >
                 Careers
-              </Link>
+              </button>
             </li>
             <li>
-              <Link href="#" className="text-gray-300 hover:text-blue-400">
+              <button 
+                onClick={() => navigateTo('book-demo')}
+                className="text-gray-300 hover:text-blue-400 transition-colors"
+              >
                 Contact
-              </Link>
+              </button>
             </li>
           </ul>
         </div>
