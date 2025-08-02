@@ -2,7 +2,7 @@
 
 import { useState, memo } from "react"
 import { motion } from "framer-motion"
-import { Search } from "lucide-react"
+import { Search, ChevronLeft, ChevronRight } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import GridBackground from "@/components/grid-background"
@@ -56,7 +56,7 @@ const connectors: Connector[] = [
   { name: "Instagram Ads", logo: "📷", category: "Advertising", imageUrl: "/images/connectors/icon-instagram.webp" },
   { name: "Intercom", logo: "💬", category: "Communication", imageUrl: "/images/connectors/icon-intercom.png" },
   { name: "JDBC", logo: "🔗", category: "Database", imageUrl: "/images/connectors/icon-jdbc.png" },
-  { name: "Jira Cloud", logo: "🎫", category: "Project Management", imageUrl: "/images/connectors/icon-jira.png" },
+  { name: "Jira Cloud", logo: "🎫", category: "Project Management", imageUrl: "/images/connectors/icon-jira.webp" },
   { name: "JSON", logo: "📄", category: "File Format", imageUrl: "/images/connectors/icon-json.png" },
   { name: "Kafka", logo: "📡", category: "Streaming", imageUrl: "/images/connectors/icon-kafka.webp" },
   { name: "Kustomer", logo: "🎧", category: "Support", imageUrl: "/images/connectors/icon-kustomer.png" },
@@ -106,7 +106,8 @@ const connectors: Connector[] = [
 
 const DataConnectors = memo(function DataConnectors() {
   const [searchTerm, setSearchTerm] = useState("")
-  const [visibleCount, setVisibleCount] = useState(12) // Show 12 initially (3 rows of 4)
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 12 // Show 12 per page (2 rows of 6 on desktop)
 
   // Filter connectors based on search term
   const filteredConnectors = connectors.filter(connector =>
@@ -114,7 +115,19 @@ const DataConnectors = memo(function DataConnectors() {
     connector.category.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
-  const visibleConnectors = filteredConnectors.slice(0, visibleCount)
+  // Pagination calculations
+  const totalPages = Math.ceil(filteredConnectors.length / itemsPerPage)
+  const startIndex = (currentPage - 1) * itemsPerPage
+  const endIndex = startIndex + itemsPerPage
+  const visibleConnectors = filteredConnectors.slice(startIndex, endIndex)
+
+  // Reset to first page when search changes
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value)
+    setCurrentPage(1)
+  }
+
+
 
   return (
     <motion.section
@@ -161,7 +174,7 @@ const DataConnectors = memo(function DataConnectors() {
             <Input
               placeholder="Search connectors..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={handleSearchChange}
               className="pl-10 py-3 text-center bg-gray-800 border-gray-600 text-white placeholder-gray-400"
             />
           </motion.div>
@@ -213,26 +226,37 @@ const DataConnectors = memo(function DataConnectors() {
           ))}
         </motion.div>
 
-        {/* View More Button */}
-        {filteredConnectors.length > visibleCount && (
-          <div className="text-center">
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+          <motion.div
+            className="flex items-center justify-center space-x-4 mt-8"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            {/* Previous Button */}
             <Button
-              onClick={() => setVisibleCount(prev => prev + 12)}
+              onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
               variant="outline"
-              className="bg-orange-500 hover:bg-orange-600 text-white border-orange-500"
+              size="sm"
+              className="bg-gray-800 border-gray-600 text-white hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              View More Connectors
+              <ChevronLeft className="h-4 w-4" />
             </Button>
-          </div>
-        )}
 
-        {/* Show count when searching */}
-        {searchTerm && (
-          <div className="text-center mt-4">
-            <p className="text-gray-400">
-              Showing {visibleConnectors.length} of {filteredConnectors.length} connectors
-            </p>
-          </div>
+            {/* Next Button */}
+            <Button
+              onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+              disabled={currentPage === totalPages}
+              variant="outline"
+              size="sm"
+              className="bg-gray-800 border-gray-600 text-white hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </Button>
+          </motion.div>
         )}
       </div>
     </motion.section>
