@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight, Play } from "lucide-react"
 import Link from "next/link"
 import AnimatedText from "./animated-text"
+import { useEffect, useState } from "react"
 
 // Create a Star component for the animated stars
 const Star = ({ x, y, size, delay }: { x: string; y: string; size: number; delay: number }) => {
@@ -48,7 +49,12 @@ const generateStars = (count: number) => {
 export default function IngestionHero() {
   // Increase the number of stars to fill more of the screen
   // Generate 60 stars instead of 30 to ensure better coverage
-  const stars = generateStars(60)
+  const [stars, setStars] = useState<Array<{ id: number; x: string; y: string; size: number; delay: number }>>([])
+
+  useEffect(() => {
+    // Generate stars only on client side to avoid hydration mismatch
+    setStars(generateStars(60))
+  }, [])
 
   return (
     <motion.div
