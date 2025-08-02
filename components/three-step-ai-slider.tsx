@@ -16,7 +16,7 @@ const slides: SlideContent[] = [
   {
     id: "meetings",
     title: "Meetings",
-    subtitle: "Three ways real-time AI transforms your productivity and meetings workflow.",
+    subtitle: "Four ways real-time AI transforms your productivity and meetings workflow.",
     description: "Cluely automatically takes AI meeting notes, transcribes meetings in real-time, and provides live meeting summaries so you never lose track of what's going on.",
     image: "/images/meetings-slide.png",
     alt: "AI meeting notes and transcription interface"
@@ -24,7 +24,7 @@ const slides: SlideContent[] = [
   {
     id: "sales",
     title: "Sales calls",
-    subtitle: "Three ways real-time AI transforms your productivity and meetings workflow.",
+    subtitle: "Four ways real-time AI transforms your productivity and meetings workflow.",
     description: "Increase sales revenue with Cluely's real-time AI sales insights, instant objection handling, and product knowledge. Answer any question and close deals faster with personalized, in-meeting support.",
     image: "/images/sales-slide.png",
     alt: "AI sales insights and objection handling interface"
@@ -32,14 +32,22 @@ const slides: SlideContent[] = [
   {
     id: "assist",
     title: "On-screen assist",
-    subtitle: "Three ways real-time AI transforms your productivity and meetings workflow.",
+    subtitle: "Four ways real-time AI transforms your productivity and meetings workflow.",
     description: "Even without audio, Cluely reads your screen and provides AI suggestions - perfect for live meeting transcripts, AI note taking, studying, coding, or research.",
     image: "/images/assist-slide.png",
     alt: "AI on-screen assistance interface"
+  },
+  {
+    id: "analytics",
+    title: "Analytics & Insights",
+    subtitle: "Four ways real-time AI transforms your productivity and meetings workflow.",
+    description: "Get comprehensive analytics and insights from your data pipelines. Monitor performance, track data quality, and optimize your ingestion processes with intelligent recommendations.",
+    image: "/images/2ndstep_ingestion.png",
+    alt: "Data analytics and insights dashboard interface"
   }
 ]
 
-export default function ThreeStepAISlider() {
+export default function FourStepAISlider() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [currentSlide, setCurrentSlide] = useState(0)
   
@@ -49,7 +57,7 @@ export default function ThreeStepAISlider() {
   })
 
   // Transform scroll progress to slide index
-  const slideProgress = useTransform(scrollYProgress, [0, 0.2, 0.4, 0.6, 0.8, 1], [0, 0, 1, 1, 2, 2])
+  const slideProgress = useTransform(scrollYProgress, [0, 0.12, 0.25, 0.37, 0.5, 0.62, 0.75, 1], [0, 0, 1, 1, 2, 2, 3, 3])
 
   useEffect(() => {
     const unsubscribe = slideProgress.onChange((latest) => {
@@ -65,7 +73,7 @@ export default function ThreeStepAISlider() {
   return (
     <section 
       ref={containerRef}
-      className="py-16 min-h-screen"
+      className="pt-24 pb-32 min-h-[150vh]"
     >
       <div className="container mx-auto px-4 max-w-7xl">
         {/* Header */}
@@ -104,11 +112,13 @@ export default function ThreeStepAISlider() {
           </div>
 
           {/* Right side - Scroll Trigger Areas */}
-          <div className="space-y-32">
+          <div>
             {slides.map((slide, index) => (
               <div
                 key={slide.id}
-                className="relative h-96"
+                className={`relative h-96 ${
+                  index === 0 ? 'mb-48' : index === 1 ? 'mb-96' : index === 2 ? 'mb-96' : ''
+                }`}
                 style={{
                   opacity: index === currentSlide ? 1 : 0.3,
                   transform: index === currentSlide ? 'scale(1)' : 'scale(0.95)',
@@ -120,85 +130,56 @@ export default function ThreeStepAISlider() {
                   <div className="absolute top-4 right-4 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold z-10">
                     {index + 1}
                   </div>
-                  {/* Mock Interface based on the slide */}
+                  {/* Feature Image based on the slide */}
                   {index === 0 && (
-                    <div className="p-6 space-y-4">
-                      {/* Meetings Interface */}
-                      <div className="flex items-center gap-3 mb-6">
-                        <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                          <div className="w-3 h-3 bg-white rounded-full animate-pulse" />
-                        </div>
-                        <span className="text-sm font-medium">Google Meet</span>
-                        <span className="text-xs text-gray-500 ml-auto">18:24</span>
-                      </div>
-                      
-                      <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 space-y-3">
-                        <h4 className="font-semibold text-sm">AI Response</h4>
-                        <div className="text-sm text-gray-600 dark:text-gray-300 space-y-2">
-                          <p><strong>What did I miss in the last 15 min?</strong></p>
-                          <p>Based on the last 15 minutes of discussion, here's what you missed:</p>
-                          <p>The team finalized the Q2 launch timeline - Sarah moved the beta testing phase up by one week to start March 1st instead of March 8th. This should give us an extra buffer before the April 15th public release.</p>
-                          <p>There was some debate about the marketing budget allocation. Mike suggested increasing social media spend by 20%, but Jennifer pushed back citing the current ROI metrics. They agreed to table this until next week when we have the latest quarterly data.</p>
-                        </div>
-                      </div>
+                    <div className="relative w-full h-full">
+                      <img 
+                        src="/images/feature-transcribe.png" 
+                        alt="AI transcription and meeting features interface"
+                        className="w-full h-full object-cover rounded-2xl"
+                      />
                     </div>
                   )}
 
                   {index === 1 && (
-                    <div className="p-6 space-y-4">
-                      {/* Sales Interface */}
-                      <div className="flex items-center gap-3 mb-6">
-                        <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
-                          <div className="w-3 h-3 bg-white rounded-full animate-pulse" />
-                        </div>
-                        <span className="text-sm font-medium">Zoom</span>
-                        <span className="text-xs text-gray-500 ml-auto">11:31</span>
-                      </div>
-                      
-                      <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 space-y-3">
-                        <h4 className="font-semibold text-sm">AI Response</h4>
-                        <div className="text-sm text-gray-600 dark:text-gray-300 space-y-2">
-                          <p>We're SOC 2 Type II certified and all data is encrypted both in transit and at rest. Your competitor DataCorp just implemented our solution specifically because of our security standards.</p>
-                          <p>We also have dedicated data centers in the US and EU to ensure compliance with local regulations. And we never share your data with third parties - ever.</p>
-                          <p>With our solution, you'll actually be able to offer them even stronger security guarantees than you do today. We can also provide audit logs and compliance reports that make your annual audits much smoother.</p>
-                        </div>
-                      </div>
+                    <div className="relative w-full h-full">
+                      <img 
+                        src="/images/2ndstep_ingestion.png" 
+                        alt="Data ingestion and pipeline automation interface"
+                        className="w-full h-full object-cover rounded-2xl"
+                      />
                     </div>
                   )}
 
                   {index === 2 && (
-                    <div className="p-6 space-y-4">
-                      {/* On-screen Assist Interface */}
-                      <div className="flex items-center gap-3 mb-6">
-                        <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
-                          <div className="w-3 h-3 bg-white rounded-full" />
-                        </div>
-                        <span className="text-sm font-medium">Google Docs</span>
-                        <span className="text-xs text-gray-500 ml-auto">00:00</span>
-                      </div>
-                      
-                      <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 space-y-3">
-                        <h4 className="font-semibold text-sm">AI Response</h4>
-                        <div className="text-sm text-gray-600 dark:text-gray-300 space-y-2">
-                          <p><strong>Question 12:</strong> During photosynthesis, chlorophyll primarily absorbs which wavelengths of light?</p>
-                          <p>A) All visible light wavelengths equally<br/>
-                          B) Red and blue wavelengths, reflecting green<br/>
-                          C) Only ultraviolet wavelengths<br/>
-                          D) Green and yellow wavelengths only</p>
-                          <p><strong>Answer:</strong> B) Red and blue wavelengths, reflecting green</p>
-                          <p><strong>Explanation:</strong> Chlorophyll has two main types - chlorophyll a and chlorophyll b...</p>
-                        </div>
-                      </div>
+                    <div className="relative w-full h-full">
+                      <img 
+                        src="/images/2ndstep_ingestion.png" 
+                        alt="Data ingestion and pipeline automation interface"
+                        className="w-full h-full object-cover rounded-2xl"
+                      />
+                    </div>
+                  )}
+
+                  {index === 3 && (
+                    <div className="relative w-full h-full">
+                      <img 
+                        src="/images/2ndstep_ingestion.png" 
+                        alt="Data analytics and insights dashboard interface"
+                        className="w-full h-full object-cover rounded-2xl"
+                      />
                     </div>
                   )}
                 </div>
               </div>
             ))}
+            {/* Extra spacer to ensure 4th step stickiness */}
+            <div className="h-[32rem]"></div>
           </div>
         </div>
 
         {/* Scroll Hint */}
-        <div className="flex justify-center mt-12">
+        <div className="flex justify-center mt-24">
           <div className="text-center text-gray-500 dark:text-gray-400">
             <p className="text-sm mb-2">Scroll to explore each step</p>
             <div className="w-6 h-10 border-2 border-gray-300 dark:border-gray-600 rounded-full mx-auto relative">

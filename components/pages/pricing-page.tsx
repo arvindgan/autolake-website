@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Check, X } from "lucide-react"
 import { motion } from "framer-motion"
 import React, { useState } from "react"
+import BookingModal from "@/components/booking-modal"
 
 // Default pricing data (can be overridden by props)
 const defaultPricingPlans = [
@@ -295,13 +296,15 @@ export default function PricingPage({
               </p>
             </div>
 
-            <Button 
-              className="w-full mb-6" 
-              variant={plan.buttonVariant}
-              size="lg"
-            >
-              {plan.buttonText}
-            </Button>
+            <BookingModal>
+              <Button 
+                className="w-full mb-6" 
+                variant={plan.buttonVariant}
+                size="lg"
+              >
+                {plan.buttonText}
+              </Button>
+            </BookingModal>
 
             <ul className="space-y-3">
               {plan.features.map((feature, featureIndex) => (

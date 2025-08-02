@@ -5,7 +5,7 @@ import UserRoleGrid from "@/components/user-role-grid"
 import IngestionHero from "@/components/ingestion-hero"
 import UseCases from "@/components/use-cases"
 import DataConnectors from "@/components/data-connectors"
-import ThreeStepAISlider from "@/components/three-step-ai-slider"
+import FourStepAISlider from "@/components/three-step-ai-slider"
 import GridBackground from "@/components/grid-background"
 
 // Lazy load heavy components
@@ -34,7 +34,7 @@ export default function ServicesIngestionPage() {
           <IngestionHero />
 
           {/* Three Step AI Slider - Added between seamless database ingestions and data lake process flow */}
-          <ThreeStepAISlider />
+          <FourStepAISlider />
         </div>
 
         {/* Data Flow Diagram - Full width black background section */}
@@ -75,8 +75,11 @@ export default function ServicesIngestionPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="container py-24 text-center">
-          <div className="mx-auto max-w-4xl">
+        <section className="relative py-24 text-center overflow-hidden">
+          {/* Blue gradient background that fades from bottom to top - full width */}
+          <div className="absolute inset-0 w-full bg-gradient-to-t from-blue-200/80 via-blue-100/50 to-blue-50/20 dark:from-blue-900/40 dark:via-blue-800/25 dark:to-blue-700/10" />
+          <div className="relative container mx-auto">
+            <div className="mx-auto max-w-4xl">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
               Ready to Transform Your Data Infrastructure?
             </h2>
@@ -91,6 +94,7 @@ export default function ServicesIngestionPage() {
               <Button variant="outline" size="lg" className="w-full sm:w-auto">
                 Schedule Demo
               </Button>
+            </div>
             </div>
           </div>
         </section>

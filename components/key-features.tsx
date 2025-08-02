@@ -61,7 +61,7 @@ export default function KeyFeatures() {
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <div className="relative w-full aspect-[1220/1156] rounded-3xl overflow-hidden shadow-xl ring-1 ring-border/20">
+              <div className="relative w-full aspect-[1220/1156] rounded-3xl overflow-hidden shadow-xl ring-1 ring-border/20 bg-white">
                 <Image src={f.img} alt={f.title} fill className="object-contain" />
               </div>
             </motion.div>

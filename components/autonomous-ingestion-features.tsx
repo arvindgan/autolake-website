@@ -105,96 +105,96 @@ export default function AutonomousIngestionFeatures() {
       description: "Access historical data states at any point in time with precision versioning and rollback capabilities",
       icon: "TimeTravel",
       color: "from-blue-500 to-cyan-500",
-      bgColor: "bg-blue-50 dark:bg-blue-950/30",
-      borderColor: "border-blue-200 dark:border-blue-800"
+      bgColor: "bg-slate-50/50 dark:bg-slate-900/30",
+      borderColor: "border-slate-200/60 dark:border-slate-700/40"
     },
     {
       title: "Current Snapshot",
       description: "Real-time view of your data's current state with instant synchronization and monitoring",
       icon: "Snapshot",
       color: "from-green-500 to-emerald-500",
-      bgColor: "bg-green-50 dark:bg-green-950/30",
-      borderColor: "border-green-200 dark:border-green-800"
+      bgColor: "bg-gray-50/50 dark:bg-gray-900/30",
+      borderColor: "border-gray-200/60 dark:border-gray-700/40"
     },
     {
       title: "History View",
       description: "Complete audit trail of all data changes with detailed logging and compliance tracking",
       icon: "History",
       color: "from-purple-500 to-violet-500",
-      bgColor: "bg-purple-50 dark:bg-purple-950/30",
-      borderColor: "border-purple-200 dark:border-purple-800"
+      bgColor: "bg-zinc-50/50 dark:bg-zinc-900/30",
+      borderColor: "border-zinc-200/60 dark:border-zinc-700/40"
     },
     {
       title: "Full Load",
       description: "Complete data synchronization capabilities with optimized bulk transfer protocols",
       icon: "FullLoad",
       color: "from-orange-500 to-red-500",
-      bgColor: "bg-orange-50 dark:bg-orange-950/30",
-      borderColor: "border-orange-200 dark:border-orange-800"
+      bgColor: "bg-neutral-50/50 dark:bg-neutral-900/30",
+      borderColor: "border-neutral-200/60 dark:border-neutral-700/40"
     },
     {
       title: "Incremental Load",
       description: "Efficient delta-only data updates with change detection and minimal resource usage",
       icon: "IncrementalLoad",
       color: "from-yellow-500 to-orange-500",
-      bgColor: "bg-yellow-50 dark:bg-yellow-950/30",
-      borderColor: "border-yellow-200 dark:border-yellow-800"
+      bgColor: "bg-stone-50/50 dark:bg-stone-900/30",
+      borderColor: "border-stone-200/60 dark:border-stone-700/40"
     },
     {
       title: "Snapshot Load",
       description: "Point-in-time data capture and loading with consistent state preservation",
       icon: "SnapshotLoad",
       color: "from-pink-500 to-rose-500",
-      bgColor: "bg-pink-50 dark:bg-pink-950/30",
-      borderColor: "border-pink-200 dark:border-pink-800"
+      bgColor: "bg-slate-50/50 dark:bg-slate-900/30",
+      borderColor: "border-slate-200/60 dark:border-slate-700/40"
     },
     {
       title: "Auto Pipeline Scaling",
       description: "Dynamic resource allocation based on demand with intelligent load balancing",
       icon: "AutoScaling",
       color: "from-indigo-500 to-blue-500",
-      bgColor: "bg-indigo-50 dark:bg-indigo-950/30",
-      borderColor: "border-indigo-200 dark:border-indigo-800"
+      bgColor: "bg-gray-50/50 dark:bg-gray-900/30",
+      borderColor: "border-gray-200/60 dark:border-gray-700/40"
     },
     {
       title: "Auto Indexing",
       description: "Intelligent index creation for optimal performance with automated optimization",
       icon: "AutoIndexing",
       color: "from-teal-500 to-green-500",
-      bgColor: "bg-teal-50 dark:bg-teal-950/30",
-      borderColor: "border-teal-200 dark:border-teal-800"
+      bgColor: "bg-zinc-50/50 dark:bg-zinc-900/30",
+      borderColor: "border-zinc-200/60 dark:border-zinc-700/40"
     },
     {
       title: "Custom Scheduling",
       description: "Flexible scheduling options for data operations with advanced cron and trigger systems",
       icon: "Scheduling",
       color: "from-amber-500 to-yellow-500",
-      bgColor: "bg-amber-50 dark:bg-amber-950/30",
-      borderColor: "border-amber-200 dark:border-amber-800"
+      bgColor: "bg-neutral-50/50 dark:bg-neutral-900/30",
+      borderColor: "border-neutral-200/60 dark:border-neutral-700/40"
     },
     {
       title: "Execution History",
       description: "Detailed logs and monitoring of all pipeline runs with comprehensive analytics",
       icon: "ExecutionHistory",
       color: "from-slate-500 to-gray-500",
-      bgColor: "bg-slate-50 dark:bg-slate-950/30",
-      borderColor: "border-slate-200 dark:border-slate-800"
+      bgColor: "bg-stone-50/50 dark:bg-stone-900/30",
+      borderColor: "border-stone-200/60 dark:border-stone-700/40"
     },
     {
       title: "Data Validation",
       description: "Automated data quality checks and validation rules with real-time monitoring",
       icon: "DataValidation",
       color: "from-emerald-500 to-teal-500",
-      bgColor: "bg-emerald-50 dark:bg-emerald-950/30",
-      borderColor: "border-emerald-200 dark:border-emerald-800"
+      bgColor: "bg-slate-50/50 dark:bg-slate-900/30",
+      borderColor: "border-slate-200/60 dark:border-slate-700/40"
     },
     {
       title: "Smart Retry Logic",
       description: "Intelligent failure recovery with exponential backoff and circuit breaker patterns",
       icon: "SmartRetry",
       color: "from-violet-500 to-purple-500",
-      bgColor: "bg-violet-50 dark:bg-violet-950/30",
-      borderColor: "border-violet-200 dark:border-violet-800"
+      bgColor: "bg-gray-50/50 dark:bg-gray-900/30",
+      borderColor: "border-gray-200/60 dark:border-gray-700/40"
     }
   ]
 
@@ -315,8 +315,8 @@ export default function AutonomousIngestionFeatures() {
                   onClick={() => setCurrentSlide(index)}
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
                     index === currentSlide 
-                      ? 'bg-blue-600 scale-125' 
-                      : 'bg-slate-300 dark:bg-slate-600 hover:bg-blue-400'
+                      ? 'bg-black dark:bg-white scale-125' 
+                      : 'bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500'
                   }`}
                 />
               ))}
@@ -340,7 +340,7 @@ export default function AutonomousIngestionFeatures() {
               { label: "Quick Setup", value: "<5min" }
             ].map((stat, index) => (
               <div key={index} className="text-center p-6 rounded-xl bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
-                <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">{stat.value}</div>
+                <div className="text-3xl font-bold text-black dark:text-white mb-2">{stat.value}</div>
                 <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
               </div>
             ))}

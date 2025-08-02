@@ -55,76 +55,74 @@ const ComparisonTable = () => {
   ]
 
   return (
-    <AnimatedSection className="py-24">
+    <AnimatedSection className="py-24 bg-gradient-to-br from-black via-gray-900 to-blue-950/30 text-white">
       <div className="container max-w-6xl">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={containerVariants}>
-          <AnimatedText as="h2" className="text-4xl font-bold text-center mb-16">
+          <AnimatedText as="h2" className="text-4xl md:text-5xl font-bold text-center mb-4">
             The traditional data integration model is outdated
           </AnimatedText>
+          <p className="text-center text-gray-300 text-lg mb-20 max-w-3xl mx-auto">
+            Modern data teams need solutions that scale automatically, reduce complexity, and deliver results faster.
+          </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-red-50 dark:bg-red-950/30 rounded-lg p-6 border border-red-200 dark:border-red-800">
-              <AnimatedText as="h3" delay={0.1} className="text-xl font-medium mb-8 text-red-400 flex items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 mr-2"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-                Traditional Integration
-              </AnimatedText>
-              <div className="space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Traditional Integration Card */}
+            <div className="bg-gray-900/50 backdrop-blur-sm rounded-2xl p-8 border border-red-500/20 hover:border-red-500/40 transition-all duration-300">
+              <div className="flex items-center mb-8">
+                <div className="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mr-4">
+                  <svg className="h-6 w-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-semibold text-red-400">Traditional Integration</h3>
+              </div>
+              <div className="space-y-4">
                 {comparisons.map((item, index) => (
                   <motion.div
                     key={`traditional-${index}`}
-                    className="flex items-center gap-3"
+                    className="flex items-start gap-4 p-3 rounded-lg hover:bg-red-500/5 transition-colors duration-200"
                     variants={itemVariants}
-                    whileHover={{ x: 10, transition: { type: "spring", stiffness: 300, damping: 10 } }}
+                    whileHover={{ x: 5, transition: { type: "spring", stiffness: 300, damping: 10 } }}
                   >
-                    <motion.div
-                      className="flex-shrink-0"
-                      whileHover={{ rotate: [0, 15, -15, 0], transition: { duration: 0.5 } }}
-                    >
-                      <svg className="h-5 w-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
-                      </svg>
-                    </motion.div>
-                    <span className="text-muted-foreground">{item.traditional}</span>
+                    <div className="flex-shrink-0 mt-0.5">
+                      <div className="w-5 h-5 rounded-full bg-red-500/20 flex items-center justify-center">
+                        <svg className="h-3 w-3 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </div>
+                    </div>
+                    <span className="text-gray-300 text-base leading-relaxed">{item.traditional}</span>
                   </motion.div>
                 ))}
               </div>
             </div>
 
-            <div className="bg-green-50 dark:bg-green-950/30 rounded-lg p-6 border border-green-200 dark:border-green-800">
-              <AnimatedText as="h3" delay={0.1} className="text-xl font-medium mb-8 text-green-600 dark:text-green-400 flex items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 mr-2"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                AutoLake
-              </AnimatedText>
-              <div className="space-y-6">
+            {/* AutoLake Card */}
+            <div className="bg-gray-900/50 backdrop-blur-sm rounded-2xl p-8 border border-green-500/20 hover:border-green-500/40 transition-all duration-300">
+              <div className="flex items-center mb-8">
+                <div className="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center mr-4">
+                  <svg className="h-6 w-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-semibold text-green-400">AutoLake</h3>
+              </div>
+              <div className="space-y-4">
                 {comparisons.map((item, index) => (
                   <motion.div
                     key={`autolake-${index}`}
-                    className="flex items-center gap-3"
+                    className="flex items-start gap-4 p-3 rounded-lg hover:bg-green-500/5 transition-colors duration-200"
                     variants={itemVariants}
-                    whileHover={{ x: 10, transition: { type: "spring", stiffness: 300, damping: 10 } }}
+                    whileHover={{ x: 5, transition: { type: "spring", stiffness: 300, damping: 10 } }}
                   >
-                    <motion.div className="flex-shrink-0" whileHover={{ scale: 1.2, transition: { duration: 0.2 } }}>
-                      <svg className="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </motion.div>
-                    <span>{item.autolake}</span>
+                    <div className="flex-shrink-0 mt-0.5">
+                      <div className="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center">
+                        <svg className="h-3 w-3 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                    </div>
+                    <span className="text-white text-base leading-relaxed font-medium">{item.autolake}</span>
                   </motion.div>
                 ))}
               </div>

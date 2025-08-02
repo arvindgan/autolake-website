@@ -10,8 +10,10 @@ import BookingModal from "./booking-modal"
 
 export default function CTA() {
   return (
-    <AnimatedSection className="border-t bg-[#f7f8fa] dark:bg-slate-900">
-      <div className="container flex flex-col items-center gap-4 py-24 text-center md:py-32">
+    <AnimatedSection className="relative overflow-hidden">
+      {/* Blue gradient background that fades from bottom to top - full width */}
+      <div className="absolute inset-0 w-full bg-gradient-to-t from-blue-200/80 via-blue-100/50 to-blue-50/20 dark:from-blue-900/40 dark:via-blue-800/25 dark:to-blue-700/10" />
+      <div className="relative container flex flex-col items-center gap-4 py-24 text-center md:py-32">
         <AnimatedText as="h2" className="font-bold text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
           Ready to accelerate your data strategy?
         </AnimatedText>
@@ -25,7 +27,7 @@ export default function CTA() {
 
         <div className="mt-4 flex flex-col sm:flex-row items-center gap-4">
           <motion.div
-            className="flex items-center text-muted-foreground text-sm gap-2 bg-gray-800/30 px-4 py-2 rounded-full"
+            className="flex items-center text-white text-sm gap-2 bg-black px-4 py-2 rounded-full"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
@@ -35,7 +37,7 @@ export default function CTA() {
           </motion.div>
 
           <motion.div
-            className="flex items-center text-muted-foreground text-sm gap-2 bg-gray-800/30 px-4 py-2 rounded-full"
+            className="flex items-center text-white text-sm gap-2 bg-black px-4 py-2 rounded-full"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
