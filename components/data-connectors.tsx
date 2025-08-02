@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, memo } from "react"
 import { motion } from "framer-motion"
 import { Search } from "lucide-react"
 import { Input } from "@/components/ui/input"
@@ -102,9 +102,9 @@ const connectors: Connector[] = [
   { name: "Zoom Meetings", logo: "📹", category: "Communication", imageUrl: "/images/connectors/icon-zoommeetings.webp" }
 ]
 
-export default function DataConnectors() {
+const DataConnectors = memo(function DataConnectors() {
   const [searchTerm, setSearchTerm] = useState("")
-  const [visibleCount, setVisibleCount] = useState(24) // Show 24 initially (6 rows of 4)
+  const [visibleCount, setVisibleCount] = useState(12) // Show 12 initially (3 rows of 4)
 
   // Filter connectors based on search term
   const filteredConnectors = connectors.filter(connector =>
@@ -195,6 +195,9 @@ export default function DataConnectors() {
                         alt={`${connector.name} logo`}
                         fill
                         className="object-contain"
+                        loading="lazy"
+                        sizes="32px"
+                        quality={75}
                       />
                     </div>
                   ) : (
@@ -212,7 +215,7 @@ export default function DataConnectors() {
         {filteredConnectors.length > visibleCount && (
           <div className="text-center">
             <Button
-              onClick={() => setVisibleCount(prev => prev + 24)}
+              onClick={() => setVisibleCount(prev => prev + 12)}
               variant="outline"
               className="bg-orange-500 hover:bg-orange-600 text-white border-orange-500"
             >
@@ -232,4 +235,6 @@ export default function DataConnectors() {
       </div>
     </motion.section>
   )
-}
+})
+
+export default DataConnectors

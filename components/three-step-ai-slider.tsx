@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
+import { useScroll, useTransform } from "framer-motion"
 
 interface SlideContent {
   id: string
@@ -70,37 +70,23 @@ export default function ThreeStepAISlider() {
       <div className="container mx-auto px-4 max-w-7xl">
         {/* Header */}
         <div className="text-center mb-12">
-          <motion.h2 
-            className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
+          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
             {slides[currentSlide].subtitle}
-          </motion.h2>
+          </h2>
         </div>
 
         {/* Main Slider Content */}
         <div className="grid lg:grid-cols-2 gap-8 items-start min-h-[600px]">
           {/* Left side - Text Content */}
           <div className="lg:sticky lg:top-52 space-y-6">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentSlide}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5 }}
-                className="space-y-6"
-              >
-                <h3 className="text-5xl font-bold text-gray-900 dark:text-white">
-                  {slides[currentSlide].title}
-                </h3>
-                <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed max-w-lg">
-                  {slides[currentSlide].description}
-                </p>
-              </motion.div>
-            </AnimatePresence>
+            <div className="space-y-6 transition-opacity duration-300">
+              <h3 className="text-5xl font-bold text-gray-900 dark:text-white">
+                {slides[currentSlide].title}
+              </h3>
+              <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed max-w-lg">
+                {slides[currentSlide].description}
+              </p>
+            </div>
 
             {/* Scroll Progress Indicator */}
             <div className="flex gap-2 pt-8">
@@ -120,15 +106,14 @@ export default function ThreeStepAISlider() {
           {/* Right side - Scroll Trigger Areas */}
           <div className="space-y-32">
             {slides.map((slide, index) => (
-              <motion.div
+              <div
                 key={slide.id}
                 className="relative h-96"
-                initial={{ opacity: 0.3 }}
-                animate={{ 
+                style={{
                   opacity: index === currentSlide ? 1 : 0.3,
-                  scale: index === currentSlide ? 1 : 0.95
+                  transform: index === currentSlide ? 'scale(1)' : 'scale(0.95)',
+                  transition: 'opacity 0.3s ease, transform 0.3s ease'
                 }}
-                transition={{ duration: 0.6 }}
               >
                 <div className="sticky top-52 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden border border-gray-200 dark:border-gray-700">
                   {/* Step number indicator */}
@@ -207,27 +192,19 @@ export default function ThreeStepAISlider() {
                     </div>
                   )}
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
 
         {/* Scroll Hint */}
         <div className="flex justify-center mt-12">
-          <motion.div 
-            className="text-center text-gray-500 dark:text-gray-400"
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
+          <div className="text-center text-gray-500 dark:text-gray-400">
             <p className="text-sm mb-2">Scroll to explore each step</p>
             <div className="w-6 h-10 border-2 border-gray-300 dark:border-gray-600 rounded-full mx-auto relative">
-              <motion.div 
-                className="w-1 h-3 bg-gray-400 rounded-full absolute left-1/2 top-2 transform -translate-x-1/2"
-                animate={{ y: [0, 16, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              />
+              <div className="w-1 h-3 bg-gray-400 rounded-full absolute left-1/2 top-2 transform -translate-x-1/2 animate-bounce" />
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

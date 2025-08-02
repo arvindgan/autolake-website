@@ -18,7 +18,6 @@ export type SPARoute =
 interface SPARouterContextType {
   currentRoute: SPARoute
   navigateTo: (route: SPARoute) => void
-  isTransitioning: boolean
 }
 
 const SPARouterContext = createContext<SPARouterContextType | null>(null)
@@ -69,7 +68,6 @@ export function SPARouterProvider({ children }: SPARouterProviderProps) {
   const [currentRoute, setCurrentRoute] = useState<SPARoute>(() => {
     return pathToRoute[pathname] || 'home'
   })
-  const [isTransitioning, setIsTransitioning] = useState(false)
 
   // Sync with URL changes (for browser back/forward)
   useEffect(() => {
@@ -82,8 +80,6 @@ export function SPARouterProvider({ children }: SPARouterProviderProps) {
   const navigateTo = useCallback((route: SPARoute) => {
     if (route === currentRoute) return
     
-    setIsTransitioning(true)
-    
     // Update URL without page reload
     const path = routeToPath[route]
     window.history.pushState({}, '', path)
@@ -91,20 +87,15 @@ export function SPARouterProvider({ children }: SPARouterProviderProps) {
     // Update state immediately for instant UI change
     setCurrentRoute(route)
     
-    // Brief transition state for smooth UX
-    setTimeout(() => {
-      setIsTransitioning(false)
-      // Scroll to top instantly
-      window.scrollTo(0, 0)
-    }, 50)
+    // Scroll to top instantly
+    window.scrollTo(0, 0)
   }, [currentRoute])
 
   return (
     <SPARouterContext.Provider 
       value={{ 
         currentRoute, 
-        navigateTo, 
-        isTransitioning 
+        navigateTo
       }}
     >
       {children}

@@ -1,12 +1,15 @@
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
+import { lazy, Suspense } from "react"
 import UserRoleGrid from "@/components/user-role-grid"
-import DataFlowDiagram from "@/components/data-flow-diagram"
 import IngestionHero from "@/components/ingestion-hero"
 import UseCases from "@/components/use-cases"
 import DataConnectors from "@/components/data-connectors"
 import ThreeStepAISlider from "@/components/three-step-ai-slider"
 import GridBackground from "@/components/grid-background"
+
+// Lazy load heavy components
+const DataFlowDiagram = lazy(() => import("@/components/data-flow-diagram"))
 
 // Dummy RoleDiagram component to resolve the error. Replace with actual implementation if available.
 const RoleDiagram = () => {
@@ -46,7 +49,13 @@ export default function ServicesIngestionPage() {
           </div>
           
           <div className="container mx-auto relative z-10">
-            <DataFlowDiagram />
+            <Suspense fallback={
+              <div className="flex justify-center items-center py-16">
+                <div className="animate-spin h-8 w-8 border-4 border-blue-500 rounded-full border-t-transparent"></div>
+              </div>
+            }>
+              <DataFlowDiagram />
+            </Suspense>
           </div>
         </section>
 
