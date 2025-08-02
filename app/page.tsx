@@ -4,49 +4,54 @@ import SPAApp from "@/components/spa-app"
 const pricingPlans = [
   {
     name: "Free",
-    price: "$0",
-    period: "/mo",
-    description: "All essential features to get you started.",
-    buttonText: "Download for Mac",
+    monthlyPrice: "$0",
+    annualPrice: "$0",
+    description: "Essential data lake features to get started.",
+    buttonText: "Start Free",
     buttonVariant: "default" as const,
     popular: false,
     features: [
-      "Limited AI responses per day",
-      "Unlimited real-time meeting notetaking",
-      "Personalized with custom system prompt",
-      "Generate follow up emails after meetings",
-      "Ask AI about all your past meetings"
+      "Up to 10GB data storage",
+      "5 data connectors",
+      "Basic data ingestion",
+      "Standard data validation",
+      "Community support"
     ]
   },
   {
     name: "Pro",
-    price: "$20",
-    period: "/mo",
-    description: "Unlimited access to all of Cluely",
+    monthlyPrice: "$1000",
+    annualPrice: "$12,000",
+    description: "Full autonomous data lake platform",
     buttonText: "Subscribe",
     buttonVariant: "default" as const,
     popular: false,
     features: [
-      "Unlimited AI responses",
-      "Access to smartest models",
-      "Always get full response outputs",
+      "Unlimited data storage",
+      "All 300+ data connectors",
+      "Autonomous ingestion & curation",
+      "AI-powered analytics",
+      "Time travel & snapshots",
+      "Auto-scaling & indexing",
       "Priority support",
       "Plus everything in Free"
     ]
   },
   {
     name: "Enterprise",
-    price: "$200",
-    period: "/mo",
-    description: "For teams who need full customization.",
-    buttonText: "Talk to Sales",
-    buttonVariant: "outline" as const,
+    monthlyPrice: "Custom",
+    annualPrice: "Custom",
+    description: "For organizations requiring enterprise-grade data solutions.",
+    buttonText: "Book a demo",
+    buttonVariant: "default" as const,
     popular: true,
     features: [
-      "Admin dashboard with usage analytics",
-      "Team-wide knowledge and prompts",
-      "Push-out AI suggestions and coaching insights",
-      "Data privacy and advanced security",
+      "Custom data architecture",
+      "Dedicated cloud infrastructure",
+      "Enterprise security & compliance",
+      "Custom SLAs & support",
+      "Advanced governance & auditing",
+      "On-premise deployment options",
       "Plus everything in Pro"
     ]
   }
@@ -54,69 +59,81 @@ const pricingPlans = [
 
 const featureComparison = [
   {
-    category: "Features",
+    category: "Data Storage & Processing",
     items: [
       {
-        name: "Custom system prompt",
-        free: true,
+        name: "Data storage capacity",
+        free: "10GB",
+        pro: "Unlimited",
+        enterprise: "Unlimited"
+      },
+      {
+        name: "Data connectors",
+        free: "5 connectors",
+        pro: "300+ connectors",
+        enterprise: "300+ connectors"
+      },
+      {
+        name: "Data ingestion methods",
+        free: "Basic",
+        pro: "Full + Incremental + Snapshot",
+        enterprise: "Full + Incremental + Snapshot"
+      },
+      {
+        name: "Auto-scaling",
+        free: false,
         pro: true,
         enterprise: true
       },
       {
-        name: "Pro Responses / day",
-        free: "Limited",
-        pro: "Unlimited",
-        enterprise: "Unlimited"
-      },
-      {
-        name: "Token limit",
-        free: "Limited",
-        pro: "Unlimited",
-        enterprise: "Unlimited"
-      },
-      {
-        name: "Models",
-        free: "Base",
-        pro: "Smartest",
-        enterprise: "Enterprise-only"
-      },
-      {
-        name: "Team-wide knowledge and system prompts",
+        name: "Time travel & versioning",
         free: false,
-        pro: false,
+        pro: true,
         enterprise: true
       },
       {
-        name: "Post-call AI suggestions and coaching insights",
+        name: "AI-powered analytics",
         free: false,
-        pro: false,
+        pro: true,
         enterprise: true
       }
     ]
   },
   {
-    category: "Platform",
+    category: "Enterprise Features",
     items: [
       {
-        name: "AI chat with your meeting summaries",
-        free: true,
-        pro: true,
-        enterprise: true
+        name: "Data validation & quality checks",
+        free: "Basic",
+        pro: "Advanced",
+        enterprise: "Enterprise-grade"
       },
       {
-        name: "Post-call AI suggestions and coaching insights",
+        name: "Security & compliance",
+        free: "Standard",
+        pro: "Advanced",
+        enterprise: "SOC2, GDPR, HIPAA"
+      },
+      {
+        name: "Custom data architecture",
         free: false,
         pro: false,
         enterprise: true
       },
       {
-        name: "Centralized team billing",
+        name: "Dedicated infrastructure",
         free: false,
         pro: false,
         enterprise: true
       },
       {
-        name: "Data privacy and advanced security",
+        name: "On-premise deployment",
+        free: false,
+        pro: false,
+        enterprise: true
+      },
+      {
+        name: "Advanced governance",
         free: false,
         pro: false,
         enterprise: true
@@ -127,7 +144,7 @@ const featureComparison = [
     category: "Support",
     items: [
       {
-        name: "Chatbot + email support",
+        name: "Community support",
         free: true,
         pro: true,
         enterprise: true
@@ -139,7 +156,13 @@ const featureComparison = [
         enterprise: true
       },
       {
-        name: "Customized onboarding",
+        name: "Dedicated support manager",
+        free: false,
+        pro: false,
+        enterprise: true
+      },
+      {
+        name: "Custom SLAs",
         free: false,
         pro: false,
         enterprise: true
@@ -158,3 +181,4 @@ export default function Home() {
     />
   )
 }
+
