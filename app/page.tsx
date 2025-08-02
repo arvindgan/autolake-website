@@ -43,7 +43,7 @@ const pricingPlans = [
     annualPrice: "Custom",
     description: "For organizations requiring enterprise-grade data solutions.",
     buttonText: "Book a demo",
-    buttonVariant: "default" as const,
+    buttonVariant: "secondary" as const,
     popular: true,
     features: [
       "Custom data architecture",

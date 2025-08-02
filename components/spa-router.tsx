@@ -10,7 +10,6 @@ export type SPARoute =
   | 'services-ingestion' 
   | 'services-curation' 
   | 'services-distribution'
-  | 'book-demo' 
   | 'industries' 
   | 'architecture'
   | 'about-us'
@@ -37,7 +36,6 @@ const pathToRoute: Record<string, SPARoute> = {
   '/services/ingestion': 'services-ingestion',
   '/services/curation': 'services-curation',
   '/services/distribution': 'services-distribution',
-  '/book-demo': 'book-demo',
   '/industries': 'industries',
   '/architecture': 'architecture',
   '/about-us': 'about-us',
@@ -50,7 +48,6 @@ const routeToPath: Record<SPARoute, string> = {
   'services-ingestion': '/services/ingestion',
   'services-curation': '/services/curation',
   'services-distribution': '/services/distribution',
-  'book-demo': '/book-demo',
   'industries': '/industries',
   'architecture': '/architecture',
   'about-us': '/about-us',

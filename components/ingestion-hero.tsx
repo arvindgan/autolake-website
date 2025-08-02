@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight, Play } from "lucide-react"
 import Link from "next/link"
 import AnimatedText from "./animated-text"
+import BookingModal from "./booking-modal"
 import { useEffect, useState } from "react"
 
 // Create a Star component for the animated stars
@@ -165,12 +166,12 @@ export default function IngestionHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <Link href="/book-demo">
+            <BookingModal>
               <Button size="lg" className="bg-blue-600 hover:bg-blue-700 px-8">
                 Request a Demo
                 <ArrowRight className="h-4 w-4 ml-2" />
               </Button>
-            </Link>
+            </BookingModal>
             <motion.div whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
               <Button variant="outline" size="lg" className="gap-2 border-white/20 px-8">
                 <motion.span

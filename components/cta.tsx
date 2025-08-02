@@ -6,6 +6,7 @@ import AnimatedText from "./animated-text"
 import { AnimatedButton } from "./animated-button"
 import { motion } from "framer-motion"
 import { Calendar, Clock, ArrowRight } from "lucide-react"
+import BookingModal from "./booking-modal"
 
 export default function CTA() {
   return (
@@ -44,7 +45,7 @@ export default function CTA() {
           </motion.div>
         </div>
 
-        <Link href="/book-demo" className="mt-8">
+        <BookingModal triggerClassName="mt-8">
           <AnimatedButton
             size="lg"
             className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-6 text-lg group"
@@ -62,7 +63,7 @@ export default function CTA() {
               </motion.div>
             </span>
           </AnimatedButton>
-        </Link>
+        </BookingModal>
       </div>
     </AnimatedSection>
   )

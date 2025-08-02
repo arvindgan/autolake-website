@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { useSPARouter } from "./spa-router"
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion"
+import BookingModal from "./booking-modal"
 
 export default function Navbar() {
   const { navigateTo } = useSPARouter()
@@ -290,25 +291,25 @@ export default function Navbar() {
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
               whileTap={{ scale: 0.95, y: 1 }}
             >
-              <motion.div
-                onClick={() => navigateTo('book-demo')}
-                onKeyDown={(e) => e.key === 'Enter' && navigateTo('book-demo')}
-                tabIndex={0}
-                role="button"
-                className="cursor-pointer"
-                style={{
-                  paddingLeft: buttonPaddingX,
-                  paddingRight: buttonPaddingX,
-                  paddingTop: buttonPaddingY,
-                  paddingBottom: buttonPaddingY,
-                  fontSize: buttonFontSize,
-                  minHeight: 'auto',
-                }}
-              >
-                <Button size="sm">
-                  Get a Demo
-                </Button>
-              </motion.div>
+              <BookingModal>
+                <motion.div
+                  tabIndex={0}
+                  role="button"
+                  className="cursor-pointer"
+                  style={{
+                    paddingLeft: buttonPaddingX,
+                    paddingRight: buttonPaddingX,
+                    paddingTop: buttonPaddingY,
+                    paddingBottom: buttonPaddingY,
+                    fontSize: buttonFontSize,
+                    minHeight: 'auto',
+                  }}
+                >
+                  <Button size="sm">
+                    Get a Demo
+                  </Button>
+                </motion.div>
+              </BookingModal>
             </motion.div>
           </div>
         </motion.div>

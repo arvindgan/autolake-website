@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { AnimatedButton } from "./animated-button"
 import { useState, useEffect } from "react"
+import BookingModal from "./booking-modal"
 
 // Create a Star component for the animated stars
 const Star = ({ x, y, size, delay }: { x: string; y: string; size: number; delay: number }) => {
@@ -325,7 +326,7 @@ export default function Hero() {
                   Explore Solutions
                 </AnimatedButton>
               </Link>
-              <Link href="/book-demo">
+              <BookingModal>
                 <Button size="lg" className="bg-black hover:bg-gray-900 text-white px-8 py-6 text-lg font-medium transition-all hover:scale-105 flex items-center">
                     Schedule a Demo
                     <motion.svg
@@ -347,7 +348,7 @@ export default function Hero() {
                       <path d="m12 5 7 7-7 7"></path>
                     </motion.svg>
                   </Button>
-              </Link>
+              </BookingModal>
             </motion.div>
           </motion.div>
         </motion.div>

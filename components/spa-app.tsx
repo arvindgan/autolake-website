@@ -9,7 +9,7 @@ import Footer from "./footer"
 const HomePage = lazy(() => import("./pages/home-page"))
 const PricingPage = lazy(() => import("./pages/pricing-page"))
 const ServicesIngestionPage = lazy(() => import("./pages/services-ingestion-page"))
-const BookDemoPage = lazy(() => import("./pages/book-demo-page"))
+
 const IndustriesPage = lazy(() => import("./pages/industries-page"))
 const AboutUsPage = lazy(() => import("./pages/about-us-page"))
 
@@ -43,8 +43,6 @@ export default function SPAApp({ initialData }: SPAAppProps) {
         )
       case 'services-ingestion':
         return <ServicesIngestionPage />
-      case 'book-demo':
-        return <BookDemoPage />
       case 'industries':
         return <IndustriesPage />
       case 'about-us':
