@@ -9,14 +9,14 @@ To use a PNG icon instead of an emoji for a connector:
 1. Place your PNG file in this directory (`public/images/connectors/`)
 2. Update the connector object in `components/data-connectors.tsx` to include the `imageUrl` field:
 
-```typescript
+\`\`\`typescript
 {
   name: "GraphQL",
   logo: "🔗", // fallback emoji
   category: "API",
   imageUrl: "/images/connectors/graphql-logo.png" // path to your PNG
 }
-```
+\`\`\`
 
 ## Icon Guidelines
 
