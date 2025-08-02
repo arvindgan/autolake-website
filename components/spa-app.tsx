@@ -74,8 +74,13 @@ export default function SPAApp({ initialData }: SPAAppProps) {
 
   return (
     <div className="relative">
-      {/* Simplified background */}
-      <div className="pointer-events-none fixed inset-0 bg-background" />
+      {/* Background with light blue top gradient */}
+      <div className="pointer-events-none fixed inset-0">
+        {/* Base cream background */}
+        <div className="absolute inset-0 bg-background" />
+        {/* Enhanced light blue gradient overlay (light mode only) */}
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-200/80 via-blue-100/40 to-transparent dark:hidden" />
+      </div>
 
       <div className="relative z-10">
         <Navbar />
