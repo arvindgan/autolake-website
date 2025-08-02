@@ -254,7 +254,7 @@ export default function DataFlowDiagram() {
   return (
     <div className="w-full py-0 overflow-hidden">
       <div className="max-w-5xl mx-auto">
-        <h3 className="text-2xl font-semibold text-center mb-4 text-white">Data Lake Process Flow</h3>
+        <h3 className="text-4xl md:text-5xl font-bold text-center mb-4 text-white">Data Lake Process Flow</h3>
         <p className="text-center text-gray-300 mb-8 max-w-2xl mx-auto">
           Compare AutoLake's streamlined approach with traditional complex data integration processes.
         </p>
@@ -478,6 +478,18 @@ export default function DataFlowDiagram() {
                   <h4 className="font-medium text-center">Consumption</h4>
                   <p className="text-xs text-center text-muted-foreground mt-1">Business Users & Applications</p>
                 </div>
+              </div>
+            </div>
+
+            {/* Legend */}
+            <div className="flex justify-center mt-8 gap-8">
+              <div className="flex items-center">
+                <div className="w-4 h-4 rounded-full bg-blue-500 mr-2"></div>
+                <span className="text-sm text-muted-foreground">Data Flow</span>
+              </div>
+              <div className="flex items-center">
+                <div className="w-12 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 mr-2"></div>
+                <span className="text-sm text-muted-foreground">Transformation Process</span>
               </div>
             </div>
 
@@ -1100,6 +1112,18 @@ export default function DataFlowDiagram() {
                 </div>
               </div>
 
+              {/* Legend */}
+              <div className="flex justify-center mt-8 gap-8">
+                <div className="flex items-center">
+                  <div className="w-4 h-4 rounded-full bg-blue-500 mr-2"></div>
+                  <span className="text-sm text-muted-foreground">Data Flow</span>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-12 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 mr-2"></div>
+                  <span className="text-sm text-muted-foreground">Transformation Process</span>
+                </div>
+              </div>
+
               {/* Traditional Approach Challenges */}
               <div className="mt-8 p-4 rounded-lg bg-red-900/20 border border-red-900/30">
                 <h4 className="font-semibold text-red-400 mb-2">Traditional Approach Challenges</h4>
@@ -1134,17 +1158,7 @@ export default function DataFlowDiagram() {
           </TabsContent>
         </Tabs>
 
-        {/* Legend */}
-        <div className="flex justify-center mt-8 gap-8">
-          <div className="flex items-center">
-            <div className="w-4 h-4 rounded-full bg-blue-500 mr-2"></div>
-            <span className="text-sm text-muted-foreground">Data Flow</span>
-          </div>
-          <div className="flex items-center">
-            <div className="w-12 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 mr-2"></div>
-            <span className="text-sm text-muted-foreground">Transformation Process</span>
-          </div>
-        </div>
+
       </div>
 
       {/* Popup with stage details */}
@@ -1265,55 +1279,7 @@ export default function DataFlowDiagram() {
         )}
       </AnimatePresence>
 
-      {/* Comparison summary */}
-      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="p-6 rounded-lg bg-blue-900/20 border border-blue-900/30">
-          <h4 className="font-semibold text-xl text-blue-400 mb-4">AutoLake Approach</h4>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3">
-              <ArrowRight className="h-5 w-5 text-blue-400 flex-shrink-0 mt-0.5" />
-              <span>Streamlined 3-step process with automated connections</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <ArrowRight className="h-5 w-5 text-blue-400 flex-shrink-0 mt-0.5" />
-              <span>Intelligent schema detection and mapping</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <ArrowRight className="h-5 w-5 text-blue-400 flex-shrink-0 mt-0.5" />
-              <span>Built-in security and governance</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <ArrowRight className="h-5 w-5 text-blue-400 flex-shrink-0 mt-0.5" />
-              <span>Self-service analytics for business users</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <ArrowRight className="h-5 w-5 text-blue-400 flex-shrink-0 mt-0.5" />
-              <span>Self service ingestion with no coding</span>
-            </li>
-          </ul>
-        </div>
-        <div className="p-6 rounded-lg bg-red-900/20 border border-red-900/30">
-          <h4 className="font-semibold text-xl text-red-400 mb-4">Traditional Approach</h4>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3">
-              <ArrowRight className="h-5 w-5 text-red-400 flex-shrink-0 mt-0.5" />
-              <span>Complex 9+ step process with manual handoffs</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <ArrowRight className="h-5 w-5 text-red-400 flex-shrink-0 mt-0.5" />
-              <span>Custom code for each data source and transformation</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <ArrowRight className="h-5 w-5 text-red-400 flex-shrink-0 mt-0.5" />
-              <span>Siloed security implementations</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <ArrowRight className="h-5 w-5 text-red-400 flex-shrink-0 mt-0.5" />
-              <span>IT-dependent data access and reporting</span>
-            </li>
-          </ul>
-        </div>
-      </div>
+
     </div>
   )
 }

@@ -10,10 +10,12 @@ export default function Navbar() {
   const { navigateTo } = useSPARouter()
   const [isAnyDropdownOpen, setIsAnyDropdownOpen] = useState(false)
   const [isOverDarkBackground, setIsOverDarkBackground] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
   // For smooth animation, use framer-motion's motion values
   const scrollY = useMotionValue(0)
   const darkBackgroundValue = useMotionValue(0) // 0 = light, 1 = dark
   const lastScroll = useRef(0)
+  const scrollDirection = useRef('up')
 
   // Function to detect if navbar is over dark background sections
   const detectDarkBackground = () => {
@@ -52,8 +54,21 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      scrollY.set(window.scrollY)
-      lastScroll.current = window.scrollY
+      const currentScrollY = window.scrollY
+      
+      // Detect scroll direction
+      if (currentScrollY > lastScroll.current && currentScrollY > 100) {
+        // Scrolling down and past 100px
+        scrollDirection.current = 'down'
+        setIsVisible(false)
+      } else if (currentScrollY < lastScroll.current || currentScrollY <= 100) {
+        // Scrolling up or at the top
+        scrollDirection.current = 'up'
+        setIsVisible(true)
+      }
+      
+      scrollY.set(currentScrollY)
+      lastScroll.current = currentScrollY
       
       // Check if over dark background
       const isDark = detectDarkBackground()
@@ -131,6 +146,15 @@ export default function Navbar() {
 
       <motion.header
         className="sticky z-50 flex justify-center backdrop-blur"
+        initial={{ y: 0 }}
+        animate={{ 
+          y: isVisible ? 0 : -100,
+          opacity: isVisible ? 1 : 0
+        }}
+        transition={{ 
+          duration: 0.3, 
+          ease: "easeInOut"
+        }}
         style={{
           top: headerTop,
           height: headerHeight,
@@ -144,9 +168,6 @@ export default function Navbar() {
           border: scrollY.get() > 10 ? '1px solid rgba(0,0,0,0.08)' : 'none',
           transition: 'all 0.3s ease-out',
         }}
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
       >
         <motion.div
           className="px-4 md:px-6 lg:px-8 flex w-full max-w-screen-2xl items-center justify-between"
